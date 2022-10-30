@@ -1,0 +1,15 @@
+.polarchart-container {
+    margin-bottom: 3vw;
+    width: 25vw;
+    height: 25vw;
+}
+
+@media only screen and (max-width: 640px) {
+    .polarchart-container {
+        /* margin-top: 10vw; */
+        margin-bottom: unset;
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+}

@@ -1,0 +1,104 @@
+.switch-container {
+    padding: 0;
+    margin: 1.5vw 1vw 0 0;
+}
+
+.switch-label {
+    font-size: 1vw;
+    margin: 0 0 0.5vw 0;
+    padding: 0;
+    text-align: center;
+}
+
+.switch-box {
+    height: 2.5vw;
+    width: 6vw;
+    border: 2px solid #535353;
+    border-radius: 2vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.switch-on {
+    height: 2.5vw;
+    width: 3vw;
+    align-self: center;
+    border: 1px solid rgb(58, 90, 150);
+    border-radius: 1.5vw;
+    background-color: #263d42;
+    transition: 0.4s;
+    color: rgb(214, 214, 214);
+    line-height: 2.5vw;
+    font-size: 1vw;
+    text-align: center;
+    font-weight: bold;
+}
+
+.switch-off {
+    height: 2.5vw;
+    width: 2vw;
+    align-self: center;
+    border-radius: 2vw;
+    transition: 0.3s;
+    line-height: 1.5vw;
+    font-size: 1vw;
+    text-align: center;
+}
+
+@media only screen and (max-width: 640px) {
+    .switch-container {
+        padding: 0;
+        margin: 2vw 2vw 0 2vw;
+        width: fit-content;
+    }
+    
+    .switch-label {
+        font-size: 3vw;
+        margin: 0 0 1.5vw 0;
+        padding: 0;
+        text-align: center;
+    }
+    
+    .switch-box {
+        height: 8vw;
+        width: 15vw;
+        border: 2px solid #535353;
+        border-radius: 2vw;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        transition: 0.4s;
+        cursor: pointer;
+    }
+    
+    .switch-on {
+        height: 8vw;
+        width: 7vw;
+        align-self: center;
+        border: 1px solid rgb(58, 90, 150);
+        border-radius: 1.5vw;
+        background-color: #263d42;
+        transition: 0.4s;
+        color: rgb(214, 214, 214);
+        line-height: 8vw;
+        font-size: 2.5vw;
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    .switch-off {
+        height: 7vw;
+        width: 5vw;
+        align-self: center;
+        border-radius: 2vw;
+        transition: 0.3s;
+        line-height: 8vw;
+        font-size: 2.5vw;
+        text-align: center;
+    }
+}

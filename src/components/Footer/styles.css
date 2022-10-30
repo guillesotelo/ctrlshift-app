@@ -1,0 +1,40 @@
+.footer-container {
+    height: 10vw;
+    background-color: #E5E5E5;
+    color: #263d42;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vw;
+    /* position: absolute; */
+    bottom: 0;
+    width: 100%;
+}
+
+.logo-footer {
+    height: 3.5vw;
+    margin-top: 2vw;
+}
+
+.footer-text {
+    font-size: 1vw;
+    text-align: center;
+}
+
+@media only screen and (max-width: 640px) {
+    .footer-container {
+        height: 23vw;
+        margin-top: 20vw;
+    }
+    
+    .logo-footer {
+        height: 10vw;
+        margin-top: 3vw;
+    }
+    
+    .footer-text {
+        font-size: 3vw;
+        text-align: center;
+    }
+    
+}

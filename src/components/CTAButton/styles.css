@@ -1,0 +1,145 @@
+.cta-btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.cta-btn {
+    font-size: 1.2vw !important;
+    padding: 1vw 2vw !important;
+    margin: 0vw !important;
+    color: #E5E5E5;
+    border: none;
+    border-radius: 1vw;
+    cursor: pointer;
+}
+
+.cta-btn-container:hover {
+    opacity: 0.8;
+}
+
+.category-budget-setter {
+    width: 5%;
+    margin: 0 1vw;
+    transition: 0.3s;
+}
+
+.category-budget-setter:hover {
+    opacity: 0.8;
+}
+
+.cta-login {
+    margin: 2vw 0 2vw 0;
+    transition: 0.3s;
+}
+
+.cta-login:hover {
+    opacity: 0.8;
+}
+
+.cta-register {
+    margin: 2vw 0 4vw;
+    transition: 0.3s;
+}
+.cta-register:hover {
+    opacity: 0.8;
+}
+
+.cta-new-ledger {
+    margin: 2vw;
+    transition: 0.3s;
+}
+
+.cta-new-ledger:hover {
+    opacity: 0.8;
+}
+
+.cta-connect-ledger {
+    margin: 1vw 0 2vw 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.cta-connect-ledger:hover {
+    opacity: 0.8;
+}
+
+.cta-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transition: 0.3s;
+}
+
+@media only screen and (max-width: 640px) {
+    .cta-btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .cta-btn {
+        font-size: 4vw !important;
+        padding: 2.5vw 5vw !important;
+        color: #E5E5E5;
+        border: none;
+        border-radius: 2vw;
+        margin: 0vw !important;
+    }
+
+    #cta-btn {
+        font-size: 4vw !important;
+        padding: 2.5vw 5vw !important;
+        color: rgb(0, 0, 0);
+        background-color: rgb(156, 156, 156);
+        border: none;
+        border-radius: 2vw;
+        margin: 0vw !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 2vw;
+        width: 100%;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    #cta-btn:hover {
+        opacity: 0.8;
+    }
+
+    .category-budget-setter {
+        width: 10%;
+        margin: 0 1vw;
+    }
+
+    .cta-login {
+        margin: 5vw 0 8vw 0;
+    }
+
+    .cta-register {
+        margin: 3vw 0 10vw;
+    }
+
+    .cta-new-ledger {
+        margin: 0 0 4vw 0
+    }
+
+    .cta-connect-ledger {
+        margin: 4vw 0 2vw 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .cta-menu {
+        margin: 2vw 0 3vw 0
+    }
+}

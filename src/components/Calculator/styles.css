@@ -1,0 +1,74 @@
+@import url('http://fonts.cdnfonts.com/css/ds-digital');
+
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    margin: 3vw 0 8vw 0;
+}
+
+.calculator-frame {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #263d42;
+    border-radius: 2vw;
+    box-shadow: 4px 4px 10px gray;
+}
+
+.calculator-screen {
+    width: 80%;
+    height: 8vw;
+    font-size: 8vw;
+    margin: 3vw 0 0 0;
+    border-top: 2px solid #5b6567;
+    border-left: 2px solid #5b6567;
+    border-right: 1px solid #5b6567;
+    border-bottom: 1px solid #5b6567;
+    border-radius: 1vw;
+    align-self: center;
+    text-align: end;
+    padding: 0.5vw 2vw;
+    background-color: #E5E5E5;
+    white-space: no-wrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(79, 79, 79);
+    font-family: 'DS-Digital', sans-serif;
+}
+
+.calculator-btns {
+    margin: 0 4vw;
+}
+
+.diff-btn {
+    background-color: #cfd9db;
+}
+
+.calculator-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2vw;
+    margin: 4vw 0;
+}
+
+.calculator-btn {
+    /* border: 2px solid #263d42; */
+    /* border-right: 3px solid #263d42;; */
+    /* border-left: 1px solid #263d42;; */
+    /* border-top: 1px solid #263d42;; */
+    /* border-bottom: 3px solid #263d42; */
+    box-shadow: 2px 2px 4px gray;
+    color: #263d42;
+    border-radius: 50%;
+    padding: 3vw 4vw;
+    text-align: center;
+    height: 4vw;
+    width: 4vw;
+    line-height: 4vw;
+    margin: 0;
+}
+
+.calculator-btn:active {
+    background-color: #263d42;
+    color: #E5E5E5
+}
