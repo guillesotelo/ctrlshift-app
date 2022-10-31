@@ -871,6 +871,8 @@ h2 {
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+    position: relative;
+    height: 100%;
   }
 
   .logo-container h1,
@@ -925,10 +927,12 @@ h2 {
     font-size: 3.5vw;
     text-align: center;
     font-weight: normal;
-    position: absolute;
+    align-self: center;
+    margin-top: 50vw;
+    /* position: absolute; */
     bottom: 0;
     width: 70%;
-    color: gray
+    color: gray;
   }
 
   .login-register-link {

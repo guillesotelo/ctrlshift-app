@@ -202,6 +202,7 @@ export const MESSAGE = {
         L_SAVED: 'Save successfully! Redirecting...',
         L_CONNECTED: 'Save successfully! Redirecting...',
         L_DISCONNECTED: 'Disconnected successfully! Redirecting...',
+        L_TEXT1: 'If you want other people to participate in your Ledger, share the name and password with them.',
         L_TEXT1_2: 'You can also connect with another existing Ledger.',
         L_TEXT2: 'To start using CtrlShift you must create a Ledger, where all your movements will be saved.',
         L_TEXT2_2: 'Then other people will be able to participate in your Ledger, connecting with the name and password.',

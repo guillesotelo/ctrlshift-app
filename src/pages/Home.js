@@ -713,7 +713,8 @@ export default function Home() {
               </>
               : ''
             }
-            <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
+            {budget.total && Number(budget.total) < 100 ?
+              <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} /> : ''}
             <div className='separator' style={{ width: '85%' }}></div>
             <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
             <div className='separator' style={{ width: '85%' }}></div>
