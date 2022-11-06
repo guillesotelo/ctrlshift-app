@@ -23,12 +23,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import SwitchBTN from '../components/SwitchBTN';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
+import { MoonLoader } from 'react-spinners';
 
 export default function Home() {
   const [data, setData] = useState({ search: '' })
   const [user, setUser] = useState({})
   const [ledger, setLedger] = useState('')
   const [settings, setSettings] = useState('')
+  const [loading, setLoading] = useState(false)
   const [arrData, setArrData] = useState([])
   const [allUsers, setAllUsers] = useState([])
   const [allPayTypes, setAllPayTypes] = useState([])
@@ -192,6 +194,7 @@ export default function Home() {
 
   const getAllMovements = async newData => {
     try {
+      setLoading(true)
       const movs = await dispatch(getMovements(newData)).then(d => d.payload)
 
       if (movs) {
@@ -205,7 +208,11 @@ export default function Home() {
 
         setLastData(movs.data[0] || {})
       }
-    } catch (err) { console.error(err) }
+      setLoading(false)
+    } catch (err) {
+      console.error(err)
+      setLoading(false)
+    }
   }
 
   const processMonthlyData = allData => {
@@ -236,6 +243,7 @@ export default function Home() {
 
   const handleRemoveItem = async () => {
     try {
+      setLoading(true)
       const removed = await dispatch(removeMovement(arrData[check])).then(d => d.payload)
       if (removed) {
         toast.info(MESSAGE[lan].MOV_DEL)
@@ -244,7 +252,12 @@ export default function Home() {
       else toast.error(MESSAGE[lan].MOV_ERR)
       setCheck(-1)
       setIsEdit(false)
-    } catch (err) { console.error(err) }
+      setLoading(false)
+    } catch (err) {
+      console.error(err)
+      setLoading(false)
+      toast.error(MESSAGE[lan].MOV_ERR)
+    }
   }
 
   const checkDataOk = dataToCheck => {
@@ -290,6 +303,7 @@ export default function Home() {
 
   const handleSave = async () => {
     try {
+      setLoading(true)
       if (checkDataOk(data)) {
         let saved = {}
         const submitData = data
@@ -309,7 +323,7 @@ export default function Home() {
         if (saved && saved.status === 200) toast.success(MESSAGE[lan].MOV_SAVED)
         else toast.error(MESSAGE[lan].SAVE_ERR)
 
-        setTimeout(() => getAllMovements(submitData), 250)
+        setTimeout(() => getAllMovements(submitData), 500)
 
         setData({
           ...data,
@@ -330,9 +344,12 @@ export default function Home() {
         setCheck(-1)
 
         setTimeout(() => renderCharts(), 500)
-      }
-      else toast.error(MESSAGE[lan].CHECK_FIELDS)
-    } catch (err) { toast.error(MESSAGE[lan].SAVE_ERR) }
+      } else toast.error(MESSAGE[lan].CHECK_FIELDS)
+      setLoading(false)
+    } catch (err) {
+      toast.error(MESSAGE[lan].SAVE_ERR)
+      setLoading(false)
+    }
   }
 
   const handleCancel = () => {
@@ -414,6 +431,7 @@ export default function Home() {
 
   const onChangeSw = async () => {
     try {
+      setLoading(true)
       const newSettings = JSON.parse(ledger.settings)
 
       const newLedger = await dispatch(updateLedgerData({
@@ -431,10 +449,11 @@ export default function Home() {
         }, 2000)
         setSw(!sw)
       }
-
+      setLoading(false)
     } catch (err) {
       console.error(err)
       toast.error(MESSAGE[lan].CONN_ERR)
+      setLoading(false)
     }
   }
 
@@ -653,76 +672,87 @@ export default function Home() {
         </div>
         : ''}
 
-      <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
-        <MovementsTable
-          tableData={arrData}
-          tableTitle={`${MESSAGE[lan].MOVEMENTS} (${arrData.length})`}
-          tableYear={year}
-          setIsEdit={setIsEdit}
-          isEdit={isEdit}
-          setCheck={setCheck}
-          check={check}
-        />
-        <div className='sub-table-btns'>
-          <SwitchBTN
-            sw={sw}
-            onChangeSw={onChangeSw}
-            label={MESSAGE[lan].MONTHLY}
+      {loading ?
+        <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+        :
+        <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
+          <MovementsTable
+            tableData={arrData}
+            tableTitle={`${MESSAGE[lan].MOVEMENTS} (${arrData.length})`}
+            tableYear={year}
+            setIsEdit={setIsEdit}
+            isEdit={isEdit}
+            setCheck={setCheck}
+            check={check}
           />
-          <CTAButton
-            handleClick={downloadCSV}
-            label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
-            size='fit-content'
-            color={APP_COLORS.SPACE}
-            style={{ fontSize: '3.5vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
-          />
-        </div>
-        <div className='search-container'>
-          <InputField
-            label=''
-            updateData={updateData}
-            placeholder={MESSAGE[lan].MOV_SEARCH}
-            type='text'
-            name='search'
-            value={data.search || ''}
-          />
-          {data.search !== '' &&
-            <h3
-              className='search-erase-btn'
-              onClick={() => {
-                updateData('search', '')
-                setData({ ...data, search: '' })
-              }}>✖</h3>}
-        </div>
-        {
-          arrData.length || data.search ? <div className='div-charts'>
-            <div className='separator' style={{ width: '85%' }}></div>
-            {Object.keys(budget).length > 1 && settings.isMonthly ?
-              <>
-                <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} />
-                <div className='separator' style={{ width: '85%' }}></div>
-                <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
-                <div className='separator' style={{ width: '85%' }}></div>
-              </>
-              : ''
-            }
-            {!settings.isMonthly ?
-              <>
-                <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
-                <div className='separator' style={{ width: '85%' }}></div>
-              </>
-              : ''
-            }
-            {budget.total && Number(budget.total) < 100 ?
-              <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} /> : ''}
-            <div className='separator' style={{ width: '85%' }}></div>
-            <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
-            <div className='separator' style={{ width: '85%' }}></div>
-            <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
+          <div className='sub-table-btns'>
+            <SwitchBTN
+              sw={sw}
+              onChangeSw={onChangeSw}
+              label={MESSAGE[lan].MONTHLY}
+            />
+            <CTAButton
+              handleClick={downloadCSV}
+              label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
+              size='fit-content'
+              color={APP_COLORS.SPACE}
+              style={{ fontSize: '3.5vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
+            />
           </div>
-            : ''
-        }
-      </div>
+          <div className='search-container'>
+            <InputField
+              label=''
+              updateData={updateData}
+              placeholder={MESSAGE[lan].MOV_SEARCH}
+              type='text'
+              name='search'
+              value={data.search || ''}
+            />
+            {data.search !== '' &&
+              <h3
+                className='search-erase-btn'
+                onClick={() => {
+                  updateData('search', '')
+                  setData({ ...data, search: '' })
+                }}>✖</h3>}
+          </div>
+          {
+            arrData.length || data.search ? <div className='div-charts'>
+              <div className='separator' style={{ width: '85%' }}></div>
+              {Object.keys(budget).length > 1 && settings.isMonthly ?
+                <>
+                  <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''}
+              {budget.total && Number(budget.total) !== 100 ?
+                <>
+                  <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''
+              }
+              {!settings.isMonthly ?
+                <>
+                  <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''
+              }
+              {budget.total && Number(budget.total) < 100 ?
+                <>
+                  <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''
+              }
+              <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
+              <div className='separator' style={{ width: '85%' }}></div>
+              <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
+            </div>
+              : ''
+          }
+        </div>}
     </div>
   )
 }

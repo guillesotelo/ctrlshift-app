@@ -56,6 +56,7 @@
     height: 100%;
     padding: 3vw;
     z-index: 1;
+    margin-top: 18vw;
   }
 
   .menu-hidden {

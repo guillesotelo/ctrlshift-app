@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
 import Logo from '../assets/logo.png'
-import { 
-    logIn, 
-    googleAuth, 
-    createUser, 
-    sendEmailResetPass 
+import {
+    logIn,
+    googleAuth,
+    createUser,
+    sendEmailResetPass
 } from '../store/reducers/user'
 import { APP_COLORS } from '../constants/colors'
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,10 +17,12 @@ import { MESSAGE } from '../constants/messages'
 import { VERSION } from '../constants/app'
 import { getUserLanguage } from '../helpers';
 import 'react-toastify/dist/ReactToastify.css';
+import { MoonLoader } from 'react-spinners';
 
 export default function Login() {
     const [data, setData] = useState({})
     const [mailNModal, setMailModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory()
     const lan = getUserLanguage()
@@ -31,6 +33,7 @@ export default function Login() {
 
     const onLogin = async googleData => {
         try {
+            setLoading(true)
             let login = {}
             if (googleData && googleData.credential) {
                 const userData = await dispatch(googleAuth(googleData)).then(data => data.payload)
@@ -52,17 +55,25 @@ export default function Login() {
                 toast.info(`${MESSAGE[lan].WELCOME_TOAST}, ${login.username}!`)
                 setTimeout(() => history.push(`${hasLedger ? '/' : '/ledger'}`), 2000)
             } else toast.error(MESSAGE[lan].WRONG_CREDENTIALS)
-        } catch (_) { toast.error(MESSAGE[lan].LOGIN_ERROR) }
-    }
 
-    const handleFailure = () => toast.error(MESSAGE[lan].LOGIN_ERROR)
+            setLoading(false)
+        } catch (_) { 
+            toast.error(MESSAGE[lan].LOGIN_ERROR) 
+            setLoading(false)
+        }
+    }
 
     const resetPassword = async () => {
         try {
+            setLoading(true)
             const sent = await dispatch(sendEmailResetPass(data)).then(data => data.payload)
-            if(sent) toast.success(MESSAGE[lan].MAIL_SENT)
+            if (sent) toast.success(MESSAGE[lan].MAIL_SENT)
             else toast.error(MESSAGE[lan].CONN_ERR)
-        } catch (err) { toast.error(MESSAGE[lan].CONN_ERR) }
+            setLoading(false)
+        } catch (err) { 
+            toast.error(MESSAGE[lan].CONN_ERR) 
+            setLoading(false)
+        }
     }
 
     const goToRegister = e => {
@@ -117,14 +128,17 @@ export default function Login() {
                     type='password'
                     style={{ fontWeight: 'normal', fontSize: '4vw' }}
                 />
-                <CTAButton
-                    label={MESSAGE[lan].LOGIN_BTN}
-                    handleClick={onLogin}
-                    size='100%'
-                    color={APP_COLORS.SPACE}
-                    style={{ margin: '10vw', fontSize: '4vw' }}
-                    className='cta-login'
+                {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+                    :
+                    <CTAButton
+                        label={MESSAGE[lan].LOGIN_BTN}
+                        handleClick={onLogin}
+                        size='100%'
+                        color={APP_COLORS.SPACE}
+                        style={{ margin: '10vw', fontSize: '4vw' }}
+                        className='cta-login'
                     />
+                }
                 {/* <GoogleLogin
                     onSuccess={googleData => onLogin(googleData)}
                     onError={handleFailure}

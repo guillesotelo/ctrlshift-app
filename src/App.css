@@ -765,6 +765,7 @@ h2 {
     padding: 6vw 5vw;
     overflow-x: hidden;
     min-height: 200%;
+    padding-top: 25vw;
   }
 
   .main-section {
@@ -960,11 +961,11 @@ h2 {
   }
 
   .account-container {
-    margin: 10vw 4vw;
+    margin: 0vw 4vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* gap: 3vw; */
+    padding-top: 20vw;
   }
 
   .account-info {
@@ -993,7 +994,7 @@ h2 {
     display: flex;
     flex-direction: column;
     margin-bottom: 5vw;
-    padding: 4vw;
+    padding: 25vw 4vw 4vw 4vw;
   }
 
   .settings-title {
@@ -1179,7 +1180,10 @@ h2 {
   }
 
   .notes-container {
-    margin: 8vw;
+    margin: 0 8vw;
+    display: flex;
+    flex-direction: column;
+    padding-top: 25vw;
   }
 
   .notes-container button {
@@ -1280,7 +1284,7 @@ h2 {
 
   /* -----TASKS----- */
   .tasks-container {
-    padding: 0vw 6vw 30vw 6vw;
+    padding: 20vw 6vw 30vw 6vw;
     margin: 0;
   }
 

@@ -4,7 +4,7 @@ import movementReducer from "./reducers/movement"
 import userReducer from "./reducers/user"
 import ledgerReducer from "./reducers/ledger"
 
-const logs = process.env.NODE_ENV === 'development' ? logger : []
+const logs = process.env.NODE_ENV === '!development' ? logger : []
 
 const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
