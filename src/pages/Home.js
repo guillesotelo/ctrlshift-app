@@ -64,7 +64,7 @@ export default function Home() {
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
-    if (!localLedger || !localLedger.email) history.push('/ledger')
+    if (!localLedger || !localLedger.email || localLedger.settings) history.push('/ledger')
 
     if (!localUser || !localUser.email) history.push('/login')
 
@@ -244,7 +244,6 @@ export default function Home() {
 
   const handleRemoveItem = async () => {
     try {
-      setLoading(true)
       const removed = await dispatch(removeMovement(arrData[check])).then(d => d.payload)
       if (removed) {
         toast.info(MESSAGE[lan].MOV_DEL)
@@ -253,10 +252,8 @@ export default function Home() {
       else toast.error(MESSAGE[lan].MOV_ERR)
       setCheck(-1)
       setIsEdit(false)
-      setLoading(false)
     } catch (err) {
       console.error(err)
-      setLoading(false)
       toast.error(MESSAGE[lan].MOV_ERR)
     }
   }
@@ -304,7 +301,6 @@ export default function Home() {
 
   const handleSave = async () => {
     try {
-      setLoading(true)
       if (checkDataOk(data)) {
         let saved = {}
         const submitData = { ...data }
@@ -347,10 +343,8 @@ export default function Home() {
 
         setTimeout(() => renderCharts(), 500)
       } else toast.error(MESSAGE[lan].CHECK_FIELDS)
-      setLoading(false)
     } catch (err) {
       toast.error(MESSAGE[lan].SAVE_ERR)
-      setLoading(false)
     }
   }
 
