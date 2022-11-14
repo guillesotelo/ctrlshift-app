@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
 import { APP_COLORS } from '../constants/colors'
-import { updateLedgerData } from '../store/reducers/ledger';
+import { getLedger, updateLedgerData } from '../store/reducers/ledger';
 import { ToastContainer, toast } from 'react-toastify';
 import TrashCan from '../assets/trash-can.svg'
 import EditPen from '../assets/edit-icon.svg'
@@ -14,6 +14,7 @@ import { MoonLoader } from 'react-spinners';
 export default function Notes() {
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
     const [removeModal, setRemoveModal] = useState(false)
     const [data, setData] = useState({ name: '', details: '', notes: [] })
     const [check, setCheck] = useState({})
@@ -30,9 +31,7 @@ export default function Notes() {
 
     const handleSave = async () => {
         try {
-            setLoading(true)
             if (!data.name || !data.details) {
-                setLoading(false)
                 return toast.error(MESSAGE[lan].CHECK_DATA)
             }
             const _notes = check.name ? data.notes.filter(note => note !== check) : data.notes
@@ -54,17 +53,15 @@ export default function Notes() {
                 toast.success(MESSAGE[lan].SAVE_SUCC)
                 setTimeout(() => pullNotes(), 2000)
             }
-            setLoading(false)
+            setOpenModal(false)
             setIsEdit(false)
         } catch (err) {
             console.error(err)
-            setLoading(false)
         }
     }
 
     const handleRemoveItem = async () => {
         try {
-            setLoading(true)
             const _notes = data.notes.filter(note => note !== check)
             const newLedger = await dispatch(updateLedgerData({
                 notes: JSON.stringify(_notes),
@@ -79,14 +76,17 @@ export default function Notes() {
             }
             setIsEdit(false)
             setCheck(-1)
-            setLoading(false)
         } catch (err) { console.error(err) }
     }
 
-    const pullNotes = () => {
+    const pullNotes = async () => {
         setLoading(true)
         setData({ ...data, notes: [] })
-        const { notes, id } = JSON.parse(localStorage.getItem('ledger'))
+
+        const { id } = JSON.parse(localStorage.getItem('ledger'))
+        const ledger = await dispatch(getLedger(id)).then(data => data.payload)
+        const { notes } = ledger
+
         if (notes) {
             const _notes = JSON.parse(notes)
             setData({ ...data, notes: _notes, id })
@@ -125,25 +125,29 @@ export default function Notes() {
                     }
                     {!isEdit &&
                         <CTAButton
-                            label={MESSAGE[lan].N_NEW}
+                            label='+'
                             color={APP_COLORS.YELLOW}
                             handleClick={() => {
                                 setData({ ...data, name: '', details: '' })
                                 setCheck(0)
-                                setIsEdit(true)
+                                setOpenModal(true)
                             }}
-                            size='100%'
-                            style={{ color: 'black', fontSize: '5vw' }}
+                            style={{ color: 'black', borderRadius: '10vw', fontSize: '4vw' }}
+                            className='new-task-btn-container'
+                            btnClass='new-task-btn'
+                            disabled={openModal}
                         />
                     }
-                    {isEdit &&
-                        <div className='new-note-container' style={{ filter: removeModal && 'blur(10px)' }}>
+                    {openModal &&
+                        <div className='task-modal'>
+                            <h3 style={{ color: APP_COLORS.GRAY }} className='task-modal-title'>{isEdit ? MESSAGE[lan].N_EDIT : MESSAGE[lan].N_NEW}</h3>
                             <InputField
                                 label=''
                                 updateData={updateData}
-                                placeholder={MESSAGE[lan].N_NAME}
+                                placeholder={MESSAGE[lan].T_TITLE}
                                 name='name'
                                 type='text'
+                                className='task-title-input'
                                 style={{ height: 'fit-content', textAlign: 'left' }}
                                 value={data.name}
                             />
@@ -153,38 +157,34 @@ export default function Notes() {
                                 placeholder={MESSAGE[lan].N_DETAIL}
                                 name='details'
                                 type='textarea'
-                                rows={8}
+                                style={{ height: 'fit-content', textAlign: 'left', marginBottom: '2vw' }}
                                 value={data.details}
                             />
-                            {((data.name || data.details || check) && isEdit) ?
-                                <div className='new-note-btns'>
-                                    <CTAButton
-                                        label={MESSAGE[lan].DISCARD}
-                                        color={APP_COLORS.LIGHT}
-                                        handleClick={() => {
-                                            setCheck(0)
-                                            setIsEdit(false)
-                                        }}
-                                        size='100%'
-                                        style={{ color: 'black', fontSize: '5vw' }}
-                                    />
-                                    <CTAButton
-                                        label={MESSAGE[lan].SAVE}
-                                        color={APP_COLORS.YELLOW}
-                                        handleClick={() => {
-                                            handleSave()
-                                        }}
-                                        size='100%'
-                                        style={{ color: 'black', fontSize: '5vw' }}
-                                    />
-                                </div>
-                                :
-                                ''
-                            }
+                            <div className='task-modal-btns'>
+                                <CTAButton
+                                    handleClick={() => {
+                                        setData({ ...data, name: '', details: '' })
+                                        setIsEdit(false)
+                                        setOpenModal(false)
+                                        setCheck(0)
+                                    }}
+                                    label={MESSAGE[lan].CANCEL}
+                                    size='100%'
+                                    color={APP_COLORS.GRAY}
+                                />
+
+                                <CTAButton
+                                    handleClick={handleSave}
+                                    label={MESSAGE[lan].SAVE}
+                                    size='100%'
+                                    color={APP_COLORS.YELLOW}
+                                    style={{ color: 'black' }}
+                                />
+                            </div>
                         </div>
                     }
-                    {data.notes.length ?
-                        <div className='note-list' style={{ filter: removeModal && 'blur(10px)' }}>
+                    {data.notes && data.notes.length ?
+                        <div className='note-list' style={{ filter: (removeModal || openModal) && 'blur(10px)' }}>
                             {data.notes.map((note, i) =>
                                 <div
                                     key={i}
@@ -210,6 +210,7 @@ export default function Notes() {
                                             />
                                             <img onClick={() => {
                                                 setIsEdit(true)
+                                                setOpenModal(true)
                                                 setData({ ...data, name: note.name, details: note.details })
                                             }}
                                                 className='note-svg-edit' src={EditPen} alt="Edit" />

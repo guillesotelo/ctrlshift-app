@@ -18,7 +18,6 @@ import './styles.css'
 export default function Ledger() {
     const [data, setData] = useState({})
     const [newLedger, setNewLedger] = useState(false)
-    const [user, setUser] = useState({})
     const [connect, setConnect] = useState(false)
     const history = useHistory()
     const dispatch = useDispatch()
@@ -29,8 +28,7 @@ export default function Ledger() {
         const localUser = JSON.parse(localStorage.getItem('user'))
 
         if (!localUser || !localUser.email) return history.push('/')
-
-        setUser(localUser)
+        
         const { email, username } = localUser
 
         const _settings = {
@@ -64,7 +62,7 @@ export default function Ledger() {
 
     const handleConnect = async () => {
         try {
-            const loginLedger = await dispatch(logLedger({ ...data, ...user })).then(d => d.payload)
+            const loginLedger = await dispatch(logLedger(data)).then(d => d.payload)
 
             if (loginLedger) {
                 localStorage.removeItem('ledger')

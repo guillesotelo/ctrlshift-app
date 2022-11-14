@@ -88,7 +88,7 @@ const createLedger = async data => {
     try {
         const res = await axios.post(`${API_URL}/api/ledger/create`, data)
         const user = JSON.parse(localStorage.getItem('user'))
-        const updatedUser = await updateUser({ user, newData: { defaultLedger: JSON.stringify(res.data) } })
+        const updatedUser = await updateUser({ ...user, defaultLedger: JSON.stringify(res.data) })
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(updatedUser.data))
         return res.data
@@ -123,12 +123,12 @@ const getLedgerById = async id => {
 
 const loginLedger = async data => {
     try {
-        const { user } = data
         const res = await axios.post(`${API_URL}/api/ledger`, data)
         if (!res || !res.data) return false
 
-        const updatedUser = await updateUser({ user, newData: { defaultLedger: JSON.stringify(res.data) } })
-        
+        const user = JSON.parse(localStorage.getItem('user'))
+        const updatedUser = await updateUser({ ...user, defaultLedger: JSON.stringify(res.data) })
+
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(updatedUser.data))
 

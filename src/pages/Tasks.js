@@ -8,18 +8,19 @@ import WatchIcon from '../assets/watch-icon.svg'
 import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
 import { APP_COLORS } from '../constants/colors'
-import { updateLedgerData } from '../store/reducers/ledger';
+import { updateLedgerData, getLedger } from '../store/reducers/ledger';
 import { ToastContainer, toast } from 'react-toastify';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
+import { MoonLoader } from 'react-spinners';
 
 export default function Tasks() {
-    const [taskArr, setTaskArr] = useState([])
     const [allTasks, setAllTasks] = useState([])
     const [data, setData] = useState({ date: '', name: '', details: '' })
     const [ledgerId, setLedgerId] = useState('')
     const [openModal, setOpenModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [check, setCheck] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const [dateClicked, setDateClicked] = useState(false)
@@ -37,16 +38,16 @@ export default function Tasks() {
         setData({ ...data, [key]: newData })
     }
 
-    const pullTasks = () => {
-        const { tasks, id } = JSON.parse(localStorage.getItem('ledger'))
+    const pullTasks = async () => {
+        setLoading(true)
+        const { id } = JSON.parse(localStorage.getItem('ledger'))
+        const ledger = await dispatch(getLedger(id)).then(data => data.payload)
+        const { tasks } = ledger
+
         setLedgerId(id)
 
-        if (tasks) {
-            setAllTasks(JSON.parse(tasks))
-            const _tasks = tab === 'isChecked' ? JSON.parse(tasks).filter(t => t.isChecked) : JSON.parse(tasks).filter(t => !t.isChecked)
-            setTaskArr(_tasks)
-        }
-        else setTaskArr([])
+        if (tasks) setAllTasks(JSON.parse(tasks))
+        setLoading(false)
     }
 
     const handleSave = async () => {
@@ -349,65 +350,38 @@ export default function Tasks() {
                 <h4>|</h4>
                 <h4 onClick={() => setTab('isChecked')} className='task-tab-title' style={{ borderBottom: tab === 'isChecked' ? '2px solid #CCA43B' : '' }}>{MESSAGE[lan].T_FIN}</h4>
             </div>
-            {allTasks.length ?
-                <div className='task-list' style={{ filter: openModal && 'blur(10px)' }}>
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId="droppable">
-                            {(provided, snapshot) => (
-                                <div
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                >
-                                    {allTasks.map((task, i) => ((task[tab] || (tab === 'unChecked' && !task.isChecked)) &&
-                                        <Draggable key={i} draggableId={String(i)} index={i}>
-                                            {(provided, snapshot) => (
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    style={getItemStyle(
-                                                        snapshot.isDragging,
-                                                        provided.draggableProps.style
-                                                    )}>
+            {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+                :
+                allTasks.length ?
+                    <div className='task-list' style={{ filter: openModal && 'blur(10px)' }}>
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            <Droppable droppableId="droppable">
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                    >
+                                        {allTasks.map((task, i) => ((task[tab] || (tab === 'unChecked' && !task.isChecked)) &&
+                                            <Draggable key={i} draggableId={String(i)} index={i}>
+                                                {(provided, snapshot) => (
                                                     <div
-                                                        className={`${task.isChecked ? 'task-div-checked' : 'task-div'}`}
-                                                        key={i}
-                                                        style={{
-                                                            borderBottom: '1px solid lightgray',
-                                                        }}
-                                                    >
-                                                        <h4 className={`${task.isChecked ? 'task-check-checked' : 'task-check'}`} onClick={() => checkTask(task)}>✓</h4>
-                                                        <h4
-                                                            className='task-name'
-                                                            onClick={() => {
-                                                                setIsEdit(true)
-                                                                setCheck(task)
-                                                                setData({
-                                                                    ...task,
-                                                                    date: task.date ? new Date(task.date) : ''
-                                                                })
-                                                                setOpenModal(true)
-                                                            }}>{task.name}</h4>
-                                                        {task.date ? <h4
-                                                            className='task-date'
-                                                            style={{ color: parseDate(task.date, task.hasTime || false).color }}
-                                                            onClick={() => {
-                                                                setIsEdit(true)
-                                                                setCheck(task)
-                                                                setData({
-                                                                    ...task,
-                                                                    date: task.date ? new Date(task.date) : ''
-                                                                })
-                                                                setOpenModal(true)
-                                                            }}>
-                                                            {parseDate(task.date, task.hasTime || false).parsed}
-                                                        </h4>
-                                                            :
-                                                            <img
-                                                                style={{ transform: 'scale(0.3)' }}
-                                                                className='task-date'
-                                                                src={ScheduleIcon}
-                                                                alt="Schedule"
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}>
+                                                        <div
+                                                            className={`${task.isChecked ? 'task-div-checked' : 'task-div'}`}
+                                                            key={i}
+                                                            style={{
+                                                                borderBottom: '1px solid lightgray',
+                                                            }}
+                                                        >
+                                                            <h4 className={`${task.isChecked ? 'task-check-checked' : 'task-check'}`} onClick={() => checkTask(task)}>✓</h4>
+                                                            <h4
+                                                                className='task-name'
                                                                 onClick={() => {
                                                                     setIsEdit(true)
                                                                     setCheck(task)
@@ -415,27 +389,56 @@ export default function Tasks() {
                                                                         ...task,
                                                                         date: task.date ? new Date(task.date) : ''
                                                                     })
-                                                                    setDateClicked(true)
                                                                     setOpenModal(true)
-                                                                }}
-                                                            />
-                                                        }
+                                                                }}>{task.name}</h4>
+                                                            {task.date ? <h4
+                                                                className='task-date'
+                                                                style={{ color: parseDate(task.date, task.hasTime || false).color }}
+                                                                onClick={() => {
+                                                                    setIsEdit(true)
+                                                                    setCheck(task)
+                                                                    setData({
+                                                                        ...task,
+                                                                        date: task.date ? new Date(task.date) : ''
+                                                                    })
+                                                                    setOpenModal(true)
+                                                                }}>
+                                                                {parseDate(task.date, task.hasTime || false).parsed}
+                                                            </h4>
+                                                                :
+                                                                <img
+                                                                    style={{ transform: 'scale(0.3)' }}
+                                                                    className='task-date'
+                                                                    src={ScheduleIcon}
+                                                                    alt="Schedule"
+                                                                    onClick={() => {
+                                                                        setIsEdit(true)
+                                                                        setCheck(task)
+                                                                        setData({
+                                                                            ...task,
+                                                                            date: task.date ? new Date(task.date) : ''
+                                                                        })
+                                                                        setDateClicked(true)
+                                                                        setOpenModal(true)
+                                                                    }}
+                                                                />
+                                                            }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    ))}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
-                </div>
-                :
-                <h4 className='task-no-tasks' style={{ filter: openModal && 'blur(10px)' }}>
-                    {MESSAGE[lan].T_NONE} 🧐
-                    <br />{MESSAGE[lan].T_TEXT} ➕
-                </h4>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </DragDropContext>
+                    </div>
+                    :
+                    <h4 className='task-no-tasks' style={{ filter: openModal && 'blur(10px)' }}>
+                        {MESSAGE[lan].T_NONE} 🧐
+                        <br />{MESSAGE[lan].T_TEXT} ➕
+                    </h4>
             }
             <CTAButton
                 label='+'
