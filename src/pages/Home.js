@@ -194,7 +194,7 @@ export default function Home() {
 
   const getAllMovements = async newData => {
     try {
-      setLoading(true)
+      if (!arrData.length) setLoading(true)
       const movs = await dispatch(getMovements(newData)).then(d => d.payload)
 
       if (movs) {
@@ -454,301 +454,301 @@ export default function Home() {
   }
 
   return (
-      <div className='home-container'>
-        <ToastContainer autoClose={2000} />
-        {removeModal &&
-          <div className='remove-modal'>
-            <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />{arrData[check].detail} <br /> ${arrData[check].amount}</h3>
-            <div className='remove-btns'>
-              <CTAButton
-                label={MESSAGE[lan].CANCEL}
-                color={APP_COLORS.GRAY}
-                handleClick={() => setRemoveModal(false)}
-                size='fit-content'
-              />
-              <CTAButton
-                label={MESSAGE[lan].CONFIRM}
-                color={APP_COLORS.SPACE}
-                handleClick={() => {
-                  setRemoveModal(false)
-                  handleRemoveItem()
-                }}
-                size='fit-content'
-              />
-            </div>
-          </div>
-        }
-        {openModal &&
-          <div className='fill-section-container'>
-            <h3 style={{ color: APP_COLORS.GRAY }}>{MESSAGE[lan].MOV_INFO}:</h3>
-            <div className='fill-section'>
-              <CTAButton
-                handleClick={() => setDateClicked(!dateClicked)}
-                label={data.date.toLocaleDateString()}
-                size='100%'
-                color={APP_COLORS.SPACE}
-              />
-              {dateClicked &&
-                <DatePicker
-                  selected={data.date || ''}
-                  onChange={date => {
-                    updateData('date', date)
-                    setTimeout(() => setDateClicked(false), 200)
-                  }
-                  }
-                  dateFormat="dd/MM/YYY"
-                  inline
-                />
-              }
-              <div className='fill-amount-row'>
-                <InputField
-                  label=''
-                  updateData={updateData}
-                  placeholder={`${MESSAGE[lan].FIAT} -`}
-                  name='amount'
-                  type='number'
-                  value={data.amount || ''}
-                  size='100%'
-                  style={{ textAlign: 'center' }}
-                />
-                <img onClick={() => setCalculator(!calculator)} className='svg-calculator' src={CalculatorIcon} alt="Calculate" />
-              </div>
-              {calculator ?
-                <Calculator
-                  updateData={updateData}
-                  value={data.amount || 0}
-                  setCalculator={setCalculator}
-                />
-                :
-                <>
-                  <InputField
-                    label=''
-                    updateData={updateData}
-                    placeholder={MESSAGE[lan].MOV_DETAIL}
-                    name='detail'
-                    type='text'
-                    value={data.detail}
-                  />
-                  <DropdownBTN
-                    options={allUsers}
-                    label={MESSAGE[lan].AUTHOR}
-                    name='author'
-                    updateData={updateData}
-                    value={data.author}
-                  />
-                  <DropdownBTN
-                    options={allPayTypes}
-                    label={MESSAGE[lan].PAY_TYPE}
-                    name='pay_type'
-                    updateData={updateData}
-                    value={data.pay_type}
-                  />
-                  {!isEdit &&
-                    <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
-                      <SwitchBTN
-                        sw={withInstallments}
-                        onChangeSw={() => setWithInstallments(!withInstallments)}
-                        label={MESSAGE[lan].INSTALLMENTS}
-                        style={{ transform: 'scale(0.8)', margin: 0 }}
-                      />
-                      {withInstallments &&
-                        <div className='installments-count'>
-                          <CTAButton
-                            handleClick={() => installments < 120 ? setInstallments(installments + 1) : {}}
-                            label='+'
-                            color={APP_COLORS.YELLOW}
-                            style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
-                            className='category-budget-setter'
-                          />
-                          <h4 style={{ alignSelf: 'center', margin: 0 }}>{installments}</h4>
-                          <CTAButton
-                            handleClick={() => installments > 2 ? setInstallments(installments - 1) : {}}
-                            label='─'
-                            color={APP_COLORS.YELLOW}
-                            style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
-                            className='category-budget-setter'
-                          />
-                        </div>
-                      }
-                    </div>
-                  }
-                  <DropdownBTN
-                    options={allCategories}
-                    label={MESSAGE[lan].CATEGORY}
-                    name='category'
-                    updateData={updateData}
-                    value={data.category}
-                  />
-                  <div className='div-modal-btns'>
-                    <CTAButton
-                      handleClick={handleCancel}
-                      label={MESSAGE[lan].CANCEL}
-                      size='100%'
-                      color={APP_COLORS.GRAY}
-                    />
-                    <CTAButton
-                      handleClick={handleSave}
-                      label={MESSAGE[lan].SAVE}
-                      size='100%'
-                      color={APP_COLORS.YELLOW}
-                    />
-                  </div>
-                </>
-              }
-            </div>
-          </div>
-        }
-        {
-          <div className='main-section' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+    <div className='home-container'>
+      <ToastContainer autoClose={2000} />
+      {removeModal &&
+        <div className='remove-modal'>
+          <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />{arrData[check].detail} <br /> ${arrData[check].amount}</h3>
+          <div className='remove-btns'>
             <CTAButton
-              handleClick={handleEdit}
-              label={MESSAGE[lan].EDIT}
-              size='80%'
+              label={MESSAGE[lan].CANCEL}
               color={APP_COLORS.GRAY}
-              disabled={!isEdit}
-              style={{ fontSize: '4vw' }}
+              handleClick={() => setRemoveModal(false)}
+              size='fit-content'
             />
-            {isEdit &&
-              <div onClick={() => setRemoveModal(true)}>
-                <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
-              </div>
-            }
             <CTAButton
+              label={MESSAGE[lan].CONFIRM}
+              color={APP_COLORS.SPACE}
               handleClick={() => {
-                if (lastData.category) {
-                  setData({
-                    ...data,
-                    author: lastData.author,
-                    pay_type: lastData.pay_type,
-                    category: lastData.category
-                  })
-                }
-                setIsEdit(false)
-                setOpenModal(!openModal)
+                setRemoveModal(false)
+                handleRemoveItem()
               }}
-              label={MESSAGE[lan].MOV_NEW}
-              size='80%'
-              color={APP_COLORS.YELLOW}
-              style={{ color: 'black', fontSize: '4vw' }}
+              size='fit-content'
             />
           </div>
-        }
-
-        <div className='salary-div' onClick={() => setViewSalary(!viewSalary)} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
-          <h4 className='salary-text'>{MESSAGE[lan].SALARY}:</h4>
-          {
-            viewSalary ? <h4 className='salary'>{MESSAGE[lan].FIAT} {salary.toLocaleString('us-US', { currency: 'ARS' })}</h4>
-              : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
-          }
         </div>
-
-        {settings.isMonthly ?
-          <div className='home-month-tab' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
-            <h4 className='month-before' onClick={() => {
-              if (months[month - 1]) {
-                setMonth(month - 1)
-              } else {
-                setMonth(11)
-                setYear(year - 1)
-              }
-            }}>
-              {months[month - 1] ? months[month - 1] : months[11]}
-            </h4>
-            <h4 className='actual-month'>{months[month]}</h4>
-            <h4 className='month-after' onClick={() => {
-              if (months[month + 1]) {
-                setMonth(month + 1)
-              } else {
-                setMonth(0)
-                setYear(year + 1)
-              }
-            }}>
-              {months[month + 1] ? months[month + 1] : months[0]}
-            </h4>
-          </div>
-          : ''}
-
-        {loading ?
-          <div style={{ alignSelf: 'center', marginTop: '8vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
-          :
-          <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
-            <MovementsTable
-              tableData={arrData}
-              tableTitle={`${MESSAGE[lan].MOVEMENTS} (${arrData.length})`}
-              tableYear={year}
-              setIsEdit={setIsEdit}
-              isEdit={isEdit}
-              setCheck={setCheck}
-              check={check}
+      }
+      {openModal &&
+        <div className='fill-section-container'>
+          <h3 style={{ color: APP_COLORS.GRAY }}>{MESSAGE[lan].MOV_INFO}:</h3>
+          <div className='fill-section'>
+            <CTAButton
+              handleClick={() => setDateClicked(!dateClicked)}
+              label={data.date.toLocaleDateString()}
+              size='100%'
+              color={APP_COLORS.SPACE}
             />
-            <div className='sub-table-btns'>
-              <SwitchBTN
-                sw={sw}
-                onChangeSw={onChangeSw}
-                label={MESSAGE[lan].MONTHLY}
+            {dateClicked &&
+              <DatePicker
+                selected={data.date || ''}
+                onChange={date => {
+                  updateData('date', date)
+                  setTimeout(() => setDateClicked(false), 200)
+                }
+                }
+                dateFormat="dd/MM/YYY"
+                inline
               />
-              <CTAButton
-                handleClick={downloadCSV}
-                label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
-                size='fit-content'
-                color={APP_COLORS.SPACE}
-                style={{ fontSize: '3.5vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
-              />
-            </div>
-            <div className='search-container'>
+            }
+            <div className='fill-amount-row'>
               <InputField
                 label=''
                 updateData={updateData}
-                placeholder={MESSAGE[lan].MOV_SEARCH}
-                type='text'
-                name='search'
-                value={data.search || ''}
+                placeholder={`${MESSAGE[lan].FIAT} -`}
+                name='amount'
+                type='number'
+                value={data.amount || ''}
+                size='100%'
+                style={{ textAlign: 'center' }}
               />
-              {data.search !== '' &&
-                <h3
-                  className='search-erase-btn'
-                  onClick={() => {
-                    updateData('search', '')
-                    setData({ ...data, search: '' })
-                  }}>✖</h3>}
+              <img onClick={() => setCalculator(!calculator)} className='svg-calculator' src={CalculatorIcon} alt="Calculate" />
             </div>
-            {
-              arrData.length || data.search ? <div className='div-charts'>
-                <div className='separator' style={{ width: '85%' }}></div>
-                {Object.keys(budget).length > 1 && settings.isMonthly ?
-                  <>
-                    <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} />
-                    <div className='separator' style={{ width: '85%' }}></div>
-                  </>
-                  : ''}
-                {budget.total && Number(budget.total) !== 100 ?
-                  <>
-                    <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
-                    <div className='separator' style={{ width: '85%' }}></div>
-                  </>
-                  : ''
+            {calculator ?
+              <Calculator
+                updateData={updateData}
+                value={data.amount || 0}
+                setCalculator={setCalculator}
+              />
+              :
+              <>
+                <InputField
+                  label=''
+                  updateData={updateData}
+                  placeholder={MESSAGE[lan].MOV_DETAIL}
+                  name='detail'
+                  type='text'
+                  value={data.detail}
+                />
+                <DropdownBTN
+                  options={allUsers}
+                  label={MESSAGE[lan].AUTHOR}
+                  name='author'
+                  updateData={updateData}
+                  value={data.author}
+                />
+                <DropdownBTN
+                  options={allPayTypes}
+                  label={MESSAGE[lan].PAY_TYPE}
+                  name='pay_type'
+                  updateData={updateData}
+                  value={data.pay_type}
+                />
+                {!isEdit &&
+                  <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
+                    <SwitchBTN
+                      sw={withInstallments}
+                      onChangeSw={() => setWithInstallments(!withInstallments)}
+                      label={MESSAGE[lan].INSTALLMENTS}
+                      style={{ transform: 'scale(0.8)', margin: 0 }}
+                    />
+                    {withInstallments &&
+                      <div className='installments-count'>
+                        <CTAButton
+                          handleClick={() => installments < 120 ? setInstallments(installments + 1) : {}}
+                          label='+'
+                          color={APP_COLORS.YELLOW}
+                          style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
+                          className='category-budget-setter'
+                        />
+                        <h4 style={{ alignSelf: 'center', margin: 0 }}>{installments}</h4>
+                        <CTAButton
+                          handleClick={() => installments > 2 ? setInstallments(installments - 1) : {}}
+                          label='─'
+                          color={APP_COLORS.YELLOW}
+                          style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
+                          className='category-budget-setter'
+                        />
+                      </div>
+                    }
+                  </div>
                 }
-                {!settings.isMonthly ?
-                  <>
-                    <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
-                    <div className='separator' style={{ width: '85%' }}></div>
-                  </>
-                  : ''
-                }
-                {budget.total && Number(budget.total) < 100 ?
-                  <>
-                    <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
-                    <div className='separator' style={{ width: '85%' }}></div>
-                  </>
-                  : ''
-                }
-                <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
-                <div className='separator' style={{ width: '85%' }}></div>
-                <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
-              </div>
-                : ''
+                <DropdownBTN
+                  options={allCategories}
+                  label={MESSAGE[lan].CATEGORY}
+                  name='category'
+                  updateData={updateData}
+                  value={data.category}
+                />
+                <div className='div-modal-btns'>
+                  <CTAButton
+                    handleClick={handleCancel}
+                    label={MESSAGE[lan].CANCEL}
+                    size='100%'
+                    color={APP_COLORS.GRAY}
+                  />
+                  <CTAButton
+                    handleClick={handleSave}
+                    label={MESSAGE[lan].SAVE}
+                    size='100%'
+                    color={APP_COLORS.YELLOW}
+                  />
+                </div>
+              </>
             }
-          </div>}
+          </div>
+        </div>
+      }
+      {
+        <div className='main-section' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+          <CTAButton
+            handleClick={handleEdit}
+            label={MESSAGE[lan].EDIT}
+            size='80%'
+            color={APP_COLORS.GRAY}
+            disabled={!isEdit}
+            style={{ fontSize: '4vw' }}
+          />
+          {isEdit &&
+            <div onClick={() => setRemoveModal(true)}>
+              <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
+            </div>
+          }
+          <CTAButton
+            handleClick={() => {
+              if (lastData.category) {
+                setData({
+                  ...data,
+                  author: lastData.author,
+                  pay_type: lastData.pay_type,
+                  category: lastData.category
+                })
+              }
+              setIsEdit(false)
+              setOpenModal(!openModal)
+            }}
+            label={MESSAGE[lan].MOV_NEW}
+            size='80%'
+            color={APP_COLORS.YELLOW}
+            style={{ color: 'black', fontSize: '4vw' }}
+          />
+        </div>
+      }
+
+      <div className='salary-div' onClick={() => setViewSalary(!viewSalary)} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+        <h4 className='salary-text'>{MESSAGE[lan].SALARY}:</h4>
+        {
+          viewSalary ? <h4 className='salary'>{MESSAGE[lan].FIAT} {salary.toLocaleString('us-US', { currency: 'ARS' })}</h4>
+            : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
+        }
       </div>
+
+      {settings.isMonthly ?
+        <div className='home-month-tab' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+          <h4 className='month-before' onClick={() => {
+            if (months[month - 1]) {
+              setMonth(month - 1)
+            } else {
+              setMonth(11)
+              setYear(year - 1)
+            }
+          }}>
+            {months[month - 1] ? months[month - 1] : months[11]}
+          </h4>
+          <h4 className='actual-month'>{months[month]}</h4>
+          <h4 className='month-after' onClick={() => {
+            if (months[month + 1]) {
+              setMonth(month + 1)
+            } else {
+              setMonth(0)
+              setYear(year + 1)
+            }
+          }}>
+            {months[month + 1] ? months[month + 1] : months[0]}
+          </h4>
+        </div>
+        : ''}
+
+      {loading ?
+        <div style={{ alignSelf: 'center', marginTop: '8vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+        :
+        <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
+          <MovementsTable
+            tableData={arrData}
+            tableTitle={`${MESSAGE[lan].MOVEMENTS} (${arrData.length})`}
+            tableYear={year}
+            setIsEdit={setIsEdit}
+            isEdit={isEdit}
+            setCheck={setCheck}
+            check={check}
+          />
+          <div className='sub-table-btns'>
+            <SwitchBTN
+              sw={sw}
+              onChangeSw={onChangeSw}
+              label={MESSAGE[lan].MONTHLY}
+            />
+            <CTAButton
+              handleClick={downloadCSV}
+              label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
+              size='fit-content'
+              color={APP_COLORS.SPACE}
+              style={{ fontSize: '3.5vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
+            />
+          </div>
+          <div className='search-container'>
+            <InputField
+              label=''
+              updateData={updateData}
+              placeholder={MESSAGE[lan].MOV_SEARCH}
+              type='text'
+              name='search'
+              value={data.search || ''}
+            />
+            {data.search !== '' &&
+              <h3
+                className='search-erase-btn'
+                onClick={() => {
+                  updateData('search', '')
+                  setData({ ...data, search: '' })
+                }}>✖</h3>}
+          </div>
+          {
+            arrData.length || data.search ? <div className='div-charts'>
+              <div className='separator' style={{ width: '85%' }}></div>
+              {Object.keys(budget).length > 1 && settings.isMonthly ?
+                <>
+                  <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''}
+              {budget.total && Number(budget.total) !== 100 ?
+                <>
+                  <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''
+              }
+              {!settings.isMonthly ?
+                <>
+                  <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''
+              }
+              {budget.total && Number(budget.total) < 100 ?
+                <>
+                  <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
+                  <div className='separator' style={{ width: '85%' }}></div>
+                </>
+                : ''
+              }
+              <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
+              <div className='separator' style={{ width: '85%' }}></div>
+              <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
+            </div>
+              : ''
+          }
+        </div>}
+    </div>
   )
 }

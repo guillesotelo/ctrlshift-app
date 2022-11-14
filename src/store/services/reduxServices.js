@@ -8,7 +8,7 @@ const loginUser = async user => {
         const res = await axios.post(`${API_URL}/api/user`, user)
         const finalUser = res.data
         localStorage.setItem('user', JSON.stringify(finalUser))
-        if(finalUser.defaultLedger !== null) localStorage.setItem('ledger', finalUser.defaultLedger)
+        if (finalUser.defaultLedger !== null) localStorage.setItem('ledger', finalUser.defaultLedger)
         return finalUser
     } catch (error) { console.log(error) }
 }
@@ -88,7 +88,7 @@ const createLedger = async data => {
     try {
         const res = await axios.post(`${API_URL}/api/ledger/create`, data)
         const user = JSON.parse(localStorage.getItem('user'))
-        const updatedUser = await updateUser({ user, newData: { defaultLedger: JSON.stringify(res.data) }})
+        const updatedUser = await updateUser({ user, newData: { defaultLedger: JSON.stringify(res.data) } })
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(updatedUser.data))
         return res.data
@@ -112,20 +112,26 @@ const getAllLedgersByEmail = async email => {
 const getLedgerById = async id => {
     try {
         const ledger = await axios.get(`${API_URL}/api/ledger?id=${id}`)
-        localStorage.removeItem('ledger')
-        localStorage.setItem('ledger', JSON.stringify(ledger.data))
-        return ledger.data
+        if (ledger.data && ledger.data.email) {
+            localStorage.removeItem('ledger')
+            localStorage.setItem('ledger', JSON.stringify(ledger.data))
+            return ledger.data
+        }
+        else return null
     } catch (err) { console.log(err) }
 }
 
 const loginLedger = async data => {
     try {
+        const { user } = data
         const res = await axios.post(`${API_URL}/api/ledger`, data)
-        if(!res || !res.data) return false
-        const user = JSON.parse(localStorage.getItem('user'))
-        const updatedUser = await updateUser({ user, newData: { defaultLedger: JSON.stringify(res.data) }})
+        if (!res || !res.data) return false
+
+        const updatedUser = await updateUser({ user, newData: { defaultLedger: JSON.stringify(res.data) } })
+        
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(updatedUser.data))
+
         return res.data
     } catch (error) { console.log(error) }
 }
