@@ -24,6 +24,7 @@ import SwitchBTN from '../components/SwitchBTN';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
 import { MoonLoader } from 'react-spinners';
+import PullToRefresh from 'react-simple-pull-to-refresh';
 
 export default function Home() {
   const [data, setData] = useState({ search: '' })
@@ -427,7 +428,6 @@ export default function Home() {
 
   const onChangeSw = async () => {
     try {
-      setLoading(true)
       const newSettings = JSON.parse(ledger.settings)
 
       const newLedger = await dispatch(updateLedgerData({
@@ -445,11 +445,9 @@ export default function Home() {
         }, 2000)
         setSw(!sw)
       }
-      setLoading(false)
     } catch (err) {
       console.error(err)
       toast.error(MESSAGE[lan].CONN_ERR)
-      setLoading(false)
     }
   }
 

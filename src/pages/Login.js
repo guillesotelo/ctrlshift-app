@@ -148,7 +148,7 @@ export default function Login() {
                     text='continue_with'
                     shape='circle'
                 /> */}
-                <h4 className='login-register-text'>{MESSAGE[lan].LOGIN_REG_TEXT} <button onClick={goToRegister} className='login-register-link'>{MESSAGE[lan].LOGIN_REG_LINK}</button></h4>
+                <h4 className='login-register-text'>{MESSAGE[lan].HI_REGISTER} <button onClick={goToRegister} className='login-register-link'>{MESSAGE[lan].LOGIN_REG_LINK}</button></h4>
                 {data.email && <button onClick={() => setMailModal(true)} className='login-remember-link'>{MESSAGE[lan].LOGIN_REMEMBER}</button>}
                 <h4 className='login-version-text'>{VERSION}</h4>
             </div>

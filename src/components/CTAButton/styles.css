@@ -4,16 +4,38 @@
     align-items: center;
     width: 100%;
     transition: 0.3s;
+    transition: .3s;
 }
 
 .cta-btn {
-    font-size: 1.2vw !important;
-    padding: 1vw 2vw !important;
+    font-size: 1vw !important;
+    padding: .8vw 1.2vw !important;
     margin: 0vw !important;
     color: #E5E5E5;
     border: none;
-    border-radius: 1vw;
+    border-radius: .5vw;
     cursor: pointer;
+}
+
+#cta-btn {
+    font-size: 1vw !important;
+    padding: .8vw 1vw !important;
+    color: rgb(0, 0, 0);
+    background-color: rgb(156, 156, 156);
+    border: none;
+    border-radius: .5vw;
+    margin: 0vw !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1vw;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#cta-btn:hover {
+    opacity: 0.8;
 }
 
 .cta-btn-container:hover {
@@ -31,7 +53,7 @@
 }
 
 .cta-login {
-    margin: 2vw 0 2vw 0;
+    margin: 1vw 0;
     transition: 0.3s;
 }
 
@@ -40,7 +62,7 @@
 }
 
 .cta-register {
-    margin: 2vw 0 4vw;
+    margin: 1vw 0;
     transition: 0.3s;
 }
 .cta-register:hover {

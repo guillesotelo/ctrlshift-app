@@ -1,15 +1,18 @@
 .header-container {
-    padding: 1vw 2vw;
+    padding: .9vw 1.5vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: #263d42;
     box-shadow: 3px 5px 7px rgb(155, 155, 155);
+    position: fixed;
+    width: 97%;
+    z-index: 1;
 }
 
 .svg-menu {
-    height: 2vw;
+    height: 1.3vw;
     filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
     cursor: pointer;
 }
@@ -20,7 +23,7 @@
     font-weight: bold;
     color: #CCA43B;
     text-align: center;
-    font-size: 1.8vw;
+    font-size: 1.5vw;
     text-overflow: ellipsis;
     cursor: pointer;
 }

@@ -20,6 +20,7 @@ canvas {
 /* -----Desktop----- */
 .home-container {
   padding: 2vw;
+  padding-top: 5vw;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -34,7 +35,7 @@ canvas {
 }
 
 .main-section button {
-  width: fit-content !important;
+  width: 10vw !important;
   background-color: #f20bc4;
 }
 
@@ -66,6 +67,8 @@ canvas {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 85%;
+  padding: 1vw 1vw
 }
 
 .installments-section {
@@ -209,23 +212,93 @@ h2 {
   cursor: pointer;
 }
 
+.login-version-text {
+  font-size: 1vw;
+  text-align: center;
+  font-weight: normal;
+  align-self: center;
+  /* margin-top: 6vw; */
+  /* position: absolute; */
+  bottom: 0;
+  width: 70%;
+  color: gray;
+  position: absolute;
+  bottom: 0;
+}
+
+.login-remember-link {
+  color: rgb(100, 100, 218);
+  font-size: 1vw;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin: 2vw 0;
+}
+
 .account-container {
-  margin: 2vw 6vw;
+  /* margin: 0 3vw; */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 5vw;
+  /* justify-content: flex-start; */
+  /* gap: 5vw; */
+  padding-top: 6vw;
+}
+
+.account-separator {
+  height: 8vw !important;
+}
+
+.account-container button {
+  width: 15vw !important;
+  margin: .5vw 0 !important
+}
+
+.account-container input {
+  width: 13vw !important;
+  align-self: center;
+  font-size: .9vw !important;
 }
 
 .info-section {
-  font-size: 1vw;
+  font-size: .8vw;
   font-weight: normal;
+  height: 7vw;
 }
 
+.account-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+}
+
+.account-change-pass {
+  width: 55%;
+}
+
+
 .svg-account {
-  height: 8vw;
+  height: 4vw;
   filter: invert(11%) sepia(5%) saturate(5738%) hue-rotate(178deg) brightness(96%) contrast(81%);
+}
+
+.svg-calculator {
+  filter: invert(18%) sepia(30%) saturate(612%) hue-rotate(143deg) brightness(95%) contrast(87%);
+  height: 2vw;
+  width: auto;
+  cursor: pointer;
+}
+
+.fill-amount-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+  margin: 1vw 0 0 0;
 }
 
 .settings-container {
@@ -233,12 +306,14 @@ h2 {
   flex-direction: column;
   align-items: center;
   padding: 1vw;
+  padding-top: 4vw;
   margin-bottom: 10vw;
 }
 
 .settings-title {
-  font-size: 1.4vw;
+  font-size: 1.5vw;
   margin: 1.5vw;
+  color: #263d42;
 }
 
 .settings-salary input {
@@ -253,9 +328,11 @@ h2 {
 
 .settings-module-title {
   font-size: 1vw;
-  margin: 0.2vw;
-  align-self: flex-start;
-  padding-left: 10vw;
+  margin: 0 0 2vw 0;
+  font-size: 1vw;
+  font-weight: bold;
+  /* align-self: flex-start; */
+  /* padding-left: 10vw; */
 }
 
 .div-settings-module {
@@ -280,7 +357,7 @@ h2 {
 .settings-list-item {
   display: flex;
   flex-direction: row;
-  border-radius: 2vw;
+  border-radius: .5vw;
   background-color: #263d42;
   width: fit-content;
   color: white;
@@ -355,6 +432,7 @@ h2 {
 .svg-trash {
   filter: invert(73%) sepia(58%) saturate(3448%) hue-rotate(315deg) brightness(78%) contrast(107%);
   cursor: pointer;
+  height: 2.5vw;
 }
 
 .salary-div {
@@ -362,13 +440,12 @@ h2 {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 5vw;
-  margin: 1vw 0;
-  gap: 3vw;
-  box-shadow: 3px 3px 9px rgb(155, 155, 155);
-  border-radius: 2vw;
+  box-shadow: 3px 3px 9px lightgray;
+  border-radius: .5vw;
+  gap: 1vw;
+  margin: .5vw;
   width: fit-content;
-  padding: 1vw 2vw;
+  padding: .5vw 1vw;
   align-self: center;
 }
 
@@ -379,7 +456,9 @@ h2 {
   cursor: pointer;
 }
 
-.salary-text {}
+.salary-text {
+  font-size: 1vw !important;
+}
 
 .svg-eye {
   height: 1.5vw;
@@ -409,7 +488,10 @@ h2 {
 }
 
 .notes-container {
-  margin: 2vw;
+  /* margin: 2vw; */
+  padding-top: 6vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .notes-container button {
@@ -466,7 +548,7 @@ h2 {
   border: none;
   /* overflow: hidden; */
   height: fit-content;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   margin: 0 2vw 2vw 2vw;
   resize: none;
   /* height: 4em; */
@@ -524,9 +606,9 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 2vw;
+  margin: .5vw 2vw;
   line-height: 1vw;
-  gap: 2vw;
+  gap: 1vw;
   color: #263d42;
 }
 
@@ -537,7 +619,7 @@ h2 {
 
 /* -----TASKS----- */
 .tasks-container {
-  padding: 0vw 1vw;
+  padding: 3vw 1vw;
   margin: 0 18vw;
   display: flex;
   flex-direction: column;
@@ -597,13 +679,27 @@ h2 {
   top: 53%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 1;
   width: 30%;
   height: fit-content !important;
   background-color: white;
   padding: 2vw;
   text-align: center;
   font-size: 1vw;
+}
+
+.task-modal input {
+  width: 80%;
+  align-self: center;
+}
+
+.task-modal textarea {
+  width: 80%;
+  align-self: center;
+}
+
+.task-modal button {
+  width: 10vw !important;
 }
 
 .task-modal-title {
@@ -686,11 +782,12 @@ h2 {
 
 .time-picker-btn {
   font-size: 1vw !important;
-  padding: 1vw !important;
+  padding: .4vw 1vw !important;
   color: #E5E5E5;
   border: none;
-  border-radius: 1vw;
+  border-radius: .5vw;
   margin: 0vw !important;
+  cursor: pointer;
 }
 
 .svg-watch {
@@ -714,14 +811,14 @@ h2 {
 .home-month-tab {
   display: flex;
   flex-direction: row;
-  margin: 1vw 14vw;
-  padding: 0 3vw;
+  margin: .5vw 14vw;
+  padding: .2vw 3vw;
   justify-content: space-between;
-  font-size: 1.3vw;
-  border-radius: 1vw;
+  font-size: 1vw;
+  border-radius: .5vw;
   color: rgb(102, 102, 102);
-  box-shadow: 3px 3px 9px rgb(155, 155, 155);
-  height: 3vw;
+  box-shadow: 3px 3px 9px lightgray;
+  height: 2vw;
   align-items: center;
 }
 
@@ -925,6 +1022,7 @@ h2 {
   }
 
   .login-version-text {
+    position: inherit;
     font-size: 3.5vw;
     text-align: center;
     font-weight: normal;
@@ -965,15 +1063,32 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 20vw;
+    padding-top: 25vw;
+    gap: 3vw;
+  }
+
+  .account-separator {
+    height: 20vw !important;
+  }
+  
+  .account-container button {
+    width: 60vw !important;
+    /* margin: 2vw 0 !important */
+  }
+  
+  .account-container input {
+    width: 55vw !important;
+    align-self: center;
+    font-size: 3vw !important;
   }
 
   .account-info {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 5vw;
+    align-items: flex-start;
+    height: 25vw;
+    margin: 0;
+    padding: 0;
   }
 
   .account-change-pass {
@@ -1139,6 +1254,8 @@ h2 {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    border-radius: 1.5vw;
+    padding: 1vw 2vw;
     font-size: 5vw;
     margin: 5vw 0;
     gap: 3vw;
@@ -1148,6 +1265,11 @@ h2 {
   .salary-div h4 {
     font-weight: normal;
     font-size: 4vw;
+  }
+
+  .salary-text {
+    font-size: 4vw !important;
+    padding: .5vw 1vw;
   }
 
   .salary {
@@ -1334,7 +1456,7 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10;
+    z-index: 1;
     width: 70%;
     height: fit-content !important;
     background-color: white;
@@ -1343,6 +1465,20 @@ h2 {
     font-size: 1vw;
   }
 
+  .task-modal input {
+    width: 80%;
+    align-self: center;
+  }
+  
+  .task-modal textarea {
+    width: 80%;
+    align-self: center;
+  }
+  
+  .task-modal button {
+    width: fit-content !important;
+  }
+  
   .task-modal-title {
     font-size: 4vw;
     margin: 0 0 2vw 0;

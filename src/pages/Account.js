@@ -37,7 +37,10 @@ export default function Account() {
   const saveUserData = async () => {
     try {
       if(data.newEmail) {
-        if(!data.newEmail.includes('@','.')) return toast.error(MESSAGE[lan].CHECK_DATA)
+        if(!data.newEmail.includes('@') || !data.newEmail.includes('.')) return toast.error(MESSAGE[lan].CHECK_FIELDS)
+      }
+      if(data.password) {
+        if(data.password !== data.password2 || !data.password2) return toast.error(MESSAGE[lan].CHECK_FIELDS)
       }
       
       setLoading(true)
@@ -67,7 +70,7 @@ export default function Account() {
       <ToastContainer autoClose={2000} />
       <div className='account-info'>
         <img style={{ transform: 'scale(1.2)' }} className='svg-account' src={AccountIcon} alt="User Group" />
-        <div style={{ borderLeft: '1px solid lightgray', height: '20vw' }}></div>
+        <div className='account-separator' style={{ borderLeft: '1px solid lightgray', height: '20vw' }}></div>
         <div className='info-section'>
           <h3><b>{MESSAGE[lan].NAME}: </b>{user.username}</h3>
           <h3><b>Email: </b>{user.email}</h3>
@@ -91,7 +94,7 @@ export default function Account() {
           {toggleContents}
         </Dropdown.Toggle>
 
-        <Dropdown.Menu>
+        <Dropdown.Menu  style={{ gap: 20, padding: 25, width: 'fit-content', borderRadius: '1vw' }}>
           {LANGUAGES.map(({ code, title }) => (
             <Dropdown.Item key={code} eventKey={code}><Flag height="16" code={code} /> {title}</Dropdown.Item>
           ))}
@@ -156,6 +159,14 @@ export default function Account() {
             updateData={updateData}
             placeholder={MESSAGE[lan].NEW_PASS}
             name='password'
+            type='password'
+            style={{ fontWeight: 'normal', fontSize: '4vw' }}
+            autoComplete='new-password'
+          />
+          <InputField
+            updateData={updateData}
+            placeholder={MESSAGE[lan].PASS2}
+            name='password2'
             type='password'
             style={{ fontWeight: 'normal', fontSize: '4vw' }}
             autoComplete='new-password'

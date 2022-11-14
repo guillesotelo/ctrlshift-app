@@ -126,7 +126,7 @@ export default function Register() {
                             {toggleContents}
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{ gap: 20, padding: 25, width: 'fit-content', borderRadius: '1vw' }}>
                             {LANGUAGES.map(({ code, title }) => (
                                 <Dropdown.Item key={code} eventKey={code}><Flag height="16" code={code} /> {title}</Dropdown.Item>
                             ))}
