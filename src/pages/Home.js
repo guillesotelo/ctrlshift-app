@@ -64,7 +64,7 @@ export default function Home() {
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
-    if (!localLedger || !localLedger.email || localLedger.settings) history.push('/ledger')
+    if (!localLedger || !localLedger.email || !localLedger.settings) history.push('/ledger')
 
     if (!localUser || !localUser.email) history.push('/login')
 
