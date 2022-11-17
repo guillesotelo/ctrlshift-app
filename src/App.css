@@ -1232,6 +1232,7 @@ h2 {
 
   .svg-trash {
     filter: invert(73%) sepia(58%) saturate(3448%) hue-rotate(315deg) brightness(78%) contrast(107%);
+    height: 8.5vw;
   }
 
   .fill-amount-row {
