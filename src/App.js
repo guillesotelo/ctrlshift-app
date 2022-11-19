@@ -14,7 +14,7 @@ import Notes from "./pages/Notes";
 import Tasks from "./pages/Tasks";
 import ChangePass from "./pages/ChangePass";
 import { useSelector } from "react-redux";
-// import NotFound from './pages/NotFound'
+import NotFound from './pages/NotFound'
 
 function App() {
 
@@ -59,6 +59,9 @@ function App() {
       <Route path="/tasks">
         <Header />
         <Tasks />
+      </Route>
+      <Route>
+        <SplashScreen />
       </Route>
     </Switch>
   )

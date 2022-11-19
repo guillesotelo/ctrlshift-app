@@ -13,7 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
-import { MoonLoader } from 'react-spinners';
+import { PuffLoader } from 'react-spinners';
 
 export default function Tasks() {
     const [allTasks, setAllTasks] = useState([])
@@ -350,7 +350,7 @@ export default function Tasks() {
                 <h4>|</h4>
                 <h4 onClick={() => setTab('isChecked')} className='task-tab-title' style={{ borderBottom: tab === 'isChecked' ? '2px solid #CCA43B' : '' }}>{MESSAGE[lan].T_FIN}</h4>
             </div>
-            {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+            {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                 :
                 allTasks.length ?
                     <div className='task-list' style={{ filter: openModal && 'blur(10px)' }}>

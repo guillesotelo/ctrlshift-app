@@ -17,7 +17,7 @@ import { MESSAGE } from '../constants/messages'
 import { VERSION } from '../constants/app'
 import { getUserLanguage } from '../helpers';
 import 'react-toastify/dist/ReactToastify.css';
-import { MoonLoader } from 'react-spinners';
+import { PuffLoader } from 'react-spinners';
 
 export default function Login() {
     const [data, setData] = useState({})
@@ -128,7 +128,7 @@ export default function Login() {
                     type='password'
                     style={{ fontWeight: 'normal', fontSize: '4vw' }}
                 />
-                {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+                {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                     :
                     <CTAButton
                         label={MESSAGE[lan].LOGIN_BTN}

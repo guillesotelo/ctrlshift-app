@@ -9,7 +9,7 @@ import TrashCan from '../assets/trash-can.svg'
 import EditPen from '../assets/edit-icon.svg'
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
-import { MoonLoader } from 'react-spinners';
+import { PuffLoader } from 'react-spinners';
 
 export default function Notes() {
     const [isEdit, setIsEdit] = useState(false)
@@ -99,7 +99,7 @@ export default function Notes() {
     return (
         <div className='notes-container'>
             <ToastContainer autoClose={2000} />
-            {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+            {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                 : <>
                     {removeModal &&
                         <div className='remove-modal'>

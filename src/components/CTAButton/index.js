@@ -1,15 +1,17 @@
 import React from 'react'
+import { SyncLoader } from 'react-spinners'
 import { APP_COLORS } from '../../constants/colors'
 import './styles.css'
 
 export default function CTAButton(props) {
-    const { 
-        label, 
-        color, 
-        size, 
-        style, 
-        handleClick, 
+    const {
+        label,
+        color,
+        size,
+        style,
+        handleClick,
         disabled,
+        loading,
         className,
         btnClass
     } = props
@@ -24,9 +26,13 @@ export default function CTAButton(props) {
 
     return (
         <div className={className || 'cta-btn-container'}>
-            <button className={btnClass || 'cta-btn'} onClick={handleClick} style={buttonStyle} disabled={disabled || false}>
-                {label || ''}
-            </button>
+            {loading ?
+                <SyncLoader speedMultiplier={0.8} color={color || '#CCA43B'} />
+                :
+                <button className={btnClass || 'cta-btn'} onClick={handleClick} style={buttonStyle} disabled={disabled || false}>
+                    {label || ''}
+                </button>
+            }
         </div>
     )
 }

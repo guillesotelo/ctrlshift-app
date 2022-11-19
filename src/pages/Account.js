@@ -12,7 +12,7 @@ import { APP_COLORS } from '../constants/colors'
 import { changePassword, updateUserData } from '../store/reducers/user'
 import { getUserLanguage } from '../helpers';
 import { toast, ToastContainer } from 'react-toastify'
-import MoonLoader from "react-spinners/MoonLoader";
+import PuffLoader from "react-spinners/PuffLoader";
 
 export default function Account() {
   const [showPassBox, setShowPassBox] = useState(false)
@@ -182,7 +182,7 @@ export default function Account() {
         />
       }
 
-      {loading ? <MoonLoader color='#CCA43B' />
+      {loading ? <PuffLoader color='#CCA43B' />
         : showPassBox || isEdit ?
           <>
             {(data.password && data.currentPass && (data.password !== data.currentPass)) 

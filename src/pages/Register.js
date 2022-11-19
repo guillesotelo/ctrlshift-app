@@ -12,7 +12,7 @@ import Flag from 'react-world-flags'
 import { LANGUAGES } from '../constants/languages.js'
 import { MESSAGE } from '../constants/messages'
 import 'react-toastify/dist/ReactToastify.css';
-import { MoonLoader } from 'react-spinners';
+import { PuffLoader } from 'react-spinners';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Register() {
@@ -72,7 +72,7 @@ export default function Register() {
             <div className='logo-register-container'>
                 <img className='logo-img-register' src={Logo} alt="Ctrol Shiflt" />
             </div>
-            {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+            {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                 :
                 <div className='login-section'>
                     <h4 className='hi-login'>{MESSAGE[lan].HI_REGISTER}</h4>

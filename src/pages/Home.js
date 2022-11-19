@@ -23,8 +23,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import SwitchBTN from '../components/SwitchBTN';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
-import { MoonLoader } from 'react-spinners';
-import PullToRefresh from 'react-simple-pull-to-refresh';
+import { PuffLoader } from 'react-spinners';
 
 export default function Home() {
   const [data, setData] = useState({ search: '' })
@@ -32,6 +31,7 @@ export default function Home() {
   const [ledger, setLedger] = useState('')
   const [settings, setSettings] = useState('')
   const [loading, setLoading] = useState(false)
+  const [loadingBtn, setLoadingBtn] = useState(false)
   const [arrData, setArrData] = useState([])
   const [allUsers, setAllUsers] = useState([])
   const [allPayTypes, setAllPayTypes] = useState([])
@@ -302,6 +302,7 @@ export default function Home() {
 
   const handleSave = async () => {
     try {
+      setLoadingBtn(true)
       if (checkDataOk(data)) {
         let saved = {}
         const submitData = { ...data }
@@ -344,8 +345,10 @@ export default function Home() {
 
         setTimeout(() => renderCharts(), 500)
       } else toast.error(MESSAGE[lan].CHECK_FIELDS)
+      setLoadingBtn(false)
     } catch (err) {
       toast.error(MESSAGE[lan].SAVE_ERR)
+      setLoadingBtn(false)
     }
   }
 
@@ -589,6 +592,7 @@ export default function Home() {
                     label={MESSAGE[lan].SAVE}
                     size='100%'
                     color={APP_COLORS.YELLOW}
+                    loading={loadingBtn}
                   />
                 </div>
               </>
@@ -667,7 +671,7 @@ export default function Home() {
         : ''}
 
       {loading ?
-        <div style={{ alignSelf: 'center', marginTop: '8vw', display: 'flex' }}><MoonLoader color='#CCA43B' /></div>
+        <div style={{ alignSelf: 'center', marginTop: '8vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
         :
         <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
           <MovementsTable

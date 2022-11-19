@@ -11,7 +11,7 @@ import { VERSION } from '../constants/app'
 import { getUserLanguage } from '../helpers';
 import 'react-toastify/dist/ReactToastify.css';
 import { changePassword } from '../store/reducers/user';
-import MoonLoader from "react-spinners/MoonLoader";
+import PuffLoader from "react-spinners/PuffLoader";
 
 export default function ChangePass() {
     const [data, setData] = useState({})
@@ -62,7 +62,7 @@ export default function ChangePass() {
             <div className='logo-login-container'>
                 <img className='logo-img' src={Logo} alt="Control Shift" />
             </div>
-            {loading ? <MoonLoader color='#CCA43B'/> : emailFound ?
+            {loading ? <PuffLoader color='#CCA43B'/> : emailFound ?
                 <div className='new-pass-container'>
                     <h4 className='hi-login'>{MESSAGE[lan].CHANGE_PASS}</h4>
                     <InputField
