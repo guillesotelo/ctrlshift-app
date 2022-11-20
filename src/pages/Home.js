@@ -33,6 +33,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [loadingBtn, setLoadingBtn] = useState(false)
   const [arrData, setArrData] = useState([])
+  const [dropSuggestions, setDropSuggestions] = useState([])
+  const [showDropDown, setShowDropDown] = useState(false)
   const [allUsers, setAllUsers] = useState([])
   const [allPayTypes, setAllPayTypes] = useState([])
   const [allCategories, setAllCategories] = useState([])
@@ -111,6 +113,15 @@ export default function Home() {
 
   useEffect(() => {
     if (!data.search) renderCharts()
+    if (data.detail) {
+      const newSuggestions = arrData.map(mov => {
+        if (mov.detail !== data.detail && mov.detail.toLowerCase().includes(data.detail.toLowerCase())) {
+          setShowDropDown(true)
+          return mov.detail
+        }
+      }).filter(defined => defined)
+      setDropSuggestions(newSuggestions)
+    } else setShowDropDown(false)
   }, [data, allCategories, allPayTypes, arrData])
 
   useEffect(() => {
@@ -202,7 +213,9 @@ export default function Home() {
         let filteredMovs = movs.data
         const localLedger = JSON.parse(localStorage.getItem('ledger'))
         const localSettings = JSON.parse(localLedger.settings)
+
         setSettings(localSettings)
+
         const { isMonthly } = localSettings
         if (isMonthly) setArrData(processMonthlyData(filteredMovs))
         else setArrData(filteredMovs)
@@ -480,7 +493,7 @@ export default function Home() {
         </div>
       }
       {openModal &&
-        <div className='fill-section-container'>
+        <div className='fill-section-container' onClick={() => setShowDropDown(false)}>
           <h3 style={{ color: APP_COLORS.GRAY }}>{MESSAGE[lan].MOV_INFO}:</h3>
           <div className='fill-section'>
             <CTAButton
@@ -529,6 +542,10 @@ export default function Home() {
                   name='detail'
                   type='text'
                   value={data.detail}
+                  items={dropSuggestions}
+                  setItems={setDropSuggestions}
+                  showDropDown={showDropDown}
+                  setShowDropDown={setShowDropDown}
                 />
                 <DropdownBTN
                   options={allUsers}

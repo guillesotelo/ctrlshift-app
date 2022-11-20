@@ -52,6 +52,34 @@
     font-weight: normal;
 }
 
+.drop-item-container {
+    position: absolute;
+    background-color: white;
+    border: 1.5px solid #cca43b;
+    border-radius: .5vw;
+    z-index: 1;
+    width: auto;
+    margin-top: 2.6vw;
+}
+
+.drop-item {
+    color: #263d42;
+    margin: 0;
+    padding: .5vw .5vw;
+    height: 1.5vw;
+    line-height: 1.5vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: .3s;
+}
+
+
+.drop-item:hover {
+    background-color: #cca43b;
+}
+
 @media only screen and (max-width: 640px) {
     .inputfield-container {
         display: flex;
@@ -90,5 +118,26 @@
     .inputfield-field::placeholder {
         font-size: 3vw;
         font-weight: normal;
+    }
+
+    .drop-item-container {
+        position: absolute;
+        background-color: white;
+        border: 1.5px solid #cca43b;
+        border-radius: 2vw;
+        z-index: 1;
+        width: auto;
+        margin-top: 8vw;
+    }
+    
+    .drop-item {
+        color: #263d42;
+        margin: 1.5vw 0;
+        padding: 1vw 2vw;
+        height: 4.5vw;
+        line-height: 4.5vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

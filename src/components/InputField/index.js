@@ -11,6 +11,9 @@ export default function InputField(props) {
         style,
         updateData,
         autoComplete,
+        items,
+        showDropDown,
+        setShowDropDown,
         value,
         cols,
         rows
@@ -40,16 +43,31 @@ export default function InputField(props) {
                     value={value}
                 />
                 :
-                <input
-                    className='inputfield-field'
-                    autoComplete={autoComplete}
-                    onChange={handleChange}
-                    placeholder={placeholder || ''}
-                    type={type || 'text'}
-                    style={style || null}
-                    value={value}
-                />
-
+                <>
+                    <input
+                        className='inputfield-field'
+                        autoComplete={autoComplete}
+                        onChange={handleChange}
+                        placeholder={placeholder || ''}
+                        type={type || 'text'}
+                        style={style || null}
+                        value={value}
+                    />
+                    {showDropDown && items && items.length ?
+                        <div className='drop-item-container'>
+                            {items.map((item, i) =>
+                                <h5
+                                    key={i}
+                                    className='drop-item'
+                                    style={{ borderBottom: i !== items.length - 1 && '1px solid #cca43b' }}
+                                    onClick={() => {
+                                        updateData(name, item)
+                                        setShowDropDown(false)
+                                    }}>{item}</h5>
+                            )}
+                        </div>
+                        : ''}
+                </>
             }
         </div>
     )
