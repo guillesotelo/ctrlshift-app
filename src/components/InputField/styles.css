@@ -97,7 +97,7 @@
         border: 1.5px solid #cca43b;
         background-color: #f0f0f0;
         font-weight: normal;
-        border-radius: 1vw;
+        border-radius: 2vw;
         padding: 2vw;
         /* text-align: center; */
         font-size: 3vw !important;
@@ -107,7 +107,7 @@
         border: 1.5px solid #cca43b;
         background-color: #f0f0f0;
         font-weight: bolder;
-        border-radius: 1vw;
+        border-radius: 2vw;
         padding: 2vw;
         font-size: 3vw !important;
         font-family: 'Montserrat', sans-serif !important;

@@ -99,7 +99,7 @@ export default function Calculator(props) {
                             handleClick={() => {
                                 setCalculator(false)
                                 const newVal = val2 ? calculate(math) : val
-                                updateData('amount', newVal.toFixed(2))
+                                updateData('amount', newVal % 1 !== 0 ? newVal.toFixed(2) : newVal)
                             }}
                             color={APP_COLORS.YELLOW}
                             size='100%'
