@@ -6,7 +6,8 @@ import {
     setUserVoid, 
     updateUser,
     changePass,
-    resetPassordByEmail
+    resetPassordByEmail,
+    checkAdminCredentials
 } from "../services/reduxServices";
 
 const initialState = {
@@ -20,6 +21,7 @@ export const logOut = createAsyncThunk('LOGOUT_USER', setUserVoid)
 export const sendEmailResetPass = createAsyncThunk('SEND_EMAIL_RESET', resetPassordByEmail)
 export const changePassword = createAsyncThunk('CHANGE_PASSWORD', changePass)
 export const updateUserData = createAsyncThunk('UPDATE_USER', updateUser)
+export const getAdminCredentials = createAsyncThunk('GET_ADMIN_CREDENTIALS', checkAdminCredentials)
 
 const userReducer = createReducer(initialState, {
   [logIn.fulfilled]: (state, action) => action.payload,
@@ -28,7 +30,8 @@ const userReducer = createReducer(initialState, {
   [logOut.fulfilled]: (state, action) => action.payload,
   [sendEmailResetPass.fulfilled]: (state, action) => action.payload,
   [changePassword.fulfilled]: (state, action) => action.payload,
-  [updateUserData.fulfilled]: (state, action) => action.payload
+  [updateUserData.fulfilled]: (state, action) => action.payload,
+  [getAdminCredentials.fulfilled]: (state, action) => action.payload
 });
 
 export default userReducer;

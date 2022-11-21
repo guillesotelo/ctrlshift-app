@@ -146,9 +146,24 @@ const createReport = async data => {
 const getAllReports = async data => {
     try {
         const reports = await axios.get(`${API_URL}/api/report/getAll`, { params: data })
-        return reports
+        return reports.data
     } catch (err) { console.log(err) }
 }
+
+const checkAdminCredentials = async data => {
+    try {
+        const user = await axios.get(`${API_URL}/api/user/admin`, { params: data })
+        return user.data
+    } catch (err) { console.log(err) }
+}
+
+const updateReportData = async data => {
+    try {
+        const report = await axios.post(`${API_URL}/api/report/update`, data)
+        return report
+    } catch (err) { console.log(err) }
+}
+
 
 export {
     loginUser,
@@ -168,5 +183,7 @@ export {
     updateLedger,
     deleteMovement,
     createReport,
-    getAllReports
+    getAllReports,
+    updateReportData,
+    checkAdminCredentials
 }

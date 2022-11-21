@@ -1701,4 +1701,33 @@ h2 {
     gap: 8vw;
     margin: 6vw 0;
   }
+  
+  .reports-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12vw;
+  }
+
+  .report-card {
+    background-color: #ddb6b6;
+    border-radius: 2vw;
+    padding: 4vw;
+    margin-bottom: 5vw;
+  }
+
+  .single-report-title {
+    font-size: 4vw;
+    margin: .5vw;
+  }
+
+  .single-report-email {
+    font-size: 3vw;
+    margin: .5vw;
+  }
+
+  .single-report-description {
+    font-size: 3.5vw;
+    margin: 5vw .5vw;
+  }
 }
