@@ -892,6 +892,37 @@ h2 {
     margin: 2vw 0;
   }
 
+  .reports-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    /* align-items: center; */
+    margin-top: 3vw;
+  }
+
+  .report-card {
+    background-color: #ddb6b6;
+    width: 100%;
+    border-radius: 1vw;
+    padding: 1.5vw;
+    margin-bottom: 1vw;
+  }
+
+  .single-report-title {
+    font-size: 1.5vw;
+    margin: .5vw;
+  }
+
+  .single-report-email {
+    font-size: .8vw;
+    margin: .5vw;
+  }
+
+  .single-report-description {
+    font-size: 1vw;
+    margin: 1vw .5vw 3vw .5vw;
+  }
+
 /* -----Tablet----- */
 @media only screen and (max-width: 768px) {}
 
@@ -1712,6 +1743,7 @@ h2 {
   .report-card {
     background-color: #ddb6b6;
     border-radius: 2vw;
+    width: 90%;
     padding: 4vw;
     margin-bottom: 5vw;
   }
@@ -1728,6 +1760,6 @@ h2 {
 
   .single-report-description {
     font-size: 3.5vw;
-    margin: 5vw .5vw;
+    margin: 5vw .5vw 7vw .5vw;
   }
 }
