@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import Notes from "./pages/Notes";
 import Tasks from "./pages/Tasks";
 import ChangePass from "./pages/ChangePass";
+import Report from "./pages/Report";
 import { useSelector } from "react-redux";
 import NotFound from './pages/NotFound'
 
@@ -59,6 +60,10 @@ function App() {
       <Route path="/tasks">
         <Header />
         <Tasks />
+      </Route>
+      <Route path="/reportIssue">
+        <Header />
+        <Report />
       </Route>
       <Route>
         <SplashScreen />

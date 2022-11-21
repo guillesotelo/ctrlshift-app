@@ -12,7 +12,7 @@
 
 .inputfield-field {
     border: 2px solid #cca43b;
-    background-color: #e5e5e5;
+    background-color: #f0f0f0;
     font-weight: normal;
     border-radius: .5vw;
     padding: .7vw 1vw;
@@ -28,9 +28,9 @@
 
 .inputfield-textarea {
     border: 2px solid #cca43b;
-    background-color: #e5e5e5;
+    background-color: #f0f0f0;
     font-weight: normal;
-    border-radius: 1vw;
+    border-radius: .5vw;
     margin: 0 !important;
     padding: 1vw;
     /* text-align: center; */
@@ -95,9 +95,9 @@
 
     .inputfield-field {
         border: 1.5px solid #cca43b;
-        background-color: #e5e5e5;
+        background-color: #f0f0f0;
         font-weight: normal;
-        border-radius: 2vw;
+        border-radius: 1vw;
         padding: 2vw;
         /* text-align: center; */
         font-size: 3vw !important;
@@ -105,7 +105,7 @@
 
     .inputfield-textarea {
         border: 1.5px solid #cca43b;
-        background-color: #e5e5e5;
+        background-color: #f0f0f0;
         font-weight: bolder;
         border-radius: 1vw;
         padding: 2vw;

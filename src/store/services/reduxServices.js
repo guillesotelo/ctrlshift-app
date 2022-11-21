@@ -136,6 +136,20 @@ const loginLedger = async data => {
     } catch (error) { console.log(error) }
 }
 
+const createReport = async data => {
+    try {
+        const res = await axios.post(`${API_URL}/api/report/create`, data)
+        return res.data
+    } catch (err) { console.log(err) }
+}
+
+const getAllReports = async data => {
+    try {
+        const reports = await axios.get(`${API_URL}/api/report/getAll`, { params: data })
+        return reports
+    } catch (err) { console.log(err) }
+}
+
 export {
     loginUser,
     registerUser,
@@ -152,5 +166,7 @@ export {
     getLedgerById,
     loginLedger,
     updateLedger,
-    deleteMovement
+    deleteMovement,
+    createReport,
+    getAllReports
 }

@@ -610,6 +610,7 @@ export default function Home() {
                     size='100%'
                     color={APP_COLORS.YELLOW}
                     loading={loadingBtn}
+                    style={{ color: '#263d42' }}
                   />
                 </div>
               </>

@@ -83,6 +83,17 @@ export default function Menu(props) {
               style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
               className='cta-menu'
             />
+            <CTAButton
+              label={MESSAGE[lan].REPORT_ISSUE}
+              color='#263d42'
+              handleClick={() => {
+                setMenuClass('menu-hidden')
+                history.push('/reportIssue')
+              }}
+              size='100%'
+              style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
+              className='cta-menu'
+            />
           </>
         }
         <CTAButton

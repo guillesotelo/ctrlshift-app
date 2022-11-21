@@ -8,7 +8,7 @@
     box-shadow: 3px 5px 7px rgb(155, 155, 155);
     position: fixed;
     width: 97%;
-    z-index: 1;
+    z-index: 2;
 }
 
 .svg-menu {
@@ -40,7 +40,7 @@
         box-shadow: 3px 5px 7px rgb(155, 155, 155);
         position: fixed;
         width: 90%;
-        z-index: 1;
+        z-index: 2;
     }
 
     .svg-menu {

@@ -39,6 +39,7 @@ export const MESSAGE = {
         NOTES: 'Notas',
         TASKS: 'Tareas',
         LOGOUT: 'Cerrar sesión',
+        REPORT_ISSUE: 'Reportar un problema',
 
         //LEDGER
         L_PAY_TYPES: ['Efectivo', 'Débito', 'TC', 'Transferencia'],
@@ -153,7 +154,15 @@ export const MESSAGE = {
         AN_BAL: 'Balance Anual',
         CAT_EXP: 'Gastos por categoría',
         PAY_TYPES: 'Tipos de Pago',
-        AUTHORS: 'Autores'
+        AUTHORS: 'Autores',
+
+        //REPORTS
+        REPORTS_TITLE: 'Reportar un problema',
+        REPORTS_TEXT: 'Te has encontrado con un problema al usar la app? Desde aquí puedes enviarnos lo que ha sucedido. De esta manera nos ayudas a resolverlo rápidamente',
+        ISSUE_TITLE: 'Título del problema',
+        ISSUE_DESC: 'Describe el problema',
+        ISSUE_SAVED: 'Reporte enviado correctamente',
+        ISSUE_TX: 'Gracias por tu ayuda :)'
     },
 
     us: {
@@ -196,6 +205,7 @@ export const MESSAGE = {
         NOTES: 'Notes',
         TASKS: 'Tasks',
         LOGOUT: 'Logout',
+        REPORT_ISSUE: 'Report a problem',
 
         //LEDGER
         L_PAY_TYPES: ['Cash', 'Debit', 'Credit Card', 'Transfer'],
@@ -310,7 +320,15 @@ export const MESSAGE = {
         AN_BAL: 'Annual Balance',
         CAT_EXP: 'Expenses by category',
         PAY_TYPES: 'Payment Types',
-        AUTHORS: 'Authors'
+        AUTHORS: 'Authors',
+
+        //REPORTS
+        REPORTS_TITLE: 'Report a problem',
+        REPORTS_TEXT: 'Did you have a problem while using the app? Did you hit a bug? From here you can send us a report of what has happened, and so you can help us solve it quickly',
+        ISSUE_TITLE: 'Title of the issue',
+        ISSUE_DESC: 'Describe what happened',
+        ISSUE_SAVED: 'Report sent successfully',
+        ISSUE_TX: 'Thanks for your help :)'
     },
 
     en: {
@@ -353,6 +371,7 @@ export const MESSAGE = {
         NOTES: 'Notes',
         TASKS: 'Tasks',
         LOGOUT: 'Logout',
+        REPORT_ISSUE: 'Report a problem',
 
         //LEDGER
         L_PAY_TYPES: ['Cash', 'Debit', 'Credit Card', 'Transfer'],
@@ -467,7 +486,15 @@ export const MESSAGE = {
         AN_BAL: 'Annual Balance',
         CAT_EXP: 'Expenses by category',
         PAY_TYPES: 'Payment Types',
-        AUTHORS: 'Authors'
+        AUTHORS: 'Authors',
+
+        //REPORTS
+        REPORTS_TITLE: 'Report a problem',
+        REPORTS_TEXT: 'Did you have a problem while using the app? Did you hit a bug? From here you can send us a report of what has happened, and so you can help us solve it quickly',
+        ISSUE_TITLE: 'Title of the issue',
+        ISSUE_DESC: 'Describe what happened',
+        ISSUE_SAVED: 'Report sent successfully',
+        ISSUE_TX: 'Thanks for your help :)'
     },
 
     se: {
@@ -510,6 +537,7 @@ export const MESSAGE = {
         NOTES: 'Anteckningar',
         TASKS: 'Uppgifter',
         LOGOUT: 'Logga ut',
+        REPORT_ISSUE: 'Rapportera ett problem',
 
         //LEDGER
         L_PAY_TYPES: ['Kontanter', 'Debet', 'Kreditkort', 'Överföring'],
@@ -624,6 +652,14 @@ export const MESSAGE = {
         AN_BAL: 'Årssaldo',
         CAT_EXP: 'Utgifter per kategori',
         PAY_TYPES: 'Betalningstyper',
-        AUTHORS: "Författare"
+        AUTHORS: "Författare",
+
+        //REPORTS
+        REPORTS_TITLE: 'Rapportera ett problem',
+        REPORTS_TEXT: 'Hade du problem när du använde appen? Träffade du en bugg? Härifrån kan du skicka oss en rapport om vad som har hänt, så att du kan hjälpa oss att lösa det snabbt',
+        ISSUE_TITLE: 'Ärendens titel',
+        ISSUE_DESC: 'Beskriv vad som hände',
+        ISSUE_SAVED: 'Rapporten har skickats framgångsrikt',
+        ISSUE_TX: 'Tack för din hjälp :)'
     }
 }
