@@ -30,7 +30,7 @@
     flex-direction: row;
     font-size: .9vw;
     justify-content: space-between;
-    border: 3px solid #263d42;
+    /* border: 3px solid #263d42; */
     border-top-left-radius: .5vw;
     border-top-right-radius: .5vw;
     padding: 0.5vw;
@@ -49,9 +49,9 @@
     font-size: .9vw;
     justify-content: space-between;
     align-items: center;
-    border-right: 2px solid #263d42;
+    /* border-right: 2px solid #263d42;
     border-left: 2px solid #263d42;
-    border-bottom: 2px solid #263d42;
+    border-bottom: 2px solid #263d42; */
     padding: 0.3vw;
     height: fit-content;
 }
@@ -87,8 +87,8 @@
 }
 
 .table-lazy-btn {
-    border: 1px solid #263d42;
-    border-top: none;
+    /* border: 1px solid #263d42; */
+    border: none;
     border-bottom-left-radius: .5vw;
     border-bottom-right-radius: .5vw;
     background-color: #d7dfeb;
@@ -134,9 +134,9 @@
         flex-direction: row;
         font-size: 2.5vw;
         justify-content: space-between;
-        border: 1px solid #263d42;
-        border-top-left-radius: 2vw;
-        border-top-right-radius: 2vw;
+        /* border: 1px solid #263d42; */
+        border-top-left-radius: 1vw;
+        border-top-right-radius: 1vw;
         padding: 1vw;
         background-color: #d7dfeb;
     }
@@ -153,9 +153,9 @@
         font-size: 2.5vw;
         justify-content: space-between;
         align-items: center;
-        border-right: 1px solid #263d42;
+        /* border-right: 1px solid #263d42;
         border-left: 1px solid #263d42;
-        border-bottom: 1px solid #c0c0c0;
+        border-bottom: 1px solid #c0c0c0; */
         padding: 1vw;
         height: fit-content;
     }
@@ -185,10 +185,10 @@
     }
 
     .table-lazy-btn {
-        border: 1px solid #263d42;
-        border-top: none;
-        border-bottom-left-radius: 2vw;
-        border-bottom-right-radius: 2vw;
+        /* border: 1px solid #263d42; */
+        border: none;
+        border-bottom-left-radius: 1vw;
+        border-bottom-right-radius: 1vw;
         background-color: #d7dfeb;
         padding: 1.5vw;
         color: rgb(79, 79, 79);

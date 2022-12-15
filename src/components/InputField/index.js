@@ -59,7 +59,7 @@ export default function InputField(props) {
                                 <h5
                                     key={i}
                                     className='drop-item'
-                                    style={{ borderBottom: i !== items.length - 1 && '1px solid #cca43b' }}
+                                    style={{ borderBottom: i !== items.length - 1 && '1px solid #e7e7e7' }}
                                     onClick={() => {
                                         updateData(name, item)
                                         setShowDropDown(false)

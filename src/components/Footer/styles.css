@@ -1,6 +1,6 @@
 .footer-container {
     height: 10vw;
-    background-color: #E5E5E5;
+    /* background-color: #E5E5E5; */
     color: #263d42;
     display: flex;
     flex-direction: column;

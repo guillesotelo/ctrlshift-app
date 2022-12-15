@@ -138,7 +138,7 @@ export default function Report() {
                                     <h4 className='single-report-description'>{report.description}</h4>
                                     <CTAButton
                                         handleClick={() => markAsFixed(report)}
-                                        label={report.isFixed ? 'Check as not fixed' : 'Check as fixed'}
+                                        label={report.isFixed ? 'Mark as not fixed' : 'Mark as fixed'}
                                         size='60%'
                                         color={report.isFixed ? APP_COLORS.GRAY : APP_COLORS.SPACE}
                                         loading={loading}

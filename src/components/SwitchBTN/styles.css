@@ -11,8 +11,9 @@
 }
 
 .switch-box {
-    height: 2vw;
-    width: 4vw;
+    height: 2.1vw;
+    width: 4.2vw;
+    padding: 0.1vw;
     border: 2px solid #535353;
     border-radius: 2vw;
     display: flex;
@@ -58,7 +59,7 @@
     
     .switch-label {
         font-size: 3vw;
-        margin: 0 0 1.5vw 0;
+        margin: 1vw 0 1vw 0;
         padding: 0;
         text-align: center;
     }
@@ -67,25 +68,26 @@
         height: 8vw;
         width: 15vw;
         border: 2px solid #535353;
-        border-radius: 2vw;
+        border-radius: 5vw;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         transition: 0.4s;
         cursor: pointer;
+        padding: .2vw .5vw;
     }
     
     .switch-on {
-        height: 8vw;
+        height: 7vw;
         width: 7vw;
+        line-height: 7vw;
         align-self: center;
         border: 1px solid rgb(58, 90, 150);
-        border-radius: 1.5vw;
+        border-radius: 50%;
         background-color: #263d42;
         transition: 0.4s;
         color: rgb(214, 214, 214);
-        line-height: 8vw;
         font-size: 2.5vw;
         text-align: center;
         font-weight: bold;
@@ -93,7 +95,8 @@
     
     .switch-off {
         height: 7vw;
-        width: 5vw;
+        width: 7vw;
+        line-height: 7vw;
         align-self: center;
         border-radius: 2vw;
         transition: 0.3s;

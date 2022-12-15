@@ -68,7 +68,7 @@ canvas {
   flex-direction: column;
   justify-content: center;
   width: 85%;
-  padding: 1vw 1vw
+  /* padding: 1vw 1vw */
 }
 
 .installments-section {
@@ -472,7 +472,7 @@ h2 {
 }
 
 .table-div {
-  margin: 0 12vw
+  /* margin: 0 12vw */
 }
 
 .separator {
@@ -778,8 +778,6 @@ h2 {
   width: 4vw;
 }
 
-.task-date-btn {}
-
 .time-picker-btn {
   font-size: 1vw !important;
   padding: .4vw 1vw !important;
@@ -929,7 +927,6 @@ h2 {
 /* -----Mobile----- */
 @media only screen and (max-width: 640px) {
   .home-container {
-    padding: 6vw 5vw;
     overflow-x: hidden;
     min-height: 200%;
     padding-top: 25vw;
@@ -953,7 +950,7 @@ h2 {
     box-shadow: 5px 5px 11px rgb(155, 155, 155);
     border-radius: 2vw;
     margin: 4vw;
-    padding-bottom: 0;
+    padding: 0;
     transition: height 0.25s linear;
     position: absolute;
     top: 50%;
@@ -975,12 +972,19 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 80%;
+    /* width: 80%; */
   }
 
   .fill-section-row {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .fill-section-dd {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* column-gap: 2vw; */
   }
 
   .installments-section {
@@ -989,7 +993,6 @@ h2 {
     align-items: center;
     border-radius: 1vw;
     width: fit-content;
-    /* padding: 1vw; */
     margin: 2vw 0 0 0;
   }
 
@@ -1000,7 +1003,7 @@ h2 {
   }
 
   .div-modal-btns {
-    margin: 8vw 0;
+    margin: 8vw 0 4vw 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -1624,8 +1627,6 @@ h2 {
   .time-picker-btn {
     padding: 0
   }
-
-  .task-date-btn {}
 
   .time-picker-btn {
     font-size: 4vw !important;

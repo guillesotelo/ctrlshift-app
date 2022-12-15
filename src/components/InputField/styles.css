@@ -11,8 +11,8 @@
 }
 
 .inputfield-field {
-    border: 2px solid #cca43b;
-    background-color: #f0f0f0;
+    border: 1px solid #e5e5e5;
+    background-color: #e5e5e5;
     font-weight: normal;
     border-radius: .5vw;
     padding: .7vw 1vw;
@@ -23,12 +23,12 @@
 
 .inputfield-field:focus {
     outline: #263d42;
-    border-color: #263d42;
+    border: 1px solid #E4C69C;
 }
 
 .inputfield-textarea {
-    border: 2px solid #cca43b;
-    background-color: #f0f0f0;
+    border: 1px solid #e5e5e5;
+    background-color: #e5e5e5;
     font-weight: normal;
     border-radius: .5vw;
     margin: 0 !important;
@@ -43,7 +43,7 @@
 
 .inputfield-textarea:focus {
     outline: #263d42;
-    border-color: #263d42;
+    border: 1px solid #E4C69C;
 }
 
 
@@ -55,24 +55,25 @@
 .drop-item-container {
     position: absolute;
     background-color: white;
-    border: 1.5px solid #cca43b;
-    border-radius: .5vw;
+    border: 1px solid #E4C69C;
+    border-top: none;
     z-index: 1;
-    width: auto;
+    width: 25.4vw;
     margin-top: 2.6vw;
+    max-height: 20vw;
+    overflow-y: auto;
 }
 
 .drop-item {
     color: #263d42;
-    margin: 0;
-    padding: .5vw .5vw;
-    height: 1.5vw;
-    line-height: 1.5vw;
+    margin: .5vw 0;
+    padding: 0 1vw;
+    height: 2vw;
+    line-height: 2vw;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-    transition: .3s;
 }
 
 
@@ -94,20 +95,18 @@
     }
 
     .inputfield-field {
-        border: 1.5px solid #cca43b;
-        background-color: #f0f0f0;
+        background-color: #e5e5e5;
         font-weight: normal;
-        border-radius: 2vw;
+        border-radius: 1vw;
         padding: 2vw;
         /* text-align: center; */
         font-size: 3vw !important;
     }
 
     .inputfield-textarea {
-        border: 1.5px solid #cca43b;
-        background-color: #f0f0f0;
+        background-color: #e5e5e5;
         font-weight: bolder;
-        border-radius: 2vw;
+        border-radius: 1vw;
         padding: 2vw;
         font-size: 3vw !important;
         font-family: 'Montserrat', sans-serif !important;
@@ -120,16 +119,25 @@
         font-weight: normal;
     }
 
+    .inputfield-field:focus {
+        border: 1px solid #E4C69C;
+    }
+
+    .inputfield-textarea:focus {
+        border: 1px solid #E4C69C;
+    }
+
     .drop-item-container {
         position: absolute;
         background-color: white;
-        border: 1.5px solid #cca43b;
-        border-radius: 2vw;
+        border: 1px solid #E4C69C;
+        border-top: none;
         z-index: 1;
-        width: auto;
+        width: 84%;
         margin-top: 8vw;
+        max-height: 40vw;
     }
-    
+
     .drop-item {
         color: #263d42;
         margin: 1.5vw 0;

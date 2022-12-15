@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { ExportToCsv } from 'export-to-csv';
 import DatePicker from 'react-datepicker'
 import CTAButton from '../components/CTAButton'
-import DropdownBTN from '../components/DropdownBTN'
+import Dropdown from '../components/Dropdown'
 import InputField from '../components/InputField'
 import MovementsTable from '../components/MovementsTable'
 import BarChart from '../components/BarChart'
@@ -33,6 +33,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [loadingBtn, setLoadingBtn] = useState(false)
   const [arrData, setArrData] = useState([])
+  const [allMovs, setAllMovs] = useState([])
   const [dropSuggestions, setDropSuggestions] = useState([])
   const [showDropDown, setShowDropDown] = useState(false)
   const [allUsers, setAllUsers] = useState([])
@@ -114,7 +115,7 @@ export default function Home() {
   useEffect(() => {
     if (!data.search) renderCharts()
     if (data.detail) {
-      const newSuggestions = arrData.map(mov => {
+      const newSuggestions = allMovs.map(mov => {
         if (mov.detail !== data.detail && mov.detail.toLowerCase().includes(data.detail.toLowerCase())) {
           setShowDropDown(true)
           return mov.detail
@@ -219,6 +220,7 @@ export default function Home() {
         const { isMonthly } = localSettings
         if (isMonthly) setArrData(processMonthlyData(filteredMovs))
         else setArrData(filteredMovs)
+        setAllMovs(filteredMovs)
 
         setLastData(movs.data[0] || {})
       }
@@ -522,8 +524,7 @@ export default function Home() {
                 name='amount'
                 type='number'
                 value={data.amount || ''}
-                size='100%'
-                style={{ textAlign: 'center' }}
+                style={{ textAlign: 'center', width: '80%' }}
               />
               <img onClick={() => setCalculator(!calculator)} className='svg-calculator' src={CalculatorIcon} alt="Calculate" />
             </div>
@@ -546,57 +547,60 @@ export default function Home() {
                   setItems={setDropSuggestions}
                   showDropDown={showDropDown}
                   setShowDropDown={setShowDropDown}
+                  style={{width: '93%' }}
                 />
-                <DropdownBTN
-                  options={allUsers}
-                  label={MESSAGE[lan].AUTHOR}
-                  name='author'
-                  updateData={updateData}
-                  value={data.author}
-                />
-                <DropdownBTN
-                  options={allPayTypes}
-                  label={MESSAGE[lan].PAY_TYPE}
-                  name='pay_type'
-                  updateData={updateData}
-                  value={data.pay_type}
-                />
-                {!isEdit &&
-                  <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
-                    <SwitchBTN
-                      sw={withInstallments}
-                      onChangeSw={() => setWithInstallments(!withInstallments)}
-                      label={MESSAGE[lan].INSTALLMENTS}
-                      style={{ transform: 'scale(0.8)', margin: 0 }}
-                    />
-                    {withInstallments &&
-                      <div className='installments-count'>
-                        <CTAButton
-                          handleClick={() => installments < 120 ? setInstallments(installments + 1) : {}}
-                          label='+'
-                          color={APP_COLORS.YELLOW}
-                          style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
-                          className='category-budget-setter'
-                        />
-                        <h4 style={{ alignSelf: 'center', margin: 0 }}>{installments}</h4>
-                        <CTAButton
-                          handleClick={() => installments > 2 ? setInstallments(installments - 1) : {}}
-                          label='─'
-                          color={APP_COLORS.YELLOW}
-                          style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
-                          className='category-budget-setter'
-                        />
-                      </div>
-                    }
-                  </div>
-                }
-                <DropdownBTN
-                  options={allCategories}
-                  label={MESSAGE[lan].CATEGORY}
-                  name='category'
-                  updateData={updateData}
-                  value={data.category}
-                />
+                <div className='fill-section-dd'>
+                  <Dropdown
+                    options={allUsers}
+                    label={MESSAGE[lan].AUTHOR}
+                    name='author'
+                    updateData={updateData}
+                    value={data.author}
+                  />
+                  <Dropdown
+                    options={allPayTypes}
+                    label={MESSAGE[lan].PAY_TYPE}
+                    name='pay_type'
+                    updateData={updateData}
+                    value={data.pay_type}
+                  />
+                  {!isEdit &&
+                    <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
+                      <SwitchBTN
+                        sw={withInstallments}
+                        onChangeSw={() => setWithInstallments(!withInstallments)}
+                        label={MESSAGE[lan].INSTALLMENTS}
+                        style={{ transform: 'scale(0.8)', margin: 0 }}
+                      />
+                      {withInstallments &&
+                        <div className='installments-count'>
+                          <CTAButton
+                            handleClick={() => installments < 120 ? setInstallments(installments + 1) : {}}
+                            label='+'
+                            color={APP_COLORS.YELLOW}
+                            style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
+                            className='category-budget-setter'
+                          />
+                          <h4 style={{ alignSelf: 'center', margin: 0 }}>{installments}</h4>
+                          <CTAButton
+                            handleClick={() => installments > 2 ? setInstallments(installments - 1) : {}}
+                            label='─'
+                            color={APP_COLORS.YELLOW}
+                            style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
+                            className='category-budget-setter'
+                          />
+                        </div>
+                      }
+                    </div>
+                  }
+                  <Dropdown
+                    options={allCategories}
+                    label={MESSAGE[lan].CATEGORY}
+                    name='category'
+                    updateData={updateData}
+                    value={data.category}
+                  />
+                </div>
                 <div className='div-modal-btns'>
                   <CTAButton
                     handleClick={handleCancel}

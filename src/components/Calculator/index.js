@@ -8,13 +8,15 @@ export default function Calculator(props) {
     const {
         value,
         updateData,
-        setCalculator
+        setCalculator,
+        style
     } = props
 
     const [val, setVal] = useState(value)
     const [val2, setVal2] = useState(0)
     const [resetScreen, setResetScreen] = useState(false)
     const [math, setMath] = useState('')
+    const [screenStyle, setScreenStyle] = useState({})
 
     const symbols = ['+', '-', '×', '÷', '=']
 
@@ -22,6 +24,9 @@ export default function Calculator(props) {
         const input = e.target.textContent
 
         if (symbols.includes(input)) {
+            setScreenStyle({ color: 'lightgray' })
+            setTimeout(() => setScreenStyle({}), 30)
+
             setResetScreen(true)
 
             if (!math) {
@@ -57,9 +62,9 @@ export default function Calculator(props) {
     }
 
     return (
-        <div className='calculator-container'>
+        <div className='calculator-container' style={style}>
             <div className='calculator-frame'>
-                <h4 className='calculator-screen'>{val}</h4>
+                <h4 className='calculator-screen' style={screenStyle}>{val}</h4>
                 <div className='calculator-btns'>
                     <div className='calculator-row'>
                         <h4 onClick={handleClick} className='calculator-btn'>7</h4>
@@ -103,6 +108,7 @@ export default function Calculator(props) {
                             }}
                             color={APP_COLORS.YELLOW}
                             size='100%'
+                            style={{ color: 'black' }}
                         />
                     </div>
                 </div>
