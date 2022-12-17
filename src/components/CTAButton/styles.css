@@ -99,6 +99,13 @@
     transition: 0.3s;
 }
 
+.csv-cta-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
+
 @media only screen and (max-width: 640px) {
     .cta-btn-container {
         display: flex;
@@ -109,7 +116,7 @@
 
     .cta-btn {
         font-size: 4vw !important;
-        padding: 2.5vw 5vw !important;
+        padding: 2.5vw 4vw !important;
         color: #E5E5E5;
         border: none;
         border-radius: 2vw;
@@ -141,6 +148,10 @@
         margin: 0 1vw;
     }
 
+    .category-budget-setter button{
+        width: 12vw !important;
+    }
+
     .cta-login {
         margin: 5vw 0 8vw 0;
     }
@@ -163,5 +174,12 @@
 
     .cta-menu {
         margin: 2vw 0 3vw 0
+    }
+
+    .csv-cta-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: fit-content;
     }
 }

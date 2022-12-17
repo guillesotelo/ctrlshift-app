@@ -8,7 +8,7 @@
   height: 100%;
   padding: 3vw;
   z-index: 2;
-  margin-top: 2vw;
+  margin-top: 3vw;
 }
 
 .menu-items button {
@@ -57,7 +57,7 @@
     height: 100%;
     padding: 3vw;
     z-index: 2;
-    margin-top: 18vw;
+    margin-top: 15vw;
   }
 
   .menu-hidden {

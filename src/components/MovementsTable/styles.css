@@ -190,7 +190,9 @@
         border-bottom-left-radius: 1vw;
         border-bottom-right-radius: 1vw;
         background-color: #d7dfeb;
-        padding: 1.5vw;
+        padding: 1vw;
         color: rgb(79, 79, 79);
+        font-size: 3vw;
+        color: gray;
     }
 }

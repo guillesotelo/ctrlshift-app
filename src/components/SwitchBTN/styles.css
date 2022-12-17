@@ -11,8 +11,8 @@
 }
 
 .switch-box {
-    height: 2.1vw;
-    width: 4.2vw;
+    height: 2vw;
+    width: 4.5vw;
     padding: 0.1vw;
     border: 2px solid #535353;
     border-radius: 2vw;
@@ -25,27 +25,27 @@
 }
 
 .switch-on {
-    height: 2vw;
-    width: 2vw;
+    height: 1.8vw;
+    width: 1.8vw;
+    line-height: 1.8vw;
     align-self: center;
     border: 1px solid rgb(58, 90, 150);
     border-radius: 1.5vw;
     background-color: #263d42;
     transition: 0.4s;
     color: rgb(214, 214, 214);
-    line-height: 2vw;
     font-size: .8vw;
     text-align: center;
     font-weight: bold;
 }
 
 .switch-off {
-    height: 2vw;
-    width: 2vw;
+    height: 1.8vw;
+    width: 1.8vw;
+    line-height: 1.8vw;
     align-self: center;
     border-radius: 2vw;
     transition: 0.3s;
-    line-height: 1vw;
     font-size: .8vw;
     text-align: center;
 }
@@ -53,21 +53,24 @@
 @media only screen and (max-width: 640px) {
     .switch-container {
         padding: 0;
-        margin: 2vw 2vw 0 2vw;
+        margin: 0 2vw 0 2vw;
         width: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     
     .switch-label {
-        font-size: 3vw;
-        margin: 1vw 0 1vw 0;
+        font-size: 2.8vw;
+        margin: 0 0 1vw 0;
         padding: 0;
         text-align: center;
     }
     
     .switch-box {
-        height: 8vw;
-        width: 15vw;
-        border: 2px solid #535353;
+        height: 6vw;
+        width: 11vw;
+        border: 1px solid #535353;
         border-radius: 5vw;
         display: flex;
         flex-direction: row;
@@ -75,33 +78,33 @@
         justify-content: space-between;
         transition: 0.4s;
         cursor: pointer;
-        padding: .2vw .5vw;
+        padding: .1vw .4vw;
     }
     
     .switch-on {
-        height: 7vw;
-        width: 7vw;
-        line-height: 7vw;
+        height: 5vw;
+        width: 5vw;
+        line-height: 5vw;
         align-self: center;
         border: 1px solid rgb(58, 90, 150);
         border-radius: 50%;
         background-color: #263d42;
         transition: 0.4s;
         color: rgb(214, 214, 214);
-        font-size: 2.5vw;
+        font-size: 2.2vw;
         text-align: center;
         font-weight: bold;
     }
     
     .switch-off {
-        height: 7vw;
-        width: 7vw;
-        line-height: 7vw;
+        height: 5vw;
+        width: 5vw;
+        line-height: 5vw;
         align-self: center;
         border-radius: 2vw;
         transition: 0.3s;
         line-height: 8vw;
-        font-size: 2.5vw;
+        font-size: 2.2vw;
         text-align: center;
     }
 }

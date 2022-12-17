@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import MenuIcon from '../../assets/menu-icon.svg'
-import UserGroup from '../../assets/user-group.svg'
+import LedgerIcon from '../../assets/ledger-icon.svg'
 import Menu from '../Menu'
 import { useHistory } from "react-router-dom";
 import './styles.css'
@@ -24,7 +24,7 @@ export default function Header() {
     <>
       <div className='header-container'>
         <div onClick={() => history.push('/ledger')}>
-          <img style={{ transform: 'scale(1.2)' }} className='svg-menu' src={UserGroup} alt="User Group" />
+          <img style={{ transform: 'scale(1.2)' }} className='svg-menu' src={LedgerIcon} alt="User Group" />
         </div>
 
         <div onClick={name ? () => history.push('/home') : () => { }}>

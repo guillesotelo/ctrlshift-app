@@ -480,7 +480,7 @@ export default function Home() {
               label={MESSAGE[lan].CANCEL}
               color={APP_COLORS.GRAY}
               handleClick={() => setRemoveModal(false)}
-              size='fit-content'
+            // size='fit-content'
             />
             <CTAButton
               label={MESSAGE[lan].CONFIRM}
@@ -489,7 +489,7 @@ export default function Home() {
                 setRemoveModal(false)
                 handleRemoveItem()
               }}
-              size='fit-content'
+            // size='70%'
             />
           </div>
         </div>
@@ -547,7 +547,7 @@ export default function Home() {
                   setItems={setDropSuggestions}
                   showDropDown={showDropDown}
                   setShowDropDown={setShowDropDown}
-                  style={{width: '93%' }}
+                  style={{ width: '93%' }}
                 />
                 <div className='fill-section-dd'>
                   <Dropdown
@@ -570,7 +570,7 @@ export default function Home() {
                         sw={withInstallments}
                         onChangeSw={() => setWithInstallments(!withInstallments)}
                         label={MESSAGE[lan].INSTALLMENTS}
-                        style={{ transform: 'scale(0.8)', margin: 0 }}
+                        style={{ margin: 0 }}
                       />
                       {withInstallments &&
                         <div className='installments-count'>
@@ -711,30 +711,30 @@ export default function Home() {
               onChangeSw={onChangeSw}
               label={MESSAGE[lan].MONTHLY}
             />
+            <div className='search-container'>
+              <InputField
+                label=''
+                updateData={updateData}
+                placeholder={MESSAGE[lan].MOV_SEARCH}
+                type='text'
+                name='search'
+                value={data.search || ''}
+              />
+              {data.search !== '' &&
+                <h3
+                  className='search-erase-btn'
+                  onClick={() => {
+                    updateData('search', '')
+                    setData({ ...data, search: '' })
+                  }}>✖</h3>}
+            </div>
             <CTAButton
               handleClick={downloadCSV}
               label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
-              size='fit-content'
               color={APP_COLORS.SPACE}
-              style={{ fontSize: '3.5vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
+              className='csv-cta-btn'
+              style={{ fontSize: '3vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
             />
-          </div>
-          <div className='search-container'>
-            <InputField
-              label=''
-              updateData={updateData}
-              placeholder={MESSAGE[lan].MOV_SEARCH}
-              type='text'
-              name='search'
-              value={data.search || ''}
-            />
-            {data.search !== '' &&
-              <h3
-                className='search-erase-btn'
-                onClick={() => {
-                  updateData('search', '')
-                  setData({ ...data, search: '' })
-                }}>✖</h3>}
           </div>
           {
             arrData.length || data.search ? <div className='div-charts'>
@@ -759,13 +759,10 @@ export default function Home() {
                 </>
                 : ''
               }
-              {budget.total && Number(budget.total) < 100 ?
-                <>
-                  <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
-                  <div className='separator' style={{ width: '85%' }}></div>
-                </>
-                : ''
-              }
+              <>
+                <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
+                <div className='separator' style={{ width: '85%' }}></div>
+              </>
               <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
               <div className='separator' style={{ width: '85%' }}></div>
               <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
