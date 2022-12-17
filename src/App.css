@@ -1030,7 +1030,7 @@ h2 {
     width: 80%;
     height: fit-content !important;
     background-color: white;
-    padding: 4vw 2vw;
+    padding: 4vw 0 6vw 0;
     text-align: center;
     font-size: 3vw;
   }
@@ -1476,7 +1476,7 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 1vw 1vw 1vw 2vw;
+    margin: 3vw 1vw 1vw 2vw;
   }
 
   .sub-table-btns button {
@@ -1672,7 +1672,7 @@ h2 {
   .home-month-tab {
     display: flex;
     flex-direction: row;
-    margin: 1vw 0 8vw 0;
+    margin: 1vw 1vw 6vw 1vw;
     padding: 0 5vw;
     justify-content: space-between;
     font-size: 3.5vw;
