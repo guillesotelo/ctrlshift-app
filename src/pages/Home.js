@@ -68,9 +68,23 @@ export default function Home() {
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
-    if (!localLedger || !localLedger.email || !localLedger.settings) history.push('/ledger')
 
-    if (!localUser || !localUser.email) history.push('/login')
+    if (!localUser || !localUser.app || localUser.app !== 'ctrl-shift') {
+      localStorage.removeItem('user')
+      return history.push('/login')
+    }
+
+    if (localUser.login) {
+      const login = new Date(localUser.login).getTime()
+      const now = new Date().getTime()
+
+      if (now - login > 2592000000) {
+        localStorage.removeItem('user')
+        return history.push('/login')
+      }
+    }
+
+    if (!localLedger || !localLedger.email || !localLedger.settings) history.push('/ledger')
 
     setUser(localUser)
     setLedger(localLedger)
@@ -121,7 +135,7 @@ export default function Home() {
           return mov.detail
         }
       }).filter(defined => defined)
-      setDropSuggestions(newSuggestions)
+      setDropSuggestions([...new Set(newSuggestions)])
     } else setShowDropDown(false)
   }, [data, allCategories, allPayTypes, arrData])
 

@@ -27,8 +27,11 @@ export default function Ledger() {
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('user'))
 
-        if (!localUser || !localUser.email) return history.push('/')
-        
+        if (!localUser || !localUser.app || !localUser.app !== 'ctrl-shift') {
+            localStorage.removeItem('user')
+            return history.push('/')
+        }
+
         const { email, username } = localUser
 
         const _settings = {
