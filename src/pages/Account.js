@@ -47,9 +47,7 @@ export default function Account() {
       const saved = await dispatch(updateUserData(data)).then(data => data.payload)
 
       if (saved) {
-        localStorage.removeItem('user')
-        localStorage.setItem('user', JSON.stringify(saved.data))
-        setUser(saved.data)
+        setUser(saved)
 
         setLoading(false)
         toast.success(MESSAGE[lan].SAVE_SUCC)

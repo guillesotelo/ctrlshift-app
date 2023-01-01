@@ -10,6 +10,7 @@ export default function BarChart(props) {
     } = props
 
     const options = {
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 display: false
@@ -25,14 +26,14 @@ export default function BarChart(props) {
     }
 
     const isMobile = navigator.userAgentData && navigator.userAgentData.mobile
-    
-    const barHeight = isMobile ? window.outerHeight * 0.4 : window.outerHeight * 0.5
-    const barWidth = window.outerWidth * 0.85
+
+    const barHeight = isMobile ? 350 : 400
+    const barWidth = isMobile ? window.outerWidth * 0.9 : 500
 
     return (
-        <div className='barchart-container'>
+        <div className='barchart-container' style={{ width: barWidth, height: barHeight }}>
             <h4 className='table-title'>{title || ''}</h4>
-            <Bar data={chartData} height={barHeight} width={barWidth} options={options}/>
+            <Bar data={chartData} height={barHeight} width={barWidth} options={options} />
         </div>
     )
 }

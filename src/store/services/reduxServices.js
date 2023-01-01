@@ -34,7 +34,12 @@ const registerUser = async data => {
 const updateUser = async data => {
     try {
         const user = await axios.post(`${API_URL}/api/user/update`, data)
-        return user
+        const localUser = JSON.parse(localStorage.getItem('user'))
+        localStorage.setItem('user', JSON.stringify({
+            ...localUser,
+            ...user.data
+        }))
+        return user.data
     } catch (err) { console.log(err) }
 }
 
@@ -55,7 +60,7 @@ const changePass = async data => {
 const setUserVoid = async () => {
     try {
         await axios.get(`${API_URL}/api/auth/logout`)
-        localStorage.removeItem('user')
+        localStorage.clear()
         return {}
     } catch (err) { console.log(err) }
 }
@@ -93,8 +98,12 @@ const createLedger = async data => {
         const res = await axios.post(`${API_URL}/api/ledger/create`, data)
         const user = JSON.parse(localStorage.getItem('user'))
         const updatedUser = await updateUser({ ...user, defaultLedger: JSON.stringify(res.data) })
-        localStorage.removeItem('user')
-        localStorage.setItem('user', JSON.stringify(updatedUser.data))
+
+        localStorage.setItem('user', JSON.stringify({
+            ...user,
+            ...updatedUser.data
+        }))
+
         return res.data
     } catch (err) { console.log(err) }
 }
@@ -133,8 +142,10 @@ const loginLedger = async data => {
         const user = JSON.parse(localStorage.getItem('user'))
         const updatedUser = await updateUser({ ...user, defaultLedger: JSON.stringify(res.data) })
 
-        localStorage.removeItem('user')
-        localStorage.setItem('user', JSON.stringify(updatedUser.data))
+        localStorage.setItem('user', JSON.stringify({
+            ...user,
+            ...updatedUser.data
+        }))
 
         return res.data
     } catch (error) { console.log(error) }

@@ -64,13 +64,14 @@ export default function Home() {
   const history = useHistory()
   const lan = getUserLanguage()
   const months = MESSAGE[lan].MONTHS
+  const isMobile = navigator.userAgentData && navigator.userAgentData.mobile
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
 
     if (!localUser || !localUser.app || localUser.app !== 'ctrl-shift') {
-      localStorage.removeItem('user')
+      localStorage.clear()
       return history.push('/login')
     }
 
@@ -79,7 +80,7 @@ export default function Home() {
       const now = new Date().getTime()
 
       if (now - login > 2592000000) {
-        localStorage.removeItem('user')
+        localStorage.clear()
         return history.push('/login')
       }
     }
@@ -246,7 +247,7 @@ export default function Home() {
   }
 
   const processMonthlyData = allData => {
-    if (allData) {
+    if (allData && Array.isArray(allData)) {
       return allData.filter(item => {
         const itemDate = new Date(item.date)
         return month === itemDate.getMonth() && year === itemDate.getFullYear()
@@ -752,33 +753,33 @@ export default function Home() {
           </div>
           {
             arrData.length || data.search ? <div className='div-charts'>
-              <div className='separator' style={{ width: '85%' }}></div>
+              {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
               {Object.keys(budget).length > 1 && settings.isMonthly ?
                 <>
                   <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} />
-                  <div className='separator' style={{ width: '85%' }}></div>
+                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
                 </>
                 : ''}
+              <>
+                <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
+                {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+              </>
               {budget.total && Number(budget.total) !== 100 ?
                 <>
                   <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
-                  <div className='separator' style={{ width: '85%' }}></div>
+                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
                 </>
                 : ''
               }
               {!settings.isMonthly ?
                 <>
                   <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
-                  <div className='separator' style={{ width: '85%' }}></div>
+                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
                 </>
                 : ''
               }
-              <>
-                <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
-                <div className='separator' style={{ width: '85%' }}></div>
-              </>
               <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
-              <div className='separator' style={{ width: '85%' }}></div>
+              {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
               <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
             </div>
               : ''

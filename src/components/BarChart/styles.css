@@ -1,6 +1,7 @@
 .barchart-container {
     /* margin-top: 3vw; */
-    width: 70%;
+    /* width: 70%; */
+    margin: 2vw;
 }    
 
 
@@ -8,7 +9,7 @@
     .barchart-container {
         position: relative;
         margin: 2vw;
-        width: 95%;
+        /* width: 95%; */
         text-align: center;
     }    
 }
