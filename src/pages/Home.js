@@ -26,7 +26,7 @@ import { getUserLanguage } from '../helpers';
 import { PuffLoader } from 'react-spinners';
 
 export default function Home() {
-  const [data, setData] = useState({ search: '' })
+  const [data, setData] = useState({})
   const [user, setUser] = useState({})
   const [ledger, setLedger] = useState('')
   const [settings, setSettings] = useState('')
@@ -128,7 +128,6 @@ export default function Home() {
   }, [data.salary, arrData.length])
 
   useEffect(() => {
-    if (!data.search) renderCharts()
     if (data.detail) {
       const newSuggestions = allMovs.map(mov => {
         if (mov.detail !== data.detail && mov.detail.toLowerCase().includes(data.detail.toLowerCase())) {
@@ -138,10 +137,12 @@ export default function Home() {
       }).filter(defined => defined)
       setDropSuggestions([...new Set(newSuggestions)])
     } else setShowDropDown(false)
+
+    renderCharts()
   }, [data, allCategories, allPayTypes, arrData])
 
   useEffect(() => {
-    getAllMovements(data)
+    if (allCategories.length) getAllMovements(data)
   }, [month])
 
   const randomColors = array => {
@@ -223,10 +224,10 @@ export default function Home() {
   const getAllMovements = async newData => {
     try {
       if (!arrData.length) setLoading(true)
-      const movs = await dispatch(getMovements(newData)).then(d => d.payload)
+      const { data } = await dispatch(getMovements(newData)).then(d => d.payload)
 
-      if (movs) {
-        let filteredMovs = movs.data
+      if (data && Array.isArray(data)) {
+        let filteredMovs = [...data]
         const localLedger = JSON.parse(localStorage.getItem('ledger'))
         const localSettings = JSON.parse(localLedger.settings)
 
@@ -237,7 +238,7 @@ export default function Home() {
         else setArrData(filteredMovs)
         setAllMovs(filteredMovs)
 
-        setLastData(movs.data[0] || {})
+        setLastData(data[0] || {})
       }
       setLoading(false)
     } catch (err) {
@@ -266,7 +267,6 @@ export default function Home() {
       const item = arrData[check]
       setData({
         ...item,
-        search: '',
         date: new Date(item.date)
       })
     }
@@ -361,7 +361,6 @@ export default function Home() {
           author: allUsers[0],
           amount: '',
           detail: '',
-          search: '',
           installments: 2,
           date: new Date(),
           ledger: ledger.id,
@@ -735,12 +734,12 @@ export default function Home() {
                 name='search'
                 value={data.search || ''}
               />
-              {data.search !== '' &&
+              {data.search && data.search !== '' &&
                 <h3
                   className='search-erase-btn'
                   onClick={() => {
                     updateData('search', '')
-                    setData({ ...data, search: '' })
+                    renderCharts()
                   }}>✖</h3>}
             </div>
             <CTAButton
