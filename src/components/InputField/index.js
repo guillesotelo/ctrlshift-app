@@ -14,6 +14,8 @@ export default function InputField(props) {
         items,
         showDropDown,
         setShowDropDown,
+        dropSelected,
+        setDropSelected,
         value,
         cols,
         rows
@@ -53,7 +55,7 @@ export default function InputField(props) {
                         style={style || null}
                         value={value}
                     />
-                    {showDropDown && items && items.length ?
+                    {showDropDown && !dropSelected && items && items.length ?
                         <div className='drop-item-container'>
                             {items.map((item, i) =>
                                 <h5
@@ -63,6 +65,7 @@ export default function InputField(props) {
                                     onClick={() => {
                                         updateData(name, item)
                                         setShowDropDown(false)
+                                        setDropSelected(true)
                                     }}>{item}</h5>
                             )}
                         </div>

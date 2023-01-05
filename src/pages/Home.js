@@ -36,6 +36,7 @@ export default function Home() {
   const [allMovs, setAllMovs] = useState([])
   const [dropSuggestions, setDropSuggestions] = useState([])
   const [showDropDown, setShowDropDown] = useState(false)
+  const [dropSelected, setDropSelected] = useState(false)
   const [allUsers, setAllUsers] = useState([])
   const [allPayTypes, setAllPayTypes] = useState([])
   const [allCategories, setAllCategories] = useState([])
@@ -136,7 +137,10 @@ export default function Home() {
         }
       }).filter(defined => defined)
       setDropSuggestions([...new Set(newSuggestions)])
-    } else setShowDropDown(false)
+    } else {
+      setShowDropDown(false)
+      setDropSelected(false)
+    }
 
     renderCharts()
   }, [data, allCategories, allPayTypes, arrData])
@@ -561,6 +565,8 @@ export default function Home() {
                   setItems={setDropSuggestions}
                   showDropDown={showDropDown}
                   setShowDropDown={setShowDropDown}
+                  dropSelected={dropSelected}
+                  setDropSelected={setDropSelected}
                   style={{ width: '93%' }}
                 />
                 <div className='fill-section-dd'>
