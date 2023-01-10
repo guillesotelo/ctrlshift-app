@@ -1,15 +1,30 @@
 .barchart-container {
-    /* margin-top: 3vw; */
-    /* width: 70%; */
     margin: 2vw;
-}    
+    position: relative;
+}
+
+.chart-rotate-svg {
+    height: 1.5vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    margin-top: .7vw;
+}
 
 
 @media only screen and (max-width: 640px) {
     .barchart-container {
         position: relative;
         margin: 2vw;
-        /* width: 95%; */
         text-align: center;
-    }    
+    }
+
+    .chart-rotate-svg {
+        height: 6vw;
+        position: absolute;
+        margin: 0;
+        right: 0;
+        top: 0;
+    }
 }
