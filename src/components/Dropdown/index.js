@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './styles.css'
 
 export default function Dropdown(props) {
@@ -17,6 +17,14 @@ export default function Dropdown(props) {
         style,
         size
     } = props
+
+    useEffect(() => {
+        window.addEventListener('mouseup', e => {
+            if (e.target && e.target.className) {
+                if (e.target.className !== 'dropdown-option') setOpenDrop(false)
+            } else setOpenDrop(false)
+        })
+    }, [])
 
     return (
         <div className='dropdown-container' style={style}>
