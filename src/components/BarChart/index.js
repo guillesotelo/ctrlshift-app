@@ -5,6 +5,9 @@ import './styles.css'
 
 export default function BarChart(props) {
     const [position, setPosition] = useState(false)
+    const isMobile = window.screen.width <= 768
+    const barHeight = isMobile ? window.screen.height * 0.45 : 400
+    const barWidth = isMobile ? window.screen.width * 0.9 : 500
 
     const {
         title,
@@ -28,10 +31,6 @@ export default function BarChart(props) {
         }
     }
 
-    const isMobile = navigator.userAgentData && navigator.userAgentData.mobile
-
-    const barHeight = isMobile ? 350 : 400
-    const barWidth = isMobile ? window.outerWidth * 0.9 : 500
 
     return (
         <div className='barchart-container' style={{ width: barWidth, height: barHeight }}>

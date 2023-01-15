@@ -65,7 +65,7 @@ export default function Home() {
   const history = useHistory()
   const lan = getUserLanguage()
   const months = MESSAGE[lan].MONTHS
-  const isMobile = navigator.userAgentData && navigator.userAgentData.mobile
+  const isMobile = window.screen.width <= 768
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
@@ -753,7 +753,7 @@ export default function Home() {
               label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
               color={APP_COLORS.SPACE}
               className='csv-cta-btn'
-              style={{ fontSize: '3vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
+              style={{ fontSize: '1vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
             />
           </div>
           {
