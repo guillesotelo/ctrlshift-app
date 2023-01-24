@@ -292,11 +292,18 @@ h2 {
   cursor: pointer;
 }
 
+.svg-updown {
+  height: 2vw;
+  width: auto;
+  transition: .3s;
+  cursor: pointer;
+}
+
 .fill-amount-row {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 1vw;
   margin: 1vw 0 0 0;
 }
@@ -435,6 +442,13 @@ h2 {
   height: 2.5vw;
 }
 
+.svg-add {
+  filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
+  height: 2.5vw;
+  align-self: center;
+  cursor: pointer;
+}
+
 .salary-div {
   display: flex;
   flex-direction: row;
@@ -443,10 +457,11 @@ h2 {
   box-shadow: 3px 3px 9px lightgray;
   border-radius: .5vw;
   gap: 1vw;
-  margin: .5vw;
+  margin: 1vw;
   width: fit-content;
   padding: .5vw 1vw;
   align-self: center;
+  transition: .3s;
 }
 
 .salary-div h4 {
@@ -454,21 +469,25 @@ h2 {
   margin: 0;
   font-size: 1.3vw;
   cursor: pointer;
+  transition: .3s;
 }
 
 .salary-text {
   font-size: 1vw !important;
+  transition: .3s;
 }
 
 .svg-eye {
   height: 1.5vw;
   filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
   cursor: pointer;
+  transition: .3s;
 }
 
 .salary {
   color: #CCA43B;
   font-weight: bold !important;
+  transition: .3s;
 }
 
 .table-div {
@@ -505,7 +524,7 @@ h2 {
   font-weight: normal;
   font-family: 'Montserrat', sans-serif !important;
   font-weight: normal;
-  border-radius: 1vw;
+  border-radius: .5vw;
   width: 40%;
   align-self: center;
 }
@@ -513,7 +532,7 @@ h2 {
 .notes-container textarea {
   width: 40%;
   align-self: center;
-  border-radius: 1vw;
+  border-radius: .5vw;
 }
 
 .new-note-btns {
@@ -1318,11 +1337,17 @@ h2 {
     height: 8.5vw;
   }
 
+  .svg-add {
+    filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
+    height: 8.5vw;
+    align-self: center;
+  }
+
   .fill-amount-row {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 3vw;
     margin: 2vw 0 0 0;
   }
@@ -1332,6 +1357,13 @@ h2 {
     height: 7vw;
     width: auto;
   }
+
+  .svg-updown {
+    height: 7vw;
+    width: auto;
+    transition: .3s;
+  }
+
 
   .salary-div {
     display: flex;
@@ -1400,14 +1432,14 @@ h2 {
   .notes-container input {
     max-height: fit-content;
     font-weight: normal;
-    border-radius: 2vw;
+    border-radius: 1vw;
     width: 70%;
     align-self: center;
   }
 
   .notes-container textarea {
     width: 70%;
-    border-radius: 2vw;
+    border-radius: 1vw;
     align-self: center;
   }
 
@@ -1549,7 +1581,7 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    width: 70%;
+    width: 75%;
     height: fit-content !important;
     background-color: white;
     padding: 6vw;
@@ -1558,12 +1590,12 @@ h2 {
   }
 
   .task-modal input {
-    width: 80%;
+    width: 95%;
     align-self: center;
   }
 
   .task-modal textarea {
-    width: 80%;
+    width: 95%;
     align-self: center;
   }
 
@@ -1579,8 +1611,10 @@ h2 {
   .task-modal-btns {
     display: flex;
     flex-direction: row;
-    gap: 5vw;
-    margin-top: 4vw;
+    justify-content: space-between;
+    /* gap: 5vw; */
+    margin-top: 3vw;
+    width: 100%;
   }
 
   .task-title-input {
@@ -1669,6 +1703,7 @@ h2 {
     justify-content: center;
     gap: 2vw;
     height: min-content;
+    margin-top: 2vw;
   }
 
 

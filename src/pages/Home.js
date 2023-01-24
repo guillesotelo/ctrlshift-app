@@ -12,8 +12,10 @@ import PieChart from '../components/PieChart'
 import PolarChart from '../components/PolarChart'
 import Calculator from '../components/Calculator'
 import TrashCan from '../assets/trash-can.svg'
+import AddIcon from '../assets/add-icon.svg'
 import CalculatorIcon from '../assets/calculator-icon2.svg'
 import EyeClosed from '../assets/eye-closed.svg'
+import UpDownIcon from '../assets/up-down-icon.svg'
 import { getMovements, saveMovement, editMovement, removeMovement } from '../store/reducers/movement'
 import { updateLedgerData, getLedger } from '../store/reducers/ledger';
 import { APP_COLORS, PALETTE } from '../constants/colors'
@@ -60,6 +62,8 @@ export default function Home() {
   const [month, setMonth] = useState(new Date().getMonth())
   const [year, setYear] = useState(new Date().getFullYear())
   const [sw, setSw] = useState(false)
+  const [extraordinary, setExtraordinary] = useState(false)
+  const [extraType, setExtraType] = useState(false)
   const [calculator, setCalculator] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -238,11 +242,11 @@ export default function Home() {
         setSettings(localSettings)
 
         const { isMonthly } = localSettings
-        if (isMonthly) setArrData(processMonthlyData(filteredMovs))
-        else setArrData(filteredMovs)
+        const _arrData = isMonthly ? processMonthlyData(filteredMovs) : filteredMovs
+        setArrData(_arrData)
         setAllMovs(filteredMovs)
 
-        setLastData(data[0] || {})
+        setLastData(_arrData[0] || {})
       }
       setLoading(false)
     } catch (err) {
@@ -295,7 +299,7 @@ export default function Home() {
 
   const checkDataOk = dataToCheck => {
     const num = dataToCheck.amount
-    if (isNaN(num) || num < 0 || num === 0) return false
+    if (!num || isNaN(num) || num === 0) return false
     return true
   }
 
@@ -339,7 +343,11 @@ export default function Home() {
       setLoadingBtn(true)
       if (checkDataOk(data)) {
         let saved = {}
-        const submitData = { ...data }
+        const submitData = {
+          ...data,
+          extraordinary: extraordinary ? extraType ? 'down' : 'up' : '',
+          amount: extraordinary && !extraType ? `-${data.amount}` : data.amount
+        }
         if (!submitData.detail) submitData.detail = '-'
 
         if (isEdit) {
@@ -368,7 +376,8 @@ export default function Home() {
           installments: 2,
           date: new Date(),
           ledger: ledger.id,
-          user: user.email
+          user: user.email,
+          extraordinary: extraordinary ? extraType ? 'down' : 'up' : ''
         })
         setOpenModal(false)
         setIsEdit(false)
@@ -376,7 +385,11 @@ export default function Home() {
         setInstallments(2)
         setCheck(-1)
 
-        setTimeout(() => renderCharts(), 500)
+        setTimeout(() => {
+          renderCharts()
+          setExtraType(false)
+          setExtraordinary(false)
+        }, 500)
       } else toast.error(MESSAGE[lan].CHECK_FIELDS)
       setLoadingBtn(false)
     } catch (err) {
@@ -391,6 +404,8 @@ export default function Home() {
     setOpenModal(false)
     setWithInstallments(false)
     setInstallments(2)
+    setExtraType(false)
+    setExtraordinary(false)
     setData({
       ...data,
       amount: '',
@@ -459,7 +474,9 @@ export default function Home() {
         getAllMovements(newData)
       }
     }
-    else setData({ ...data, [key]: newData })
+    else {
+      setData({ ...data, [key]: key === 'amount' ? newData.toString().replace(/[^.0-9]/, '') : newData })
+    }
   }
 
   const onChangeSw = async () => {
@@ -514,7 +531,7 @@ export default function Home() {
       }
       {openModal &&
         <div className='fill-section-container' onClick={() => setShowDropDown(false)}>
-          <h3 style={{ color: APP_COLORS.GRAY }}>{MESSAGE[lan].MOV_INFO}:</h3>
+          <h3 style={{ color: APP_COLORS.GRAY }}>{extraordinary ? MESSAGE[lan].EXTRA_INFO : MESSAGE[lan].MOV_INFO}:</h3>
           <div className='fill-section'>
             <CTAButton
               handleClick={() => setDateClicked(!dateClicked)}
@@ -540,11 +557,25 @@ export default function Home() {
                 updateData={updateData}
                 placeholder={`${MESSAGE[lan].FIAT} -`}
                 name='amount'
-                type='number'
+                type='text'
                 value={data.amount || ''}
-                style={{ textAlign: 'center', width: '80%' }}
+                size='80%'
+                style={{ textAlign: 'center', backgroundColor: '#fff8e8', color: '#263d42', fontWeight: 'bold', width: '100%' }}
               />
-              <img onClick={() => setCalculator(!calculator)} className='svg-calculator' src={CalculatorIcon} alt="Calculate" />
+              {!extraordinary ?
+                <img onClick={() => setCalculator(!calculator)} className='svg-calculator' src={CalculatorIcon} alt="Calculate" />
+                : <img
+                  onClick={() => setExtraType(!extraType)}
+                  className='svg-updown'
+                  style={{
+                    filter: extraType ? 'invert(13%) sepia(95%) saturate(5247%) hue-rotate(358deg) brightness(77%) contrast(116%)'
+                      : 'invert(42%) sepia(100%) saturate(1403%) hue-rotate(82deg) brightness(105%) contrast(110%)',
+                    transform: !extraType && 'rotate(180deg)'
+                  }}
+                  src={UpDownIcon}
+                  alt="Up-Down"
+                />
+              }
             </div>
             {calculator ?
               <Calculator
@@ -584,7 +615,7 @@ export default function Home() {
                     updateData={updateData}
                     value={data.pay_type}
                   />
-                  {!isEdit &&
+                  {!isEdit && !extraordinary &&
                     <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
                       <SwitchBTN
                         sw={withInstallments}
@@ -652,9 +683,16 @@ export default function Home() {
             disabled={!isEdit}
             style={{ fontSize: '4vw' }}
           />
-          {isEdit &&
+          {isEdit ?
             <div onClick={() => setRemoveModal(true)}>
               <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
+            </div>
+            :
+            <div onClick={() => {
+              setOpenModal(true)
+              setExtraordinary(true)
+            }}>
+              <img style={{ transform: 'scale(0.8)' }} className='svg-add' src={AddIcon} alt="Add Movement" />
             </div>
           }
           <CTAButton

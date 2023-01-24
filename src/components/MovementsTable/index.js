@@ -20,8 +20,8 @@ export default function MovementsTable(props) {
     const headers = MESSAGE[lan].TABLE_HEADERS
 
     const handleCheck = key => {
-        if(isEdit) {
-            if(key !== check) setCheck(key)
+        if (isEdit) {
+            if (key !== check) setCheck(key)
             else {
                 setCheck(-1)
                 setIsEdit(!isEdit)
@@ -52,13 +52,13 @@ export default function MovementsTable(props) {
                                 key={i}
                                 className='table-row'
                                 onClick={() => handleCheck(i)}
-                                style={{ backgroundColor: check === i ? '#ffe49f' : i % 2 === 0 ? '#eaeaea' : 'white' }}>
+                                style={{ backgroundColor: check === i ? '#ffe49f' : row.extraordinary === 'up' ? '#ccffc3' : row.extraordinary === 'down' ? '#ffd1d1' : i % 2 === 0 ? '#eaeaea' : 'white' }}>
                                 <h4 className='table-row-item'>{new Date(row.date).toLocaleDateString()}</h4>
                                 <h4 className='table-row-item detail'>{row.detail || 'n/a'}</h4>
                                 <h4 className='table-row-item'>{row.author || 'n/a'}</h4>
                                 <h4 className='table-row-item'>{row.category || 'n/a'}</h4>
                                 <h4 className='table-row-item'>{row.pay_type || 'n/a'}</h4>
-                                <h4 className='table-row-item'>{lan !== 'se' ? `$ ${row.amount}` : `${row.amount} Kr` || 'n/a'}</h4>
+                                <h4 className='table-row-item'>{lan !== 'se' ? `$ ${row.amount.replace('-', '')}` : `${row.amount.replace('-', '')} Kr` || 'n/a'}</h4>
                             </div>
                         )}
                         {maxItems < rowData.length &&

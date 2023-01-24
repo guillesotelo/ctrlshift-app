@@ -31,7 +31,6 @@ export const PALETTE = [
     '#DFB2F4',
     '#79ADDC',
     '#FCF5C7',
-    '#FF3864',
     '#CC978E',
     '#519872',
     '#3B5249',

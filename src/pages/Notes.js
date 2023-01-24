@@ -157,7 +157,7 @@ export default function Notes() {
                                 placeholder={MESSAGE[lan].N_DETAIL}
                                 name='details'
                                 type='textarea'
-                                style={{ height: 'fit-content', textAlign: 'left', marginBottom: '2vw' }}
+                                style={{ height: '20vh', textAlign: 'left', marginBottom: '2vw' }}
                                 value={data.details}
                             />
                             <div className='task-modal-btns'>

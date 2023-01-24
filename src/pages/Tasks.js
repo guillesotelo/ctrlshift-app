@@ -254,7 +254,7 @@ export default function Tasks() {
                         placeholder={MESSAGE[lan].N_DETAIL}
                         name='details'
                         type='textarea'
-                        style={{ height: 'fit-content', textAlign: 'left', marginBottom: '2vw' }}
+                        style={{ height: '20vh', textAlign: 'left', marginBottom: '2vw' }}
                         value={data.details}
                     />
                     <div className='task-schedule-btns'>
@@ -296,21 +296,23 @@ export default function Tasks() {
                                 btnClass={data.hasTime ? '' : 'time-picker-btn'}
                             />}
                         {data.date instanceof Date && isFinite(data.date) && timeClicked &&
-                            <DatePicker
-                                selected={data.date instanceof Date && isFinite(data.date) ? data.date : new Date()}
-                                onChange={date => {
-                                    setData({ ...data, date, hasTime: true })
-                                    setTimeout(() => {
-                                        setDateClicked(false)
-                                        setTimeClicked(false)
-                                    }, 200)
-                                }}
-                                dateFormat="h:mm aa"
-                                inline
-                                showTimeSelect
-                                showTimeSelectOnly
-                                locale='es'
-                            />
+                            <div style={{ border: '1px solid gray', borderRadius: '1vw' }}>
+                                <DatePicker
+                                    selected={data.date instanceof Date && isFinite(data.date) ? data.date : new Date()}
+                                    onChange={date => {
+                                        setData({ ...data, date, hasTime: true })
+                                        setTimeout(() => {
+                                            setDateClicked(false)
+                                            setTimeClicked(false)
+                                        }, 200)
+                                    }}
+                                    dateFormat="h:mm aa"
+                                    inline
+                                    showTimeSelect
+                                    showTimeSelectOnly
+                                    locale='es'
+                                />
+                            </div>
                         }
                     </div>
                     <div className='task-modal-btns'>

@@ -55,6 +55,10 @@
     padding: 0.3vw;
     height: fit-content;
 }
+.table-row:hover {
+    opacity: .7;
+    cursor: pointer;
+}
 
 .table-row-item {
     white-space: nowrap;

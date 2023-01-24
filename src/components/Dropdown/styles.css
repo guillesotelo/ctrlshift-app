@@ -14,7 +14,7 @@
 .dropdown-select-section {
     display: flex;
     flex-direction: column;
-    /* width: 100%; */
+    width: 100%;
 }
 
 .dropdown-select {
@@ -55,7 +55,7 @@
     border-top: none;
     margin-top: 2vw;
     width: inherit;
-    width: 24.4vw;
+    width: 24.7vw;
     padding: 0 .5vw;
     z-index: 2;
     max-height: 20vw;

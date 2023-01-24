@@ -18,7 +18,8 @@ export default function InputField(props) {
         setDropSelected,
         value,
         cols,
-        rows
+        rows,
+        size
     } = props
 
     const handleChange = (newValue) => {
@@ -32,7 +33,7 @@ export default function InputField(props) {
     }
 
     return (
-        <div className='inputfield-container'>
+        <div className='inputfield-container' style={{ width: size }}>
             {label ? <h4 style={{ color: APP_COLORS.GRAY }} className='inputfield-label'>{label || ''}</h4> : ''}
             {type === 'textarea' ?
                 <textarea
