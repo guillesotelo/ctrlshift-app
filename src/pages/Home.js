@@ -130,7 +130,7 @@ export default function Home() {
   useEffect(() => {
     const debited = data.salary - arrData.reduce((item, current) => item + Number(current.amount), 0)
     if (!isNaN(debited)) setSalary(debited)
-  }, [data.salary, arrData.length])
+  }, [data.salary, arrData])
 
   useEffect(() => {
     if (data.detail) {
