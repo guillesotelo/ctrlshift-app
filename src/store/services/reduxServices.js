@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const API_URL = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_API_URL
 // const API_URL = process.env.REACT_APP_API_URL
+let { token } = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
+const headers = { authorization: `Bearer ${token}` }
 
 const loginUser = async user => {
     try {
@@ -13,6 +15,7 @@ const loginUser = async user => {
             login: new Date()
         }))
         if (finalUser.defaultLedger !== null) localStorage.setItem('ledger', finalUser.defaultLedger)
+        token = finalUser.token
         return finalUser
     } catch (error) { console.log(error) }
 }
@@ -33,7 +36,7 @@ const registerUser = async data => {
 
 const updateUser = async data => {
     try {
-        const user = await axios.post(`${API_URL}/api/user/update`, data)
+        const user = await axios.post(`${API_URL}/api/user/update`, data, { headers })
         const localUser = JSON.parse(localStorage.getItem('user'))
         localStorage.setItem('user', JSON.stringify({
             ...localUser,
@@ -59,7 +62,7 @@ const changePass = async data => {
 
 const setUserVoid = async () => {
     try {
-        await axios.get(`${API_URL}/api/auth/logout`)
+        await axios.get(`${API_URL}/api/auth/logout`, { headers })
         localStorage.clear()
         return {}
     } catch (err) { console.log(err) }
@@ -67,35 +70,35 @@ const setUserVoid = async () => {
 
 const getAllMovements = async data => {
     try {
-        const movements = await axios.get(`${API_URL}/api/movement`, { params: data })
+        const movements = await axios.get(`${API_URL}/api/movement`, { params: data, headers })
         return movements
     } catch (err) { console.log(err) }
 }
 
 const createMovement = async data => {
     try {
-        const movement = await axios.post(`${API_URL}/api/movement`, data)
+        const movement = await axios.post(`${API_URL}/api/movement`, data, { headers })
         return movement
     } catch (err) { console.log(err) }
 }
 
 const updateMovement = async data => {
     try {
-        const movement = await axios.post(`${API_URL}/api/movement/update`, data)
+        const movement = await axios.post(`${API_URL}/api/movement/update`, data, { headers })
         return movement
     } catch (err) { console.log(err) }
 }
 
 const deleteMovement = async data => {
     try {
-        const deleted = await axios.post(`${API_URL}/api/movement/remove`, data)
+        const deleted = await axios.post(`${API_URL}/api/movement/remove`, data, { headers })
         return deleted
     } catch (err) { console.log(err) }
 }
 
 const createLedger = async data => {
     try {
-        const res = await axios.post(`${API_URL}/api/ledger/create`, data)
+        const res = await axios.post(`${API_URL}/api/ledger/create`, data, { headers })
         const user = JSON.parse(localStorage.getItem('user'))
         const updatedUser = await updateUser({ ...user, defaultLedger: JSON.stringify(res.data) })
 
@@ -110,21 +113,21 @@ const createLedger = async data => {
 
 const updateLedger = async data => {
     try {
-        const ledger = await axios.post(`${API_URL}/api/ledger/update`, data)
+        const ledger = await axios.post(`${API_URL}/api/ledger/update`, data, { headers })
         return ledger
     } catch (err) { console.log(err) }
 }
 
 const getAllLedgersByEmail = async email => {
     try {
-        const ledgers = await axios.get(`${API_URL}/api/ledger/all`, email)
+        const ledgers = await axios.get(`${API_URL}/api/ledger/all`, { params: email, headers })
         return ledgers
     } catch (err) { console.log(err) }
 }
 
 const getLedgerById = async id => {
     try {
-        const ledger = await axios.get(`${API_URL}/api/ledger?id=${id}`)
+        const ledger = await axios.get(`${API_URL}/api/ledger?id=${id}`, { headers })
         if (ledger.data && ledger.data.email) {
             localStorage.removeItem('ledger')
             localStorage.setItem('ledger', JSON.stringify(ledger.data))
@@ -136,7 +139,7 @@ const getLedgerById = async id => {
 
 const loginLedger = async data => {
     try {
-        const res = await axios.post(`${API_URL}/api/ledger`, data)
+        const res = await axios.post(`${API_URL}/api/ledger`, data, { headers })
         if (!res || !res.data) return false
 
         const user = JSON.parse(localStorage.getItem('user'))
@@ -153,28 +156,28 @@ const loginLedger = async data => {
 
 const createReport = async data => {
     try {
-        const res = await axios.post(`${API_URL}/api/report/create`, data)
+        const res = await axios.post(`${API_URL}/api/report/create`, data, { headers })
         return res.data
     } catch (err) { console.log(err) }
 }
 
 const getAllReports = async data => {
     try {
-        const reports = await axios.get(`${API_URL}/api/report/getAll`, { params: data })
+        const reports = await axios.get(`${API_URL}/api/report/getAll`, { params: data, headers })
         return reports.data
     } catch (err) { console.log(err) }
 }
 
 const checkAdminCredentials = async data => {
     try {
-        const user = await axios.get(`${API_URL}/api/user/admin`, { params: data })
+        const user = await axios.get(`${API_URL}/api/user/admin`, { params: data, headers })
         return user.data
     } catch (err) { console.log(err) }
 }
 
 const updateReportData = async data => {
     try {
-        const report = await axios.post(`${API_URL}/api/report/update`, data)
+        const report = await axios.post(`${API_URL}/api/report/update`, data, { headers })
         return report
     } catch (err) { console.log(err) }
 }

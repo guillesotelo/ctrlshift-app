@@ -12,7 +12,7 @@ import PieChart from '../components/PieChart'
 import PolarChart from '../components/PolarChart'
 import Calculator from '../components/Calculator'
 import TrashCan from '../assets/trash-can.svg'
-import AddIcon from '../assets/add-icon.svg'
+import ChangeIcon from '../assets/change-icon.svg'
 import CalculatorIcon from '../assets/calculator-icon2.svg'
 import EyeClosed from '../assets/eye-closed.svg'
 import UpDownIcon from '../assets/up-down-icon.svg'
@@ -621,7 +621,7 @@ export default function Home() {
                         sw={withInstallments}
                         onChangeSw={() => setWithInstallments(!withInstallments)}
                         label={MESSAGE[lan].INSTALLMENTS}
-                        style={{ margin: 0 }}
+                        style={{ margin: 0, transform: 'scale(.9)' }}
                       />
                       {withInstallments &&
                         <div className='installments-count'>
@@ -692,7 +692,7 @@ export default function Home() {
               setOpenModal(true)
               setExtraordinary(true)
             }}>
-              <img style={{ transform: 'scale(0.8)' }} className='svg-add' src={AddIcon} alt="Add Movement" />
+              <img style={{ transform: 'scale(0.8)' }} className='svg-add' src={ChangeIcon} alt="Add Movement" />
             </div>
           }
           <CTAButton
