@@ -15,17 +15,21 @@ export default function SplashScreen() {
             const localUser = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
             const localLedger = localStorage.getItem('ledger') && JSON.parse(localStorage.getItem('ledger'))
 
-            if (!localUser || !localUser.email) {
+            if (!localUser || !localUser.email || !localUser.token) {
                 render()
-                setTimeout(() => history.push('/login'), 2000)
+                return setTimeout(() => {
+                    localStorage.clear()
+                    history.push('/login')
+                }, 2000)
             }
             else if (!localLedger || !localLedger.email || !localLedger.id) {
                 render()
-                setTimeout(() => history.push('/ledger'), 2000)
+                return setTimeout(() => history.push('/ledger'), 2000)
             }
 
-            else getUpdatedLedger(localLedger.id)
+            getUpdatedLedger(localLedger.id)
         } catch (err) {
+            localStorage.clear()
             history.push('/login')
         }
     }, [])
