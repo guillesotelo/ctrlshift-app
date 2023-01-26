@@ -75,7 +75,7 @@ export default function Home() {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
 
-    if (!localUser || !localUser.app || localUser.app !== 'ctrl-shift') {
+    if (!localUser || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
       localStorage.clear()
       return history.push('/login')
     }
@@ -84,7 +84,7 @@ export default function Home() {
       const login = new Date(localUser.login).getTime()
       const now = new Date().getTime()
 
-      if (now - login > 2592000000) {
+      if (now - login > 2506000000) {
         localStorage.clear()
         return history.push('/login')
       }

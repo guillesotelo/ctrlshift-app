@@ -28,8 +28,8 @@ export default function Ledger() {
         const localUser = JSON.parse(localStorage.getItem('user'))
         const { email, username } = localUser
 
-        if (!localUser || !localUser.app || localUser.app !== 'ctrl-shift') {
-            localStorage.removeItem('user')
+        if (!localUser || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
+            localStorage.clear()
             return history.push('/')
         }
 
