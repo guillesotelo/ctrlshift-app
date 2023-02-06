@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import CTAButton from '../components/CTAButton'
 import LandingMobile from './LandingMobile'
@@ -7,6 +7,22 @@ import Logo from '../assets/logo.png'
 export default function Landing() {
     const isMobile = window.innerWidth < 640
     const history = useHistory()
+
+    useEffect(() => {
+        const localUser = JSON.parse(localStorage.getItem('user'))
+
+        if (localUser && localUser.login) {
+            const login = new Date(localUser.login).getTime()
+            const now = new Date().getTime()
+
+            if (now - login > 2506000000) {
+                localStorage.clear()
+                return history.push('/login')
+            }
+        }
+
+        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/home')
+    }, [])
 
     return isMobile ? <LandingMobile />
         :

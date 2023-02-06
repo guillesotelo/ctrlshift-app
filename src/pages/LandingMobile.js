@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import CTAButton from '../components/CTAButton'
 import Logo from '../assets/logo.png'
@@ -6,6 +6,22 @@ import Footer from '../components/Footer'
 
 export default function LandingMobile() {
     const history = useHistory()
+
+    useEffect(() => {
+        const localUser = JSON.parse(localStorage.getItem('user'))
+
+        if (localUser && localUser.login) {
+            const login = new Date(localUser.login).getTime()
+            const now = new Date().getTime()
+
+            if (now - login > 2506000000) {
+                localStorage.clear()
+                return history.push('/login')
+            }
+        }
+
+        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/home')
+    }, [])
 
     return (
         <div className='landing-mobile-container'>
@@ -50,7 +66,7 @@ export default function LandingMobile() {
                 </div>
                 <img src='https://i.postimg.cc/K82HWw2X/Ctrl-Shift-mockup.png' alt='mobile app image' className='landing-phone-image' />
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }
