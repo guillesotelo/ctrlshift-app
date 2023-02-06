@@ -65,6 +65,7 @@ export default function Home() {
   const [extraordinary, setExtraordinary] = useState(false)
   const [extraType, setExtraType] = useState(false)
   const [calculator, setCalculator] = useState(false)
+  const [negativeBalance, setNegativeBalance] = useState(0)
   const dispatch = useDispatch()
   const history = useHistory()
   const lan = getUserLanguage()
@@ -247,12 +248,21 @@ export default function Home() {
         setAllMovs(filteredMovs)
 
         setLastData(_arrData[0] || {})
+        setNegativeBalance(getNegativeBalance(_arrData))
       }
       setLoading(false)
     } catch (err) {
       console.error(err)
       setLoading(false)
     }
+  }
+
+  const getNegativeBalance = data => {
+    let total = 0
+    data.forEach(mov => {
+      if (mov.amount) total += Number(mov.amount)
+    })
+    return total
   }
 
   const processMonthlyData = allData => {
@@ -452,28 +462,39 @@ export default function Home() {
     } else toast.info(MESSAGE[lan].CSV_NONE)
   }
 
-  const updateData = (key, newData) => {
-    if (key === 'search') {
-      const filteredMovs = arrData.filter(mov =>
-        mov.detail.toLowerCase().includes(newData.toLowerCase()) ||
-        mov.pay_type.toLowerCase().includes(newData.toLowerCase()) ||
-        mov.author.toLowerCase().includes(newData.toLowerCase()) ||
-        mov.category.toLowerCase().includes(newData.toLowerCase())
-      )
-      if (newData) {
-        setData({ ...data, [key]: newData })
-        setArrData(filteredMovs)
-      }
-      else {
-        const newData = {
-          ...data,
-          ledger: ledger.id || -1,
-          user: ledger.email
-        }
-        setData({ ...data, [key]: '' })
-        getAllMovements(newData)
-      }
+  const triggerSearch = newData => {
+    const searchWords = newData.split(' ')
+    const filteredMovs = arrData.filter(mov => {
+      const stringMov = JSON.stringify({
+        detail: mov.detail,
+        author: mov.author,
+        category: mov.category,
+        pay_type: mov.pay_type,
+        amount: mov.amount
+      })
+      let matches = true
+      searchWords.forEach(word => {
+        if (!stringMov.toLowerCase().includes(word.toLowerCase())) matches = false
+      })
+      if (matches) return mov
+    })
+    if (newData) {
+      setData({ ...data, 'search': newData })
+      setArrData(filteredMovs)
     }
+    else {
+      const newData = {
+        ...data,
+        ledger: ledger.id || -1,
+        user: ledger.email
+      }
+      setData({ ...data, 'search': '' })
+      getAllMovements(newData)
+    }
+  }
+
+  const updateData = (key, newData) => {
+    if (key === 'search') triggerSearch(newData)
     else {
       setData({ ...data, [key]: key === 'amount' ? newData.toString().replace(/[^.0-9]/, '') : newData })
     }
@@ -723,6 +744,9 @@ export default function Home() {
             : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
         }
       </div>
+      {viewSalary ? <div className='home-balance'>
+        <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })}</h4>
+      </div> : ''}
 
       {settings.isMonthly ?
         <div className='home-month-tab' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
@@ -751,7 +775,7 @@ export default function Home() {
         : ''}
 
       {loading ?
-        <div style={{ alignSelf: 'center', marginTop: '8vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
+        <div style={{ alignSelf: 'center', marginTop: '18vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
         :
         <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
           <MovementsTable

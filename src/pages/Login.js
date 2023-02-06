@@ -53,7 +53,7 @@ export default function Login() {
             if (login.username) {
                 const hasLedger = login.defaultLedger
                 toast.info(`${MESSAGE[lan].WELCOME_TOAST}, ${login.username}!`)
-                setTimeout(() => history.push(`${hasLedger ? '/home' : '/ledger'}`), 2000)
+                setTimeout(() => history.push(`${hasLedger ? '/splash' : '/ledger'}`), 2000)
             } else toast.error(MESSAGE[lan].WRONG_CREDENTIALS)
 
             setLoading(false)

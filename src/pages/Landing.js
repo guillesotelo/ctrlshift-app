@@ -21,7 +21,7 @@ export default function Landing() {
             }
         }
 
-        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/home')
+        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/splash')
     }, [])
 
     return isMobile ? <LandingMobile />
