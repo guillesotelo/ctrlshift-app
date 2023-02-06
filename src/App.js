@@ -16,6 +16,7 @@ import ChangePass from "./pages/ChangePass";
 import Report from "./pages/Report";
 import { useSelector } from "react-redux";
 import NotFound from './pages/NotFound'
+import Landing from './pages/Landing'
 
 function App() {
 
@@ -24,6 +25,9 @@ function App() {
   return (
     <Switch>
       <Route exact path="/">
+        <Landing />
+      </Route>
+      <Route exact path="/splash">
         <SplashScreen />
       </Route>
       <Route path="/login">

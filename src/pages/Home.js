@@ -90,7 +90,7 @@ export default function Home() {
       }
     }
 
-    if (!localLedger || !localLedger.email || !localLedger.settings) history.push('/ledger')
+    if (!localLedger || !localLedger.email || !localLedger.settings) return history.push('/ledger')
 
     setUser(localUser)
     setLedger(localLedger)
@@ -165,7 +165,7 @@ export default function Home() {
     const authorPattern = allUsers.map(_ => randomColors(PALETTE)[0])
 
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
-    const { salary, isMonthly } = JSON.parse(localLedger.settings)
+    const { salary, isMonthly } = JSON.parse(localLedger?.settings || '{}')
 
     const budgetArr = allCategories.map(cat => {
       const num = chartCalculator(arrData, cat, 'category')

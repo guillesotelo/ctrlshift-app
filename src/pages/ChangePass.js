@@ -27,7 +27,7 @@ export default function ChangePass() {
             get: (searchParams, prop) => searchParams.get(prop),
         })
         if (userEmail) {
-            let _userEmail = userEmail.replace(' ','+')
+            let _userEmail = userEmail.replace(' ', '+')
             setEmailFound(_userEmail)
             updateData('userEmail', _userEmail)
         }
@@ -40,8 +40,8 @@ export default function ChangePass() {
     const saveNewPassword = async () => {
         try {
             if (!data.password || !data.currentPass) return toast.error(MESSAGE[lan].CHECK_FIELDS)
-            if(data.password === data.currentPass) return toast.error(MESSAGE[lan].SAME_PASS)
-            
+            if (data.password === data.currentPass) return toast.error(MESSAGE[lan].SAME_PASS)
+
             setLoading(true)
             const saved = await dispatch(changePassword(data)).then(d => d.payload)
 
@@ -62,7 +62,7 @@ export default function ChangePass() {
             <div className='logo-login-container'>
                 <img className='logo-img' src={Logo} alt="Control Shift" />
             </div>
-            {loading ? <PuffLoader color='#CCA43B'/> : emailFound ?
+            {loading ? <PuffLoader color='#CCA43B' /> : emailFound ?
                 <div className='new-pass-container'>
                     <h4 className='hi-login'>{MESSAGE[lan].CHANGE_PASS}</h4>
                     <InputField

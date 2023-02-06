@@ -76,6 +76,26 @@ export default function Register() {
                 :
                 <div className='login-section'>
                     <h4 className='hi-login'>{MESSAGE[lan].HI_REGISTER}</h4>
+                    <Dropdown
+                        style={{ margin: '2vw 0' }}
+                        onSelect={selected => {
+                            const { code, title } = LANGUAGES.find(({ code }) => selected === code)
+
+                            setLan(selected)
+                            updateData('language', selected)
+                            setToggleContents(<><Flag code={code} height="16" /> {title}</>)
+                        }}
+                    >
+                        <Dropdown.Toggle variant="secondary" id="cta-btn" className="text-left" style={{ width: '100%' }}>
+                            {toggleContents}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu style={{ gap: 20, padding: 25, width: 'fit-content', borderRadius: '1vw' }}>
+                            {LANGUAGES.map(({ code, title }) => (
+                                <Dropdown.Item key={code} eventKey={code}><Flag height="16" code={code} /> {title}</Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <InputField
                         label=''
                         updateData={updateData}
@@ -112,40 +132,21 @@ export default function Register() {
                         style={{ fontWeight: 'normal', fontSize: '4vw' }}
                         autoComplete='new-password'
                     />
-                    <Dropdown
-                        style={{ margin: '2vw 0' }}
-                        onSelect={selected => {
-                            const { code, title } = LANGUAGES.find(({ code }) => selected === code)
 
-                            setLan(selected)
-                            updateData('language', selected)
-                            setToggleContents(<><Flag code={code} height="16" /> {title}</>)
-                        }}
-                    >
-                        <Dropdown.Toggle variant="secondary" id="cta-btn" className="text-left" style={{ width: '100%' }}>
-                            {toggleContents}
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{ gap: 20, padding: 25, width: 'fit-content', borderRadius: '1vw' }}>
-                            {LANGUAGES.map(({ code, title }) => (
-                                <Dropdown.Item key={code} eventKey={code}><Flag height="16" code={code} /> {title}</Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
                     <CTAButton
                         label={MESSAGE[lan].REGISTER_BTN}
                         handleClick={onRegister}
                         size='100%'
-                        color={APP_COLORS.SPACE}
-                        style={{ marginTop: '6vw', fontSize: '4vw' }}
+                        color={APP_COLORS.YELLOW}
+                        style={{ marginTop: '6vw', fontSize: '4vw', color: 'black' }}
                         className='cta-register'
                     />
                     <CTAButton
                         label={MESSAGE[lan].BACK_BTN}
                         handleClick={() => history.goBack()}
                         size='100%'
-                        color={APP_COLORS.GRAY}
-                        style={{ marginTop: '10vw', fontSize: '4vw' }}
+                        color='#fff'
+                        style={{ marginTop: '10vw', fontSize: '4vw', color: 'black' }}
                     />
                 </div>
             }

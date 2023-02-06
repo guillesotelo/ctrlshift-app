@@ -30,7 +30,7 @@ export default function Report() {
 
     const getAdmin = async () => {
         const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
-        if (!user || !user.email) return history.push('/')
+        if (!user || !user.email) return history.push('/home')
 
         const admin = await dispatch(getAdminCredentials({ email: user.email })).then(data => data.payload)
         setIsAdmin(admin.isAdmin || false)

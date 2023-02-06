@@ -30,7 +30,7 @@ export default function Ledger() {
 
         if (!localUser || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
             localStorage.clear()
-            return history.push('/')
+            return history.push('/login')
         }
 
         const _settings = {

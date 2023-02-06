@@ -12,13 +12,12 @@ export default function Menu(props) {
   const history = useHistory()
   const lan = getUserLanguage()
   const { name } = localStorage.getItem('ledger') &&
-  localStorage.getItem('ledger') !== null ? JSON.parse(localStorage.getItem('ledger')) : {}
+    localStorage.getItem('ledger') !== null ? JSON.parse(localStorage.getItem('ledger')) : {}
 
   const handleLogOut = () => {
     setMenuClass('menu-hidden')
-    localStorage.removeItem('user')
-    localStorage.removeItem('ledger')
-    history.push('/')
+    localStorage.clear()
+    history.push('/login')
   }
 
   const handleAccount = () => {

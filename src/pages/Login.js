@@ -53,12 +53,12 @@ export default function Login() {
             if (login.username) {
                 const hasLedger = login.defaultLedger
                 toast.info(`${MESSAGE[lan].WELCOME_TOAST}, ${login.username}!`)
-                setTimeout(() => history.push(`${hasLedger ? '/' : '/ledger'}`), 2000)
+                setTimeout(() => history.push(`${hasLedger ? '/home' : '/ledger'}`), 2000)
             } else toast.error(MESSAGE[lan].WRONG_CREDENTIALS)
 
             setLoading(false)
-        } catch (_) { 
-            toast.error(MESSAGE[lan].LOGIN_ERROR) 
+        } catch (_) {
+            toast.error(MESSAGE[lan].LOGIN_ERROR)
             setLoading(false)
         }
     }
@@ -70,8 +70,8 @@ export default function Login() {
             if (sent) toast.success(MESSAGE[lan].MAIL_SENT)
             else toast.error(MESSAGE[lan].CONN_ERR)
             setLoading(false)
-        } catch (err) { 
-            toast.error(MESSAGE[lan].CONN_ERR) 
+        } catch (err) {
+            toast.error(MESSAGE[lan].CONN_ERR)
             setLoading(false)
         }
     }
@@ -149,7 +149,7 @@ export default function Login() {
                     shape='circle'
                 /> */}
                 <h4 className='login-register-text'>{MESSAGE[lan].HI_REGISTER} <button onClick={goToRegister} className='login-register-link'>{MESSAGE[lan].LOGIN_REG_LINK}</button></h4>
-                {data.email && <button onClick={() => setMailModal(true)} className='login-remember-link'>{MESSAGE[lan].LOGIN_REMEMBER}</button>}
+                <button onClick={() => setMailModal(true)} className='login-remember-link'>{data.email ? MESSAGE[lan].LOGIN_REMEMBER : ''}</button>
                 <h4 className='login-version-text'>{VERSION}</h4>
             </div>
         </div>
