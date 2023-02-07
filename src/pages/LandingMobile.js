@@ -85,7 +85,7 @@ export default function LandingMobile() {
                     </p>
                 </div>
             </div>
-            <Footer />
+            <Footer darkMode={darkMode} />
         </div>
         :
         <Landing />

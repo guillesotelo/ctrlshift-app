@@ -484,7 +484,7 @@ h2 {
 }
 
 .salary {
-  color: #CCA43B;
+  color: #3bcc3b;
   font-weight: bold !important;
   transition: .3s;
 }
@@ -1537,7 +1537,7 @@ h2 {
   }
 
   .salary {
-    color: #CCA43B;
+    color: #3bcc3b;
     font-weight: bold !important;
     font-size: 2vw;
     cursor: pointer;

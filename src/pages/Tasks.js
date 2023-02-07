@@ -182,7 +182,7 @@ export default function Tasks() {
         }
         else if (taskDate.getDay() === new Date(yesterday).getDay() && taskDate.getDate() === new Date(yesterday).getDate()) {
             color = 'red'
-            parsed = 'Ayer'
+            parsed = MESSAGE[lan].YESTERDAY
             parsed = `${withTime ? MESSAGE[lan].YESTERDAY + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : 'Ayer'}`
         }
         else if (taskDate.getDay() === new Date(tomorrow).getDay() && taskDate.getDate() === new Date(tomorrow).getDate()) {

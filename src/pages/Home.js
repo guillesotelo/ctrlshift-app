@@ -131,7 +131,7 @@ export default function Home() {
   useEffect(() => {
     const debited = data.salary - arrData.reduce((item, current) => item + Number(current.amount), 0)
     if (!isNaN(debited)) setSalary(debited)
-  }, [data.salary, arrData])
+  }, [data, arrData])
 
   useEffect(() => {
     if (data.detail) {
@@ -737,14 +737,16 @@ export default function Home() {
         </div>
       }
 
-      <div className='salary-div' onClick={() => setViewSalary(!viewSalary)} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
-        <h4 className='salary-text'>{MESSAGE[lan].SALARY}:</h4>
-        {
-          viewSalary ? <h4 className='salary'>{MESSAGE[lan].FIAT} {salary.toLocaleString('us-US', { currency: 'ARS' })}</h4>
-            : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
-        }
-      </div>
-      {viewSalary ? <div className='home-balance'>
+      {settings.isMonthly ?
+        <div className='salary-div' onClick={() => setViewSalary(!viewSalary)} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+          <h4 className='salary-text'>{MESSAGE[lan].SALARY}:</h4>
+          {
+            viewSalary ? <h4 className='salary'>▴ {MESSAGE[lan].FIAT} {salary.toLocaleString('us-US', { currency: 'ARS' })}</h4>
+              : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
+          }
+        </div> : <div style={{ height: '4vw' }}></div>
+      }
+      {viewSalary && settings.isMonthly ? <div className='home-balance' onClick={() => setViewSalary(!viewSalary)}>
         <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })}</h4>
       </div> : ''}
 
@@ -827,30 +829,27 @@ export default function Home() {
                   {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
                 </>
                 : ''}
-              <>
-                <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
-                {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
-              </>
+              {settings.isMonthly ?
+                <>
+                  <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
+                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+                </> : ''}
               {budget.total && Number(budget.total) !== 100 ?
                 <>
                   <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
                   {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
-                </>
-                : ''
-              }
+                </> : ''}
               {!settings.isMonthly ?
                 <>
                   <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
                   {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
-                </>
-                : ''
-              }
-              <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
-              {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+                </> : ''}
+              {settings.isMonthly ?
+                <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
+                : ''}
+              {isMobile && settings.isMonthly ? <div className='separator' style={{ width: '85%' }}></div> : ''}
               <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
-            </div>
-              : ''
-          }
+            </div> : ''}
         </div>}
     </div>
   )
