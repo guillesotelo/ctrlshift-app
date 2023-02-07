@@ -10,6 +10,10 @@ export default function Landing() {
     const isMobile = window.innerWidth < 640
     const history = useHistory()
 
+    useEffect(() => {
+        const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+        setDarkMode(mode)
+    }, [])
     // useEffect(() => {
     //     const localUser = JSON.parse(localStorage.getItem('user'))
 
@@ -35,12 +39,15 @@ export default function Landing() {
                     <a></a>
                 </div>
                 <div className='landing-header-btns'>
-                    <img 
-                    src={MoonSon} 
-                    alt='Dark Mode' 
-                    className='landing-dark-mode' 
-                    onClick={() => setDarkMode(!darkMode)} 
-                    style={{ filter: darkMode ? 'invert(97%) sepia(0%) saturate(4674%) hue-rotate(353deg) brightness(80%) contrast(99%)' : ''}}
+                    <img
+                        src={MoonSon}
+                        alt='Dark Mode'
+                        className='landing-dark-mode'
+                        onClick={() => {
+                            setDarkMode(!darkMode)
+                            localStorage.setItem('darkMode', !darkMode)
+                        }}
+                        style={{ filter: darkMode ? 'invert(97%) sepia(0%) saturate(4674%) hue-rotate(353deg) brightness(80%) contrast(99%)' : '' }}
                     />
                     <CTAButton
                         label='Login'
@@ -60,8 +67,8 @@ export default function Landing() {
             </div>
             <div className='landing-body'>
                 <div className='landing-text-div'>
-                    <h1 className='landing-heading'>Empowering your financial control<br /> with CtrlShift</h1>
-                    <p className='landing-text'>
+                    <h1 className='landing-heading move-x-back'>Empowering your financial control<br /> with CtrlShift</h1>
+                    <p className='landing-text move-x-back'>
                         <b>CtrlShift</b> is a comprehensive finance management app designed for homes and small businesses.<br />
                         With it, you can easily submit expenses, track income and outcome, and have full control
                         over your finances with the help of graphics and other useful modules.<br /><br />
@@ -69,14 +76,14 @@ export default function Landing() {
                     </p>
                     <CTAButton
                         label='Start for free'
-                        className='landing-cta'
+                        className='landing-cta move-y-back'
                         color='#CCA43B'
                         style={{ color: 'black' }}
                         handleClick={() => history.push('/register')}
                     />
                 </div>
                 <div className='landing-phone-div'>
-                    <img src='https://i.postimg.cc/GtVz8x3L/smartmockups-ldue73hz.png' alt='mobile app image' className='landing-phone-image' />
+                    <img src='https://i.postimg.cc/GtVz8x3L/smartmockups-ldue73hz.png' alt='mobile app image' className='landing-phone-image move-x' />
                 </div>
             </div>
         </div>
