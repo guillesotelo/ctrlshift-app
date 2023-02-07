@@ -1,43 +1,52 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import CTAButton from '../components/CTAButton'
 import LandingMobile from './LandingMobile'
 import Logo from '../assets/logo.png'
+import MoonSon from '../assets/moon-sun.svg'
 
 export default function Landing() {
+    const [darkMode, setDarkMode] = useState(false)
     const isMobile = window.innerWidth < 640
     const history = useHistory()
 
-    useEffect(() => {
-        const localUser = JSON.parse(localStorage.getItem('user'))
+    // useEffect(() => {
+    //     const localUser = JSON.parse(localStorage.getItem('user'))
 
-        if (localUser && localUser.login) {
-            const login = new Date(localUser.login).getTime()
-            const now = new Date().getTime()
+    //     if (localUser && localUser.login) {
+    //         const login = new Date(localUser.login).getTime()
+    //         const now = new Date().getTime()
 
-            if (now - login > 2506000000) {
-                localStorage.clear()
-                return history.push('/login')
-            }
-        }
+    //         if (now - login > 2506000000) {
+    //             localStorage.clear()
+    //             return history.push('/login')
+    //         }
+    //     }
 
-        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/splash')
-    }, [])
+    //     if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/splash')
+    // }, [])
 
     return isMobile ? <LandingMobile />
         :
-        <div className='landing-container'>
+        <div className='landing-container' style={{ backgroundColor: darkMode ? '#202020' : '', color: darkMode ? 'lightgray' : '' }}>
             <div className='landing-header'>
                 <img className='landing-header-logo' src={Logo} alt="Ctrol Shiflt" />
                 <div className='landing-header-central'>
                     <a></a>
                 </div>
                 <div className='landing-header-btns'>
+                    <img 
+                    src={MoonSon} 
+                    alt='Dark Mode' 
+                    className='landing-dark-mode' 
+                    onClick={() => setDarkMode(!darkMode)} 
+                    style={{ filter: darkMode ? 'invert(97%) sepia(0%) saturate(4674%) hue-rotate(353deg) brightness(80%) contrast(99%)' : ''}}
+                    />
                     <CTAButton
                         label='Login'
                         className='landing-cta'
-                        color='#fff'
-                        style={{ color: 'black' }}
+                        color='transparent'
+                        style={{ color: darkMode ? 'lightgray' : 'black' }}
                         handleClick={() => history.push('/login')}
                     />
                     <CTAButton
@@ -67,7 +76,7 @@ export default function Landing() {
                     />
                 </div>
                 <div className='landing-phone-div'>
-                    <img src='https://i.postimg.cc/K82HWw2X/Ctrl-Shift-mockup.png' alt='mobile app image' className='landing-phone-image' />
+                    <img src='https://i.postimg.cc/GtVz8x3L/smartmockups-ldue73hz.png' alt='mobile app image' className='landing-phone-image' />
                 </div>
             </div>
         </div>

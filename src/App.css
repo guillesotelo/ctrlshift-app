@@ -973,7 +973,9 @@ h2 {
 }
 
 /* ---- Landing ---- */
-.landing-container {}
+.landing-container {
+  min-height: 100vh;
+}
 
 .landing-header {
   height: 6vw;
@@ -998,9 +1000,22 @@ h2 {
   transition: .3s;
 }
 
+.landing-dark-mode {
+  height: 2vw;
+  opacity: .5;
+  margin-right: 2vw;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.landing-dark-mode:hover {
+  opacity: 1;
+}
+
 .landing-header-btns {
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin: 0 2vw;
   gap: 1vw;
 }
@@ -1034,6 +1049,11 @@ h2 {
 .landing-phone-image {
   max-height: 75vh;
   max-width: 40vw;
+  transition: 3s;
+}
+
+.landing-phone-image:hover {
+  transform: translateX(-8%) rotate(-4deg);
 }
 
 

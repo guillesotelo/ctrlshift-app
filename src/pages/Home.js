@@ -775,7 +775,7 @@ export default function Home() {
         : ''}
 
       {loading ?
-        <div style={{ alignSelf: 'center', marginTop: '18vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
+        <div style={{ alignSelf: 'center', marginTop: '18vw', display: 'flex', height: '20vw' }}><PuffLoader color='#CCA43B' /></div>
         :
         <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
           <MovementsTable

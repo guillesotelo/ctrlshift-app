@@ -3,25 +3,26 @@ import { useHistory } from 'react-router-dom'
 import CTAButton from '../components/CTAButton'
 import Logo from '../assets/logo.png'
 import Footer from '../components/Footer'
+import MoonSon from '../assets/moon-sun.svg'
 
 export default function LandingMobile() {
     const history = useHistory()
 
-    useEffect(() => {
-        const localUser = JSON.parse(localStorage.getItem('user'))
+    // useEffect(() => {
+    //     const localUser = JSON.parse(localStorage.getItem('user'))
 
-        if (localUser && localUser.login) {
-            const login = new Date(localUser.login).getTime()
-            const now = new Date().getTime()
+    //     if (localUser && localUser.login) {
+    //         const login = new Date(localUser.login).getTime()
+    //         const now = new Date().getTime()
 
-            if (now - login > 2506000000) {
-                localStorage.clear()
-                return history.push('/login')
-            }
-        }
+    //         if (now - login > 2506000000) {
+    //             localStorage.clear()
+    //             return history.push('/login')
+    //         }
+    //     }
 
-        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/home')
-    }, [])
+    //     if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/home')
+    // }, [])
 
     return (
         <div className='landing-mobile-container'>
@@ -31,6 +32,7 @@ export default function LandingMobile() {
                     <a></a>
                 </div>
                 <div className='landing-header-btns'>
+                <img src={MoonSon} alt='Dark Mode' className='landing-dark-mode' />
                     <CTAButton
                         label='Login'
                         className='landing-cta'
@@ -64,7 +66,7 @@ export default function LandingMobile() {
                         handleClick={() => history.push('/register')}
                     />
                 </div>
-                <img src='https://i.postimg.cc/K82HWw2X/Ctrl-Shift-mockup.png' alt='mobile app image' className='landing-phone-image' />
+                <img src='https://i.postimg.cc/GtVz8x3L/smartmockups-ldue73hz.png' alt='mobile app image' className='landing-phone-image' />
             </div>
             <Footer />
         </div>
