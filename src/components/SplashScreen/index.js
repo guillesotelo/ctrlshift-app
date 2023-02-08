@@ -36,7 +36,7 @@ export default function SplashScreen() {
 
     const getUpdatedLedger = async ledgerId => {
         const updatedLedger = await dispatch(getLedger(ledgerId)).then(data => data.payload)
-        if (updatedLedger) setTimeout(() => history.push('/home'), 2000)
+        if (updatedLedger) setTimeout(() => history.push('/home'), 1000)
     }
 
     const render = () => {

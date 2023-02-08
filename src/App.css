@@ -1728,6 +1728,7 @@ h2 {
     border: none;
     border-radius: 2vw;
     margin: 0vw !important;
+    box-shadow: 3px 3px 7px #a2a2a2;
   }
 
   .task-modal {

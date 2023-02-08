@@ -178,16 +178,16 @@ export default function Tasks() {
 
         if (taskDate.getDay() === now.getDay() && taskDate.getDate() === now.getDate()) {
             color = 'green'
-            parsed = `${withTime ? MESSAGE[lan].TODAY + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : 'Hoy'}`
+            parsed = `${withTime ? MESSAGE[lan].TODAY + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : MESSAGE[lan].TODAY}`
         }
         else if (taskDate.getDay() === new Date(yesterday).getDay() && taskDate.getDate() === new Date(yesterday).getDate()) {
             color = 'red'
             parsed = MESSAGE[lan].YESTERDAY
-            parsed = `${withTime ? MESSAGE[lan].YESTERDAY + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : 'Ayer'}`
+            parsed = `${withTime ? MESSAGE[lan].YESTERDAY + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : MESSAGE[lan].YESTERDAY}`
         }
         else if (taskDate.getDay() === new Date(tomorrow).getDay() && taskDate.getDate() === new Date(tomorrow).getDate()) {
             color = 'green'
-            parsed = `${withTime ? MESSAGE[lan].TOMORROW + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : 'Mañana'}`
+            parsed = `${withTime ? MESSAGE[lan].TOMORROW + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : MESSAGE[lan].TOMORROW}`
         }
         else if ((taskDate.getDay() === new Date(dayAfter).getDay() && taskDate.getDate() === new Date(dayAfter).getDate()) ||
             (taskDate.getDay() === new Date(afterDayAfter).getDay() && taskDate.getDate() === new Date(afterDayAfter).getDate())

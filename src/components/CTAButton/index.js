@@ -13,7 +13,8 @@ export default function CTAButton(props) {
         disabled,
         loading,
         className,
-        btnClass
+        btnClass,
+        svg
     } = props
 
     const buttonStyle = {
@@ -29,9 +30,16 @@ export default function CTAButton(props) {
             {loading ?
                 <SyncLoader speedMultiplier={0.8} color={color || '#CCA43B'} />
                 :
-                <button className={btnClass || 'cta-btn'} onClick={handleClick} style={buttonStyle} disabled={disabled || false}>
-                    {label || ''}
-                </button>
+                svg ? <div className='cta-btn-svg-container'>
+                    <img src={svg} className='cta-btn-svg' alt={`${label} image`} />
+                    <button className={btnClass || 'cta-btn'} onClick={handleClick} style={buttonStyle} disabled={disabled || false}>
+                        {label || ''}
+                    </button>
+                </div>
+                    :
+                    <button className={btnClass || 'cta-btn'} onClick={handleClick} style={buttonStyle} disabled={disabled || false}>
+                        {label || ''}
+                    </button>
             }
         </div>
     )

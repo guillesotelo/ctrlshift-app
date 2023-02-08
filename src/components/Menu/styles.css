@@ -11,15 +11,20 @@
   margin-top: 3vw;
 }
 
+.menu-items {
+  text-align: left;
+}
+
 .menu-items button {
-  transition: border-bottom 0.5s;
+  transition: .5s;
   cursor: pointer;
 }
 
 .menu-items button:hover {
-  border-bottom: 1px solid #CCA43B;
+  /* border-bottom: 1px solid #CCA43B; */
+  transform: translateX(3%);
   border-radius: 0;
-  width: 70% !important;
+  /* width: 70% !important; */
 }
 
 .menu-hidden {

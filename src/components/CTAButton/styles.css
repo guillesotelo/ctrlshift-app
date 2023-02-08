@@ -17,6 +17,18 @@
     cursor: pointer;
 }
 
+.cta-btn-svg-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+}
+
+.cta-btn-svg {
+    height: 1.5vw;
+    filter: invert(59%) sepia(67%) saturate(408%) hue-rotate(6deg) brightness(97%) contrast(91%);
+}
+
 #cta-btn {
     font-size: 1vw !important;
     padding: .8vw 1vw !important;
@@ -65,6 +77,7 @@
     margin: 1vw 0;
     transition: 0.3s;
 }
+
 .cta-register:hover {
     opacity: 0.8;
 }
@@ -139,6 +152,7 @@
         cursor: pointer;
         transition: 0.3s;
     }
+
     #cta-btn:hover {
         opacity: 0.8;
     }
@@ -148,7 +162,7 @@
         margin: 0 1vw;
     }
 
-    .category-budget-setter button{
+    .category-budget-setter button {
         width: 12vw !important;
     }
 
@@ -182,5 +196,17 @@
         align-items: center;
         width: fit-content;
         transform: scale(0.9);
+    }
+
+    .cta-btn-svg-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 80%;
+    }
+    
+    .cta-btn-svg {
+        height: 6vw;
+        filter: invert(59%) sepia(67%) saturate(408%) hue-rotate(6deg) brightness(97%) contrast(91%);
     }
 }

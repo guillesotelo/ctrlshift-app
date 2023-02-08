@@ -11,7 +11,7 @@ export const MESSAGE = {
         LOGIN_BTN: 'Entrar',
         LOGIN_REG_TEXT: 'No tienes cuenta?',
         LOGIN_REG_LINK: 'Regístrate',
-        LOGIN_REMEMBER: 'No recuerdo mi contraseña',
+        LOGIN_REMEMBER: 'Olvidé mi contraseña',
         TO_SEND_MAIL: 'Cambiar contraseña desde mi email',
         MAIL_SENT: 'Mail enviado!',
 
@@ -178,7 +178,7 @@ export const MESSAGE = {
         LOGIN_BTN: 'Login',
         LOGIN_REG_TEXT: `Don't have an account?`,
         LOGIN_REG_LINK: 'Register',
-        LOGIN_REMEMBER: `I don't remember my password`,
+        LOGIN_REMEMBER: `I forgot my password`,
         TO_SEND_MAIL: 'Change password from my email',
         MAIL_SENT: 'Email sent!',
 
@@ -345,7 +345,7 @@ export const MESSAGE = {
         LOGIN_BTN: 'Login',
         LOGIN_REG_TEXT: `Don't have an account?`,
         LOGIN_REG_LINK: 'Register',
-        LOGIN_REMEMBER: `I don't remember my password`,
+        LOGIN_REMEMBER: `I forgot my password`,
         TO_SEND_MAIL: 'Change password from my email',
         MAIL_SENT: 'Email sent!',
 

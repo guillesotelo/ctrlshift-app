@@ -5,6 +5,14 @@ import CTAButton from '../CTAButton'
 import { VERSION } from '../../constants/app'
 import { MESSAGE } from '../../constants/messages'
 import { getUserLanguage } from '../../helpers';
+import AccountIcon from '../../assets/menu/account.svg'
+import ExpensesIcon from '../../assets/menu/expenses.svg'
+import SettingsIcon from '../../assets/menu/settings.svg'
+import NotesIcon from '../../assets/menu/notes.svg'
+import TasksIcon from '../../assets/menu/tasks.svg'
+import ReportsIcon from '../../assets/menu/reports.svg'
+import LogoutIcon from '../../assets/menu/logout.svg'
+
 import './styles.css'
 
 export default function Menu(props) {
@@ -35,6 +43,7 @@ export default function Menu(props) {
           size='100%'
           style={{ color: '#CCA43B', fontSize: '5vw' }}
           className='cta-menu'
+          svg={AccountIcon}
         />
         {
           name &&
@@ -48,6 +57,7 @@ export default function Menu(props) {
               }}
               size='100%'
               style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
+              svg={ExpensesIcon}
             />
             <CTAButton
               label={MESSAGE[lan].SETTINGS}
@@ -59,6 +69,7 @@ export default function Menu(props) {
               size='100%'
               style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
               className='cta-menu'
+              svg={SettingsIcon}
             />
             <CTAButton
               label={MESSAGE[lan].NOTES}
@@ -70,6 +81,7 @@ export default function Menu(props) {
               size='100%'
               style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
               className='cta-menu'
+              svg={NotesIcon}
             />
             <CTAButton
               label={MESSAGE[lan].TASKS}
@@ -81,6 +93,7 @@ export default function Menu(props) {
               size='100%'
               style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
               className='cta-menu'
+              svg={TasksIcon}
             />
             <CTAButton
               label={MESSAGE[lan].REPORT_ISSUE}
@@ -92,6 +105,7 @@ export default function Menu(props) {
               size='100%'
               style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
               className='cta-menu'
+              svg={ReportsIcon}
             />
           </>
         }
@@ -102,6 +116,7 @@ export default function Menu(props) {
           size='100%'
           style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
           className='cta-menu'
+          svg={LogoutIcon}
         />
       </div>
       <h4 className='app-version'>{VERSION}</h4>
