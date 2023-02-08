@@ -45,16 +45,21 @@ canvas {
   box-shadow: 5px 5px 11px rgb(155, 155, 155);
   border-radius: 1vw;
   position: absolute;
-  top: 5%;
-  left: 34%;
-  transform: translate(-50%, -50%);
+  /* top: 5%; */
+  /* left: 34%;  */
+  transform: translate(108%, 0%) scale(.8);
   z-index: 1;
   width: 30%;
   height: fit-content !important;
   background-color: white;
   filter: none !important;
   padding: 0.8vw;
-  transform: scale(0.8);
+  animation: move-modal .5s ease-in-out;
+}
+
+@keyframes move-modal {
+  0% { transform: translate(108%, -100%) scale(.8); opacity: 0; }
+  100% { transform: translate(108%, 0%) scale(.8); opacity: 1 }
 }
 
 .fill-section-container h3 {
@@ -453,7 +458,7 @@ h2 {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  box-shadow: 3px 3px 9px lightgray;
+  /* box-shadow: 3px 3px 9px lightgray; */
   border-radius: .5vw;
   gap: 1vw;
   margin: 1vw;
@@ -461,6 +466,7 @@ h2 {
   padding: .5vw 1vw;
   align-self: center;
   transition: .3s;
+  width: 100%;
 }
 
 .salary-div h4 {
@@ -487,6 +493,7 @@ h2 {
   color: #3bcc3b;
   font-weight: bold !important;
   transition: .3s;
+  animation: move-x .5s ease-in-out;
 }
 
 .home-balance {
@@ -511,6 +518,8 @@ h2 {
   transition: .3s;
   color: #ed7c7c;
   margin: 0;
+  font-weight: bold !important;
+  animation: move-x-back .5s ease-in-out;
 }
 
 .table-div {
@@ -1137,7 +1146,14 @@ h2 {
     height: fit-content !important;
     background-color: white;
     filter: none !important;
+    animation: move-modal-mobile .3s ease-in-out;
   }
+
+  @keyframes move-modal-mobile {
+    0% { transform: translate(-55%, -100%); opacity: 0 }
+    100% { transform: translate(-55%, -50%); opacity: 1 }
+  }
+
 
   .fill-section-container h3 {
     margin: 3.5vw;
@@ -1541,6 +1557,7 @@ h2 {
     font-weight: bold !important;
     font-size: 2vw;
     cursor: pointer;
+    animation: move-x .5s ease-in-out;
   }
 
   .svg-eye {
@@ -1554,10 +1571,11 @@ h2 {
   }
 
   .negative-balance {
-    font-size: 4vw;
+    font-size: 2vw;
     transition: .3s;
     color: #ed7c7c;
     margin: 0;
+    animation: move-x-back 1s ease-in-out;
   }
 
   .table-div {

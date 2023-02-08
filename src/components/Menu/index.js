@@ -36,90 +36,79 @@ export default function Menu(props) {
   return (
     <div className={`menu-container ${menuClass}`}>
       <div className='menu-items'>
-        <CTAButton
-          label={MESSAGE[lan].MY_ACCOUNT}
-          color='#263d42'
-          handleClick={handleAccount}
-          size='100%'
-          style={{ color: '#CCA43B', fontSize: '5vw' }}
-          className='cta-menu'
-          svg={AccountIcon}
-        />
+        <div
+          className='menu-item'
+          onClick={handleAccount}
+        >
+          <img src={AccountIcon} className='menu-item-svg' alt={`${MESSAGE[lan].MY_ACCOUNT} image`} />
+          <h4 className='menu-item-text'>{MESSAGE[lan].MY_ACCOUNT}</h4>
+        </div>
         {
           name &&
           <>
-            <CTAButton
-              label={MESSAGE[lan].MOVEMENTS}
-              color='#263d42'
-              handleClick={() => {
+            <div
+              className='menu-item'
+              onClick={() => {
                 setMenuClass('menu-hidden')
                 history.push('/home')
               }}
-              size='100%'
-              style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
-              svg={ExpensesIcon}
-            />
-            <CTAButton
-              label={MESSAGE[lan].SETTINGS}
-              color='#263d42'
-              handleClick={() => {
+            >
+              <img src={ExpensesIcon} className='menu-item-svg' alt={`${MESSAGE[lan].MOVEMENTS} image`} />
+              <h4 className='menu-item-text'>{MESSAGE[lan].MOVEMENTS}</h4>
+            </div>
+            <div
+              className='menu-item'
+              onClick={() => {
                 setMenuClass('menu-hidden')
                 history.push('/settings')
               }}
-              size='100%'
-              style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
-              className='cta-menu'
-              svg={SettingsIcon}
-            />
-            <CTAButton
-              label={MESSAGE[lan].NOTES}
-              color='#263d42'
-              handleClick={() => {
+            >
+              <img src={SettingsIcon} className='menu-item-svg' alt={`${MESSAGE[lan].SETTINGS} image`} />
+              <h4 className='menu-item-text'>{MESSAGE[lan].SETTINGS}</h4>
+            </div>
+            <div
+              className='menu-item'
+              onClick={() => {
                 setMenuClass('menu-hidden')
                 history.push('/notes')
               }}
-              size='100%'
-              style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
-              className='cta-menu'
-              svg={NotesIcon}
-            />
-            <CTAButton
-              label={MESSAGE[lan].TASKS}
-              color='#263d42'
-              handleClick={() => {
+            >
+              <img src={NotesIcon} className='menu-item-svg' alt={`${MESSAGE[lan].NOTES} image`} />
+              <h4 className='menu-item-text'>{MESSAGE[lan].NOTES}</h4>
+            </div>
+            <div
+              className='menu-item'
+              onClick={() => {
                 setMenuClass('menu-hidden')
                 history.push('/tasks')
               }}
-              size='100%'
-              style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
-              className='cta-menu'
-              svg={TasksIcon}
-            />
-            <CTAButton
-              label={MESSAGE[lan].REPORT_ISSUE}
-              color='#263d42'
-              handleClick={() => {
+            >
+              <img src={TasksIcon} className='menu-item-svg' alt={`${MESSAGE[lan].TASKS} image`} />
+              <h4 className='menu-item-text'>{MESSAGE[lan].TASKS}</h4>
+            </div>
+            <div style={{ borderBottom: '1px solid #CCA438', margin: '2vw 0' }}></div>
+            <div
+              className='menu-item'
+              onClick={() => {
                 setMenuClass('menu-hidden')
                 history.push('/reportIssue')
               }}
-              size='100%'
-              style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
-              className='cta-menu'
-              svg={ReportsIcon}
-            />
+            >
+              <img src={ReportsIcon} className='menu-item-svg' alt={`${MESSAGE[lan].REPORT_ISSUE} image`} />
+              <h4 className='menu-item-text'>{MESSAGE[lan].REPORT_ISSUE}</h4>
+            </div>
+
           </>
         }
-        <CTAButton
-          label={MESSAGE[lan].LOGOUT}
-          color='#263d42'
-          handleClick={handleLogOut}
-          size='100%'
-          style={{ color: '#CCA43B', fontSize: '5vw', marginTop: '2vw' }}
-          className='cta-menu'
-          svg={LogoutIcon}
-        />
+        <div
+          className='menu-item'
+          onClick={handleLogOut}
+        >
+          <img src={LogoutIcon} className='menu-item-svg' alt={`${MESSAGE[lan].LOGOUT} image`} />
+          <h4 className='menu-item-text'>{MESSAGE[lan].LOGOUT}</h4>
+        </div>
       </div>
       <h4 className='app-version'>{VERSION}</h4>
-    </div>
+    </div >
   )
 }

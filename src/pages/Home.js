@@ -741,14 +741,18 @@ export default function Home() {
         <div className='salary-div' onClick={() => setViewSalary(!viewSalary)} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
           <h4 className='salary-text'>{MESSAGE[lan].SALARY}:</h4>
           {
-            viewSalary ? <h4 className='salary'>▴ {MESSAGE[lan].FIAT} {salary.toLocaleString('us-US', { currency: 'ARS' })}</h4>
+            viewSalary ?
+              <div className=''>
+                <h4 className='salary'>▴ {MESSAGE[lan].FIAT} {salary.toLocaleString('us-US', { currency: 'ARS' })}</h4>
+                <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })}</h4>
+              </div>
               : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
           }
         </div> : <div style={{ height: '4vw' }}></div>
       }
-      {viewSalary && settings.isMonthly ? <div className='home-balance' onClick={() => setViewSalary(!viewSalary)}>
+      {/* {viewSalary && settings.isMonthly ? <div className='home-balance' onClick={() => setViewSalary(!viewSalary)}>
         <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })}</h4>
-      </div> : ''}
+      </div> : ''} */}
 
       {settings.isMonthly ?
         <div className='home-month-tab' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>

@@ -12,19 +12,39 @@
 }
 
 .menu-items {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  margin: 1vw auto;
 }
 
-.menu-items button {
-  transition: .5s;
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
   cursor: pointer;
+  transition: .3s;
 }
 
-.menu-items button:hover {
-  /* border-bottom: 1px solid #CCA43B; */
+.menu-item:hover {
+  transition: .3s;
   transform: translateX(3%);
-  border-radius: 0;
-  /* width: 70% !important; */
+}
+
+.menu-item-svg {
+  height: 2vw;
+  filter: invert(59%) sepia(67%) saturate(408%) hue-rotate(6deg) brightness(97%) contrast(91%);
+  width: 10%;
+}
+
+.menu-item-text {
+  font-size: 1.3vw;
+  text-align: left;
+  margin: 0;
+  width: 90%;
+  color: #CCA43B;
 }
 
 .menu-hidden {
@@ -42,7 +62,7 @@
 
 .app-version {
   font-weight: normal;
-  color: white;
+  color: #bdbdbd;
   align-self: center;
   position: absolute;
   bottom: 0;
@@ -65,6 +85,34 @@
     margin-top: 15vw;
   }
 
+  .menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 5vw;
+    margin: 4vw auto;
+  }
+
+  .menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 7vw;
+  }
+
+  .menu-item-svg {
+    height: 6vw;
+    filter: invert(59%) sepia(67%) saturate(408%) hue-rotate(6deg) brightness(97%) contrast(91%);
+    width: 10%;
+  }
+
+  .menu-item-text {
+    font-size: 1vw;
+    text-align: left;
+    margin: 0;
+    width: 90%;
+  }
+
   .menu-hidden {
     transform-origin: top center;
     transform: translateX(150%);
@@ -80,7 +128,7 @@
 
   .app-version {
     font-weight: normal;
-    color: white;
+    color: #bdbdbd;
     align-self: center;
     position: absolute;
     bottom: 0;
