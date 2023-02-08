@@ -21,6 +21,8 @@ import Landing from './pages/Landing'
 function App() {
 
   const hasMovs = useSelector(state => state.movement && state.movement.data) || null
+  const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+  document.querySelector('#root').style.backgroundColor = mode ? '#343434' : ''
 
   return (
     <Switch>
@@ -42,7 +44,7 @@ function App() {
       <Route path="/home">
         <Header />
         <Home />
-        {hasMovs && <Footer />}
+        {hasMovs && <Footer darkMode={mode} />}
       </Route>
       <Route path="/ledger">
         <Header />
@@ -55,7 +57,7 @@ function App() {
       <Route path="/settings">
         <Header />
         <Settings />
-        <Footer />
+        <Footer darkMode={mode} />
       </Route>
       <Route path="/notes">
         <Header />

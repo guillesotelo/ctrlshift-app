@@ -13,7 +13,8 @@ export default function MovementsTable(props) {
         setIsEdit,
         isEdit,
         setCheck,
-        check
+        check,
+        darkMode
     } = props
     const rowData = tableData && tableData.length ? tableData : []
     const lan = getUserLanguage()
@@ -33,13 +34,23 @@ export default function MovementsTable(props) {
         }
     }
 
+    const getCellColor = position => {
+        if(position % 2 === 0) {
+            if(darkMode) return '#595959'
+            return '#eaeaea'
+        } else {
+            if(darkMode) return '#676767'
+            return 'white'
+        }
+    }
+
     return (
-        <div className='table-container'>
-            <div className='table-titles'>
+        <div className={`table-container ${darkMode ? 'dark-mode-table' : ''}`}>
+            <div className={`table-titles ${darkMode ? 'dark-mode-titles' : ''}`}>
                 <h4 className='table-title'>{tableTitle || ''}</h4>
                 <h4 className='table-year'>{tableYear || ''}</h4>
             </div>
-            <div className='table-headers'>
+            <div className={`table-headers ${darkMode ? 'dark-mode-headers' : ''}`}>
                 {
                     headers.map((header, i) => <h4 key={i} className='table-header'>{header}</h4>)
                 }
@@ -53,8 +64,9 @@ export default function MovementsTable(props) {
                                 className='table-row'
                                 onClick={() => handleCheck(i)}
                                 style={{
-                                    backgroundColor: check === i ? '#ffe49f' : i % 2 === 0 ? '#eaeaea' : 'white',
-                                    color: row.extraordinary === 'up' ? '#117200' : row.extraordinary === 'down' ? '#af0000' : 'black'}}>
+                                    backgroundColor: check === i ? '#ffe49f' : getCellColor(i),
+                                    color: darkMode && check !== i ? 'lightgray' : row.extraordinary === 'up' ? '#117200' : row.extraordinary === 'down' ? '#af0000' : 'black'
+                                }}>
                                 <h4 className='table-row-item'>{new Date(row.date).toLocaleDateString()}</h4>
                                 <h4 className='table-row-item detail'>{row.detail || 'n/a'}</h4>
                                 <h4 className='table-row-item'>{row.author || 'n/a'}</h4>
@@ -64,7 +76,7 @@ export default function MovementsTable(props) {
                             </div>
                         )}
                         {maxItems < rowData.length &&
-                            <button className='table-lazy-btn' onClick={() => setMaxItems(maxItems + 10)}>▼</button>
+                            <button className={`table-lazy-btn  ${darkMode ? 'dark-mode-headers' : ''}`} onClick={() => setMaxItems(maxItems + 10)}>▼</button>
                         }
                     </>
                     :

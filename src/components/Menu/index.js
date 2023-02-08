@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import CTAButton from '../CTAButton'
@@ -12,15 +12,22 @@ import NotesIcon from '../../assets/menu/notes.svg'
 import TasksIcon from '../../assets/menu/tasks.svg'
 import ReportsIcon from '../../assets/menu/reports.svg'
 import LogoutIcon from '../../assets/menu/logout.svg'
+import Moon from '../../assets/menu/moon.svg'
 
 import './styles.css'
 
 export default function Menu(props) {
+  const [darkMode, setDarkMode] = useState(false)
   const { menuClass, setMenuClass } = props
   const history = useHistory()
   const lan = getUserLanguage()
   const { name } = localStorage.getItem('ledger') &&
     localStorage.getItem('ledger') !== null ? JSON.parse(localStorage.getItem('ledger')) : {}
+
+  useEffect(() => {
+    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    setDarkMode(mode)
+  }, [])
 
   const handleLogOut = () => {
     setMenuClass('menu-hidden')
@@ -34,7 +41,7 @@ export default function Menu(props) {
   }
 
   return (
-    <div className={`menu-container ${menuClass}`}>
+    <div className={`menu-container ${menuClass}`} style={{ backgroundColor: darkMode ? '#202020' : '' }}>
       <div className='menu-items'>
         <div
           className='menu-item'
@@ -100,6 +107,17 @@ export default function Menu(props) {
 
           </>
         }
+        <div
+          className='menu-item'
+          onClick={() => {
+            setDarkMode(!darkMode)
+            localStorage.setItem('darkMode', !darkMode)
+            history.go(0)
+          }}
+        >
+          <img src={Moon} className='menu-item-svg' alt={`${MESSAGE[lan].DARK_MODE} image`} />
+          <h4 className='menu-item-text'>{MESSAGE[lan].DARK_MODE}</h4>
+        </div>
         <div
           className='menu-item'
           onClick={handleLogOut}

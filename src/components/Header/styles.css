@@ -11,6 +11,11 @@
     z-index: 2;
 }
 
+.dark-mode-header {
+    background-color: #202020 !important;
+    box-shadow: 3px 5px 7px #242424 !important;
+}
+
 .svg-menu {
     height: 1.3vw;
     filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);

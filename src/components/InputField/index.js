@@ -3,6 +3,8 @@ import { APP_COLORS } from '../../constants/colors'
 import './styles.css'
 
 export default function InputField(props) {
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+
     const {
         name,
         type,
@@ -42,7 +44,7 @@ export default function InputField(props) {
                     placeholder={placeholder || ''}
                     cols={cols || 2}
                     rows={rows || 4}
-                    style={style || null}
+                    style={{ ...style, backgroundColor: darkMode ? '#3a3a3a' : '', color: darkMode ? 'lightgray' : '' }}
                     value={value}
                 />
                 :
@@ -53,7 +55,7 @@ export default function InputField(props) {
                         onChange={handleChange}
                         placeholder={placeholder || ''}
                         type={type || 'text'}
-                        style={style || null}
+                        style={{ ...style, backgroundColor: darkMode ? '#3a3a3a' : '', color: darkMode ? 'lightgray' : '' }}
                         value={value}
                     />
                     {showDropDown && !dropSelected && items && items.length ?

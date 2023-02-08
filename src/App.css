@@ -25,6 +25,15 @@ canvas {
   flex-direction: column;
 }
 
+.dark-mode {
+  background-color: #343434 !important;
+  color: lightgray !important;
+}
+
+/* .dark-mode div {
+  box-shadow: 3px 5px 7px #242424 !important;
+} */
+
 .main-section {
   display: flex;
   flex-direction: row;
@@ -58,8 +67,15 @@ canvas {
 }
 
 @keyframes move-modal {
-  0% { transform: translate(108%, -100%) scale(.8); opacity: 0; }
-  100% { transform: translate(108%, 0%) scale(.8); opacity: 1 }
+  0% {
+    transform: translate(108%, -100%) scale(.8);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(108%, 0%) scale(.8);
+    opacity: 1
+  }
 }
 
 .fill-section-container h3 {
@@ -879,12 +895,39 @@ h2 {
   align-items: center;
 }
 
+.home-month-dark {
+  display: flex;
+  flex-direction: row;
+  margin: .5vw 14vw;
+  padding: .2vw 3vw;
+  justify-content: space-between;
+  font-size: 1vw;
+  border-radius: .5vw;
+  color: rgb(102, 102, 102);
+  background-color: #263d42;
+  box-shadow: 3px 3px 9px #242424;
+  height: 2vw;
+  align-items: center;
+}
+
+.month-actual-dark {
+  color: lightgray !important;
+}
+
 .month-arrow-left {
   color: #d0d0d0;
 }
 
 .month-before {
   background: -webkit-linear-gradient(0deg, #eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #263d42;
+  cursor: pointer;
+}
+
+.month-before-dark {
+  background: -webkit-linear-gradient(0deg, #333, #eee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #263d42;
@@ -898,8 +941,24 @@ h2 {
   cursor: pointer;
 }
 
+.actual-month-dark {
+  /* text-decoration: underline; */
+  border-bottom: 2px solid #CCA43B;
+  color: lightgray;
+  cursor: pointer;
+}
+
+
 .month-after {
   background: -webkit-linear-gradient(180deg, #eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #263d42;
+  cursor: pointer;
+}
+
+.month-after-dark {
+  background: -webkit-linear-gradient(180deg, #333, #eee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #263d42;
@@ -1086,23 +1145,51 @@ h2 {
 }
 
 @keyframes move-x {
-  0% { transform: translateX(20%); opacity: 0 }
-  100% { transform: translateX(0%); opacity: 1 }
+  0% {
+    transform: translateX(20%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateX(0%);
+    opacity: 1
+  }
 }
 
 @keyframes move-y {
-  0% { transform: translateY(-10%); opacity: 0 }
-  100% { transform: translateY(0%); opacity: 1 }
+  0% {
+    transform: translateY(-10%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1
+  }
 }
 
 @keyframes move-x-back {
-  0% { transform: translateX(-20%); opacity: 0 }
-  100% { transform: translateX(0%); opacity: 1 }
+  0% {
+    transform: translateX(-20%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateX(0%);
+    opacity: 1
+  }
 }
 
 @keyframes move-y-back {
-  0% { transform: translateY(10%); opacity: 0 }
-  100% { transform: translateY(0%); opacity: 1 }
+  0% {
+    transform: translateY(10%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1
+  }
 }
 
 
@@ -1113,7 +1200,7 @@ h2 {
 @media only screen and (max-width: 640px) {
   .home-container {
     overflow-x: hidden;
-    min-height: 65vh;
+    min-height: 90vh;
     padding-top: 22vw;
   }
 
@@ -1150,8 +1237,15 @@ h2 {
   }
 
   @keyframes move-modal-mobile {
-    0% { transform: translate(-55%, -100%); opacity: 0 }
-    100% { transform: translate(-55%, -50%); opacity: 1 }
+    0% {
+      transform: translate(-55%, -100%);
+      opacity: 0
+    }
+
+    100% {
+      transform: translate(-55%, -50%);
+      opacity: 1
+    }
   }
 
 
@@ -1600,7 +1694,7 @@ h2 {
     display: flex;
     flex-direction: column;
     padding-top: 25vw;
-    min-height: 50vh;
+    min-height: 89vh;
   }
 
   .notes-container button {
@@ -1710,6 +1804,7 @@ h2 {
   .tasks-container {
     padding: 20vw 6vw 30vw 6vw;
     margin: 0;
+    min-height: 80vh;
   }
 
   .task-tabs {
@@ -1901,6 +1996,21 @@ h2 {
     align-items: center;
   }
 
+  .home-month-dark {
+    display: flex;
+    flex-direction: row;
+    margin: 1vw 1vw 6vw 1vw;
+    padding: 0 5vw;
+    justify-content: space-between;
+    font-size: 3.5vw;
+    border-radius: 2vw;
+    color: rgb(102, 102, 102);
+    box-shadow: 3px 3px 9px #242424;
+    height: 7vw;
+    align-items: center;
+  }
+
+
   .month-arrow-left {
     color: #d0d0d0;
   }
@@ -1936,6 +2046,7 @@ h2 {
     /* width: 80%; */
     display: flex;
     flex-direction: column;
+    min-height: 90vh;
     margin: 0 8vw;
   }
 
@@ -2092,13 +2203,13 @@ h2 {
     animation: move-x 2.5s ease-in-out;
     animation-fill-mode: forwards;
   }
-  
+
   .move-y {
     transition: 2s;
     animation: move-y 2.5s ease-in-out;
     animation-fill-mode: forwards;
   }
-  
+
   .move-x-back {
     transition: 2s;
     animation: move-x-back 2.5s ease-in-out;
@@ -2110,24 +2221,52 @@ h2 {
     animation: move-y-back 2.5s ease-in-out;
     animation-fill-mode: forwards;
   }
-  
+
   @keyframes move-x {
-    0% { transform: translateX(17%); opacity: 0 }
-    100% { transform: translateX(0%); opacity: 1 }
+    0% {
+      transform: translateX(17%);
+      opacity: 0
+    }
+
+    100% {
+      transform: translateX(0%);
+      opacity: 1
+    }
   }
-  
+
   @keyframes move-y {
-    0% { transform: translateY(-20%); opacity: 0 }
-    100% { transform: translateY(0%); opacity: 1 }
+    0% {
+      transform: translateY(-20%);
+      opacity: 0
+    }
+
+    100% {
+      transform: translateY(0%);
+      opacity: 1
+    }
   }
 
   @keyframes move-y-back {
-    0% { transform: translateY(10%); opacity: 0 }
-    100% { transform: translateY(0%); opacity: 1 }
+    0% {
+      transform: translateY(10%);
+      opacity: 0
+    }
+
+    100% {
+      transform: translateY(0%);
+      opacity: 1
+    }
   }
-  
+
   @keyframes move-x-back {
-    0% { transform: translateX(-20%); opacity: 0 }
-    100% { transform: translateX(0%); opacity: 1 }
+    0% {
+      transform: translateX(-20%);
+      opacity: 0
+    }
+
+    100% {
+      transform: translateX(0%);
+      opacity: 1
+    }
   }
 }

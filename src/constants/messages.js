@@ -40,6 +40,7 @@ export const MESSAGE = {
         TASKS: 'Tareas',
         LOGOUT: 'Cerrar sesión',
         REPORT_ISSUE: 'Reportar un problema',
+        DARK_MODE: 'Modo nocturno',
 
         //LEDGER
         L_PAY_TYPES: ['Efectivo', 'Débito', 'TC', 'Transferencia'],
@@ -207,6 +208,7 @@ export const MESSAGE = {
         TASKS: 'Tasks',
         LOGOUT: 'Logout',
         REPORT_ISSUE: 'Report a problem',
+        DARK_MODE: 'Toggle Dark Mode',
 
         //LEDGER
         L_PAY_TYPES: ['Cash', 'Debit', 'Credit Card', 'Transfer'],
@@ -374,6 +376,7 @@ export const MESSAGE = {
         TASKS: 'Tasks',
         LOGOUT: 'Logout',
         REPORT_ISSUE: 'Report a problem',
+        DARK_MODE: 'Toggle Dark Mode',
 
         //LEDGER
         L_PAY_TYPES: ['Cash', 'Debit', 'Credit Card', 'Transfer'],
@@ -541,6 +544,7 @@ export const MESSAGE = {
         TASKS: 'Uppgifter',
         LOGOUT: 'Logga ut',
         REPORT_ISSUE: 'Rapportera ett problem',
+        DARK_MODE: 'Växla mörkt läge',
 
         //LEDGER
         L_PAY_TYPES: ['Kontanter', 'Debet', 'Kreditkort', 'Överföring'],

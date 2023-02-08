@@ -66,6 +66,7 @@ export default function Home() {
   const [extraType, setExtraType] = useState(false)
   const [calculator, setCalculator] = useState(false)
   const [negativeBalance, setNegativeBalance] = useState(0)
+  const [darkMode, setDarkMode] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
   const lan = getUserLanguage()
@@ -75,6 +76,8 @@ export default function Home() {
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
+    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    setDarkMode(mode)
 
     if (!localUser || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
       localStorage.clear()
@@ -526,7 +529,7 @@ export default function Home() {
   }
 
   return (
-    <div className='home-container'>
+    <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
       <ToastContainer autoClose={2000} />
       {removeModal &&
         <div className='remove-modal'>
@@ -700,7 +703,7 @@ export default function Home() {
             handleClick={handleEdit}
             label={MESSAGE[lan].EDIT}
             size='80%'
-            color={APP_COLORS.GRAY}
+            color={darkMode ? '#263d42' : APP_COLORS.GRAY}
             disabled={!isEdit}
             style={{ fontSize: '4vw' }}
           />
@@ -755,8 +758,8 @@ export default function Home() {
       </div> : ''} */}
 
       {settings.isMonthly ?
-        <div className='home-month-tab' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
-          <h4 className='month-before' onClick={() => {
+        <div className={darkMode ? 'home-month-dark' : 'home-month-tab'} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+          <h4 className={darkMode ? 'month-before-dark' : 'month-before'} onClick={() => {
             if (months[month - 1]) {
               setMonth(month - 1)
             } else {
@@ -766,8 +769,8 @@ export default function Home() {
           }}>
             {months[month - 1] ? months[month - 1] : months[11]}
           </h4>
-          <h4 className='actual-month'>{months[month]}</h4>
-          <h4 className='month-after' onClick={() => {
+          <h4 className={darkMode ? 'actual-month-dark' : 'actual-month'}>{months[month]}</h4>
+          <h4 className={darkMode ? 'month-after-dark' : 'month-after'} onClick={() => {
             if (months[month + 1]) {
               setMonth(month + 1)
             } else {
@@ -792,6 +795,7 @@ export default function Home() {
             isEdit={isEdit}
             setCheck={setCheck}
             check={check}
+            darkMode={darkMode}
           />
           <div className='sub-table-btns'>
             <SwitchBTN
@@ -826,32 +830,32 @@ export default function Home() {
           </div>
           {
             arrData.length || data.search ? <div className='div-charts'>
-              {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+              {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
               {Object.keys(budget).length > 1 && settings.isMonthly ?
                 <>
                   <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} />
-                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </>
                 : ''}
               {settings.isMonthly ?
                 <>
                   <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
-                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </> : ''}
               {budget.total && Number(budget.total) !== 100 ?
                 <>
                   <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
-                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </> : ''}
               {!settings.isMonthly ?
                 <>
                   <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
-                  {isMobile ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </> : ''}
               {settings.isMonthly ?
                 <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
                 : ''}
-              {isMobile && settings.isMonthly ? <div className='separator' style={{ width: '85%' }}></div> : ''}
+              {isMobile && settings.isMonthly ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
               <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
             </div> : ''}
         </div>}
