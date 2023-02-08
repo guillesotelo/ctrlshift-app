@@ -6,13 +6,14 @@ export default function PolarChart(props) {
 
     const {
         title,
-        chartData
+        chartData,
+        darkMode
     } = props
 
     return (
         <div className='polarchart-container'>
-            <h4 className='table-title'>{title || ''}</h4>
-            <PolarArea data={chartData}/>
+            <h4 className='table-title' style={{ color: darkMode ? 'lightgray' : '#263d42' }}>{title || ''}</h4>
+            <PolarArea data={chartData} />
         </div>
     )
 }

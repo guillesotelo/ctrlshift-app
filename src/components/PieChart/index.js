@@ -6,7 +6,8 @@ export default function PieChart(props) {
 
     const {
         title,
-        chartData
+        chartData,
+        darkMode
     } = props
 
     const options = {
@@ -27,8 +28,8 @@ export default function PieChart(props) {
 
     return (
         <div className='piechart-container'>
-            <h4 className='table-title'>{title || ''}</h4>
-            <Doughnut data={chartData}  options={options}/>
+            <h4 className='table-title' style={{ color: darkMode ? 'lightgray' : '#263d42' }}>{title || ''}</h4>
+            <Doughnut data={chartData} options={options} />
         </div>
     )
 }

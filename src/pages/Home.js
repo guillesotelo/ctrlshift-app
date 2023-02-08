@@ -554,14 +554,18 @@ export default function Home() {
         </div>
       }
       {openModal &&
-        <div className='fill-section-container' onClick={() => setShowDropDown(false)}>
-          <h3 style={{ color: APP_COLORS.GRAY }}>{extraordinary ? MESSAGE[lan].EXTRA_INFO : MESSAGE[lan].MOV_INFO}:</h3>
+        <div className='fill-section-container' style={{
+          backgroundColor: darkMode ? '#252525' : '',
+          boxShadow: darkMode ? '5px 5px 11px #1b1b1b' : '5px 5px 11px #9b9b9b'
+        }} onClick={() => setShowDropDown(false)}>
+          <h3 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }}>{extraordinary ? MESSAGE[lan].EXTRA_INFO : MESSAGE[lan].MOV_INFO}:</h3>
           <div className='fill-section'>
             <CTAButton
               handleClick={() => setDateClicked(!dateClicked)}
               label={data.date.toLocaleDateString()}
               size='100%'
-              color={APP_COLORS.SPACE}
+              color={darkMode ? APP_COLORS.YELLOW : APP_COLORS.SPACE}
+              style={{ color: darkMode ? 'black' : 'white' }}
             />
             {dateClicked &&
               <DatePicker
@@ -587,7 +591,17 @@ export default function Home() {
                 style={{ textAlign: 'center', backgroundColor: '#fff8e8', color: '#263d42', fontWeight: 'bold', width: '100%' }}
               />
               {!extraordinary ?
-                <img onClick={() => setCalculator(!calculator)} className='svg-calculator' src={CalculatorIcon} alt="Calculate" />
+                <img
+                  onClick={() => setCalculator(!calculator)}
+                  className='svg-calculator'
+                  src={CalculatorIcon}
+                  alt="Calculate"
+                  style={{
+                    filter: darkMode ?
+                      'invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%)'
+                      : 'invert(18%) sepia(30%) saturate(612%) hue-rotate(143deg) brightness(95%) contrast(87%)'
+                  }}
+                />
                 : <img
                   onClick={() => setExtraType(!extraType)}
                   className='svg-updown'
@@ -631,6 +645,7 @@ export default function Home() {
                     name='author'
                     updateData={updateData}
                     value={data.author}
+                    darkMode={darkMode}
                   />
                   <Dropdown
                     options={allPayTypes}
@@ -638,6 +653,7 @@ export default function Home() {
                     name='pay_type'
                     updateData={updateData}
                     value={data.pay_type}
+                    darkMode={darkMode}
                   />
                   {!isEdit && !extraordinary &&
                     <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
@@ -674,6 +690,7 @@ export default function Home() {
                     name='category'
                     updateData={updateData}
                     value={data.category}
+                    darkMode={darkMode}
                   />
                 </div>
                 <div className='div-modal-btns'>
@@ -833,30 +850,30 @@ export default function Home() {
               {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
               {Object.keys(budget).length > 1 && settings.isMonthly ?
                 <>
-                  <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} />
+                  <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} darkMode={darkMode} />
                   {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </>
                 : ''}
               {settings.isMonthly ?
                 <>
-                  <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} />
+                  <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} darkMode={darkMode} />
                   {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </> : ''}
               {budget.total && Number(budget.total) !== 100 ?
                 <>
-                  <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} />
+                  <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} darkMode={darkMode} />
                   {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </> : ''}
               {!settings.isMonthly ?
                 <>
-                  <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} />
+                  <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} darkMode={darkMode} />
                   {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
                 </> : ''}
               {settings.isMonthly ?
-                <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} />
+                <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} darkMode={darkMode} />
                 : ''}
               {isMobile && settings.isMonthly ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
-              <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} />
+              <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} darkMode={darkMode} />
             </div> : ''}
         </div>}
     </div>

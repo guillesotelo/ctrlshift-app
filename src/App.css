@@ -1219,7 +1219,7 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 5px 5px 11px rgb(155, 155, 155);
+    box-shadow: 5px 5px 11px #9b9b9b;
     border-radius: 2vw;
     margin: 4vw;
     padding: 0;

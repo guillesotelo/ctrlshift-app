@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { APP_COLORS } from '../../constants/colors'
 import './styles.css'
 
 export default function Dropdown(props) {
@@ -15,7 +16,8 @@ export default function Dropdown(props) {
         value,
         index,
         style,
-        size
+        size,
+        darkMode
     } = props
 
     useEffect(() => {
@@ -29,7 +31,7 @@ export default function Dropdown(props) {
     return (
         <div className='dropdown-container' style={style}>
             {label ?
-                <h4 className='dropdown-label'>
+                <h4 className='dropdown-label' style={{ color: darkMode ? APP_COLORS.YELLOW : '' }}>
                     {label || ''}
                 </h4> : ''}
             <div className='dropdown-select-section'>
@@ -37,19 +39,21 @@ export default function Dropdown(props) {
                     className='dropdown-select'
                     style={{
                         border: openDrop && '1px solid #E4C69C',
-                        width: size ? size : ''
+                        width: size ? size : '',
+                        backgroundColor: darkMode ? '#252525' : '',
+                        color: darkMode ? 'lightgray' : 'black'
                     }}
                     onClick={() => setOpenDrop(!openDrop)}>
-                    <h4 className='dropdown-selected'>
+                    <h4 className='dropdown-selected' style={{ color: darkMode ? 'lightgray' : '' }}>
                         {value ? value : selected ? selected : 'Select'}
                     </h4>
-                    < h4 className='dropdown-selected'>▾</h4>
+                    < h4 className='dropdown-selected' style={{ color: darkMode ? 'lightgray' : '' }}>▾</h4>
                 </div>
                 {openDrop ?
                     <div
                         className='dropdown-options'
                         style={{
-                            border: openDrop && '1px solid #E4C69C',
+                            border: !darkMode && openDrop && '1px solid #E4C69C',
                             borderTop: 'none',
                             width: size ? size : ''
                         }}>
@@ -58,7 +62,11 @@ export default function Dropdown(props) {
                             <h4
                                 key={i}
                                 className='dropdown-option'
-                                style={{ borderTop: i === 0 && 'none' }}
+                                style={{
+                                    borderTop: i === 0 && 'none',
+                                    backgroundColor: darkMode ? '#252525' : '',
+                                    color: darkMode ? 'lightgray' : 'black'
+                                }}
                                 onClick={() => {
                                     updateData(name, option, index)
                                     setSelected(option)
