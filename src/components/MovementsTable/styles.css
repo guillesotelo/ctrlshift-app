@@ -6,7 +6,12 @@
 }
 
 .dark-mode-table {
-    background-color: #343434 !important;
+    background-color: #1E1F21 !important;
+    color: lightgray !important;
+}
+
+.dark-mode-headers {
+    background-color: #263d42 !important;
     color: lightgray !important;
 }
 
@@ -153,11 +158,6 @@
         border-top-right-radius: 1vw;
         padding: 1vw;
         background-color: #d7dfeb;
-    }
-
-    .dark-mode-headers {
-        background-color: #263d42 !important;
-        color: lightgray !important;
     }
 
     .table-header {

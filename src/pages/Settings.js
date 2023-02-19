@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { APP_COLORS } from '../constants/colors'
 import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
@@ -23,6 +23,7 @@ export default function Settings() {
     const [edited, setEdited] = useState(false)
     const dispatch = useDispatch()
     const lan = getUserLanguage()
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
     useEffect(() => {
         pullSettings()
@@ -127,9 +128,8 @@ export default function Settings() {
     }
 
     return (
-        <div className='settings-container'>
-            <ToastContainer autoClose={2000} />
-            <h4 className='settings-title'>{MESSAGE[lan].SET_TITLE}</h4>
+        <div className={`settings-container ${darkMode ? 'dark-mode' : ''}`}>
+            <h4 className='settings-title' style={{ color: darkMode ? '#CCA43B' : '' }}>{MESSAGE[lan].SET_TITLE}</h4>
 
             <h4 className='settings-module-title' style={{ marginBottom: 0 }}>{MESSAGE[lan].SET_SALARY}</h4>
             <div className='settings-salary'>

@@ -29,7 +29,7 @@ export default function Dropdown(props) {
     }, [])
 
     return (
-        <div className='dropdown-container' style={style}>
+        <div className={`dropdown-container ${darkMode ? 'dark-mode' : ''}`} style={style}>
             {label ?
                 <h4 className='dropdown-label' style={{ color: darkMode ? APP_COLORS.YELLOW : '' }}>
                     {label || ''}
@@ -40,7 +40,7 @@ export default function Dropdown(props) {
                     style={{
                         border: openDrop && '1px solid #E4C69C',
                         width: size ? size : '',
-                        backgroundColor: darkMode ? '#252525' : '',
+                        backgroundColor: darkMode ? '#1E1F21' : '',
                         color: darkMode ? 'lightgray' : 'black'
                     }}
                     onClick={() => setOpenDrop(!openDrop)}>
@@ -51,7 +51,7 @@ export default function Dropdown(props) {
                 </div>
                 {openDrop ?
                     <div
-                        className='dropdown-options'
+                        className={`dropdown-options ${darkMode ? 'dark-mode' : ''}`}
                         style={{
                             border: !darkMode && openDrop && '1px solid #E4C69C',
                             borderTop: 'none',
@@ -64,7 +64,7 @@ export default function Dropdown(props) {
                                 className='dropdown-option'
                                 style={{
                                     borderTop: i === 0 && 'none',
-                                    backgroundColor: darkMode ? '#252525' : '',
+                                    backgroundColor: darkMode ? '#1E1F21' : '',
                                     color: darkMode ? 'lightgray' : 'black'
                                 }}
                                 onClick={() => {

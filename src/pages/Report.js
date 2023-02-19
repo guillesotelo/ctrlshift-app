@@ -6,7 +6,7 @@ import InputField from '../components/InputField'
 import { APP_COLORS } from '../constants/colors'
 import { getReports, saveReport, updateReport } from '../store/reducers/report';
 import { getAdminCredentials } from '../store/reducers/user';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
 import { PuffLoader } from 'react-spinners';
@@ -19,6 +19,7 @@ export default function Report() {
     const dispatch = useDispatch()
     const history = useHistory()
     const lan = getUserLanguage()
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
     const updateData = (key, newData) => {
         setData({ ...data, [key]: newData })
@@ -36,7 +37,7 @@ export default function Report() {
         setIsAdmin(admin.isAdmin || false)
 
         if (admin.isAdmin) getAllReports()
-        
+
         setData({
             ...data,
             username: user.username,
@@ -69,7 +70,7 @@ export default function Report() {
             }
             setLoading(false)
 
-            if(isAdmin) setTimeout(() => getAllReports(), 200)
+            if (isAdmin) setTimeout(() => getAllReports(), 200)
         } catch (err) {
             console.error(err)
             toast.error(MESSAGE[lan].SAVE_ERR)
@@ -91,9 +92,8 @@ export default function Report() {
 
     return (
         <div className='reports-container'>
-            <ToastContainer autoClose={2000} />
-            <h4 className='reports-title'>{MESSAGE[lan].REPORTS_TITLE}</h4>
-            <h4 className='reports-text'>{MESSAGE[lan].REPORTS_TEXT}</h4>
+            <h4 className='reports-title' style={{ color: darkMode ? '#CCA43B' : '' }}>{MESSAGE[lan].REPORTS_TITLE}</h4>
+            <h4 className='reports-text' style={{ color: darkMode ? 'lightgray' : '' }}>{MESSAGE[lan].REPORTS_TEXT}</h4>
             {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                 :
                 <div className='reports-fill'>

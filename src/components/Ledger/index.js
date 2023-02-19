@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CTAButton from '../CTAButton'
 import InputField from '../InputField'
 import { APP_COLORS } from '../../constants/colors'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import {
     getUserLedgers,
     saveLedger,
@@ -23,6 +23,7 @@ export default function Ledger() {
     const dispatch = useDispatch()
     const ledger = JSON.parse(localStorage.getItem('ledger'))
     const lan = getUserLanguage()
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('user'))
@@ -84,27 +85,29 @@ export default function Ledger() {
     }
 
     return (
-        <div className='user-group-container'>
-            <ToastContainer autoClose={2000} />
+        <div className={`user-group-container ${darkMode ? 'dark-mode' : ''}`}>
             {
                 ledger && ledger.name ?
                     <>
-                        <h4 className='group-text'>{MESSAGE[lan].L_TEXT1}</h4>
-                        <h4 className='group-text'>{MESSAGE[lan].L_TEXT1_2}</h4>
-                        <h4 className='group-text'>{MESSAGE[lan].L_TEXT2_4}</h4>
+                        <h4 className='group-text' style={{ color: darkMode ? 'black' : '' }}>{MESSAGE[lan].L_TEXT1}</h4>
+                        <h4 className='group-text' style={{ color: darkMode ? 'black' : '' }}>{MESSAGE[lan].L_TEXT1_2}</h4>
+                        <h4 className='group-text' style={{ color: darkMode ? 'black' : '' }}>{MESSAGE[lan].L_TEXT2_4}</h4>
                     </>
                     :
                     <>
-                        <h4 className='group-text'>{MESSAGE[lan].L_TEXT2}</h4>
-                        <h4 className='group-text'>{MESSAGE[lan].L_TEXT2_2}</h4>
-                        <h4 className='group-text'>{MESSAGE[lan].L_TEXT2_3}</h4>
-                        <h4 className='group-text'>{MESSAGE[lan].L_TEXT2_4}</h4>
+                        <h4 className='group-text' style={{ color: darkMode ? 'black' : '' }}>{MESSAGE[lan].L_TEXT2}</h4>
+                        <h4 className='group-text' style={{ color: darkMode ? 'black' : '' }}>{MESSAGE[lan].L_TEXT2_2}</h4>
+                        <h4 className='group-text' style={{ color: darkMode ? 'black' : '' }}>{MESSAGE[lan].L_TEXT2_3}</h4>
+                        <h4 className='group-text' style={{ color: darkMode ? 'black' : '' }}>{MESSAGE[lan].L_TEXT2_4}</h4>
                     </>
             }
             {
                 ledger && ledger.name ?
                     <div className='div-ledger-connected'>
-                        <h4 className='ledger-connected'>{MESSAGE[lan].L_CURRENT}: <br /><br /><i>{ledger.name}</i></h4>
+                        <h4 className='ledger-connected' style={{
+                            boxShadow: darkMode ? 'none' : '',
+                            border: darkMode ? '1px solid lightgray' : ''
+                        }}>{MESSAGE[lan].L_CURRENT}: <br /><br /><i>{ledger.name}</i></h4>
                         <CTAButton
                             label={MESSAGE[lan].L_DISCONNECT}
                             color='#363636'
@@ -134,7 +137,10 @@ export default function Ledger() {
                         />
                         {
                             newLedger &&
-                            <div className='new-group-section'>
+                            <div className='new-group-section' style={{
+                                boxShadow: darkMode ? 'none' : '',
+                                border: darkMode ? '1px solid lightgray' : ''
+                            }}>
                                 <InputField
                                     label={MESSAGE[lan].L_NEW_LABEL}
                                     updateData={updateData}
@@ -164,7 +170,10 @@ export default function Ledger() {
                         }
                         {
                             connect &&
-                            <div className='connect-group-section'>
+                            <div className='connect-group-section' style={{
+                                boxShadow: darkMode ? 'none' : '',
+                                border: darkMode ? '1px solid lightgray' : ''
+                            }}>
                                 <InputField
                                     label={MESSAGE[lan].L_CONN_LABEL}
                                     updateData={updateData}

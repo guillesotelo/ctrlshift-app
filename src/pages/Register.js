@@ -6,7 +6,7 @@ import InputField from '../components/InputField'
 import Logo from '../assets/logo.png'
 import { createUser, logIn } from '../store/reducers/user'
 import { APP_COLORS } from '../constants/colors'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Flag from 'react-world-flags'
 import { LANGUAGES } from '../constants/languages.js'
@@ -68,7 +68,6 @@ export default function Register() {
 
     return (
         <div className='login-container'>
-            <ToastContainer autoClose={2000} />
             <div className='logo-register-container'>
                 <img className='logo-img-register' src={Logo} alt="Ctrol Shiflt" />
             </div>

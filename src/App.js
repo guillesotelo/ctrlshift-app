@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import SplashScreen from "./components/SplashScreen";
 import Login from './pages/Login'
@@ -15,19 +15,25 @@ import Tasks from "./pages/Tasks";
 import ChangePass from "./pages/ChangePass";
 import Report from "./pages/Report";
 import { useSelector } from "react-redux";
-import NotFound from './pages/NotFound'
 import Landing from './pages/Landing'
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false)
 
   const hasMovs = useSelector(state => state.movement && state.movement.data) || null
-  const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
-  document.querySelector('#root').style.backgroundColor = mode ? '#343434' : ''
+
+  useEffect(() => {
+    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    document.querySelector('#root').style.backgroundColor = mode ? '#1E1F21' : ''
+    document.querySelector('body').style.backgroundColor = mode ? '#1E1F21' : ''
+
+    setDarkMode(mode)
+  }, [])
 
   return (
     <Switch>
       <Route exact path="/">
-        <Landing />
+        <Landing darkMode={darkMode} setDarkMode={setDarkMode} />
       </Route>
       <Route exact path="/splash">
         <SplashScreen />
@@ -44,7 +50,7 @@ function App() {
       <Route path="/home">
         <Header />
         <Home />
-        {hasMovs && <Footer darkMode={mode} />}
+        {hasMovs && <Footer darkMode={darkMode} />}
       </Route>
       <Route path="/ledger">
         <Header />
@@ -57,7 +63,7 @@ function App() {
       <Route path="/settings">
         <Header />
         <Settings />
-        <Footer darkMode={mode} />
+        <Footer darkMode={darkMode} />
       </Route>
       <Route path="/notes">
         <Header />

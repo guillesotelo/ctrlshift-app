@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import CTAButton from '../components/CTAButton'
@@ -11,7 +11,7 @@ import {
     sendEmailResetPass
 } from '../store/reducers/user'
 import { APP_COLORS } from '../constants/colors'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { GoogleLogin } from '@react-oauth/google';
 import { MESSAGE } from '../constants/messages'
 import { VERSION } from '../constants/app'
@@ -23,9 +23,16 @@ export default function Login() {
     const [data, setData] = useState({})
     const [mailNModal, setMailModal] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [darkMode, setDarkMode] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory()
     const lan = getUserLanguage()
+
+    useEffect(() => {
+        const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+        setDarkMode(mode)
+        document.querySelector('body').style.backgroundColor = darkMode ? '#1E1F21' : ''
+    })
 
     const updateData = (key, newData) => {
         setData({ ...data, [key]: newData })
@@ -82,8 +89,7 @@ export default function Login() {
     }
 
     return (
-        <div className='login-container'>
-            <ToastContainer autoClose={2000} />
+        <div className={`login-container ${darkMode ? 'dark-mode' : ''}`}>
             <div className='logo-login-container'>
                 <img className='logo-img' src={Logo} alt="Control Shift" />
             </div>
@@ -111,7 +117,7 @@ export default function Login() {
                 </div>
             }
             <div className='login-section' style={{ filter: mailNModal && 'blur(10px)' }}>
-                <h4 className='hi-login'>{MESSAGE[lan].HI}<br />{MESSAGE[lan].HI_MESSAGE}</h4>
+                <h4 className='hi-login' style={{ color: darkMode ? 'lightgray' : '' }}>{MESSAGE[lan].HI}<br />{MESSAGE[lan].HI_MESSAGE}</h4>
                 <InputField
                     label=''
                     updateData={updateData}

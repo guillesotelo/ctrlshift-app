@@ -4,7 +4,7 @@ import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
 import { APP_COLORS } from '../constants/colors'
 import { getLedger, updateLedgerData } from '../store/reducers/ledger';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import TrashCan from '../assets/trash-can.svg'
 import EditPen from '../assets/edit-icon.svg'
 import { MESSAGE } from '../constants/messages'
@@ -20,6 +20,7 @@ export default function Notes() {
     const [check, setCheck] = useState({})
     const dispatch = useDispatch()
     const lan = getUserLanguage()
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
     useEffect(() => {
         pullNotes()
@@ -97,12 +98,11 @@ export default function Notes() {
     }
 
     return (
-        <div className='notes-container'>
-            <ToastContainer autoClose={2000} />
+        <div className={`notes-container ${darkMode ? 'dark-mode' : ''}`}>
             {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                 : <>
                     {removeModal &&
-                        <div className='remove-modal'>
+                        <div className='remove-modal' style={{ backgroundColor: darkMode ? 'black' : '', boxShadow: darkMode ? 'none' : '' }}>
                             <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />'{check.name}'</h3>
                             <div className='remove-btns'>
                                 <CTAButton
@@ -134,13 +134,13 @@ export default function Notes() {
                             }}
                             style={{ color: 'black', borderRadius: '10vw', fontSize: '4vw' }}
                             className='new-task-btn-container'
-                            btnClass='new-task-btn'
+                            btnClass={`new-task-btn ${darkMode ? 'dark-mode-btn' : ''}`}
                             disabled={openModal}
                         />
                     }
                     {openModal &&
-                        <div className='task-modal'>
-                            <h3 style={{ color: APP_COLORS.GRAY }} className='task-modal-title'>{isEdit ? MESSAGE[lan].N_EDIT : MESSAGE[lan].N_NEW}</h3>
+                        <div className='task-modal' style={{ backgroundColor: darkMode ? 'black' : '', boxShadow: darkMode ? 'none' : '' }}>
+                            <h3 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }} className='task-modal-title'>{isEdit ? MESSAGE[lan].N_EDIT : MESSAGE[lan].N_NEW}</h3>
                             <InputField
                                 label=''
                                 updateData={updateData}
@@ -189,7 +189,10 @@ export default function Notes() {
                                 <div
                                     key={i}
                                     className='note-container'
-                                    style={{ borderColor: check === note ? '#CCA43B' : 'lightgray' }}
+                                    style={{
+                                        borderColor: check === note ? '#CCA43B' : 'lightgray',
+                                        backgroundColor: darkMode ? 'black' : ''
+                                    }}
                                     onClick={() => setCheck(note)}
                                 >
                                     <h4 className='note-name'>{note.name}</h4>
@@ -199,6 +202,10 @@ export default function Notes() {
                                         readOnly="readonly"
                                         className='note-details'
                                         defaultValue={note.details}
+                                        style={{
+                                            backgroundColor: darkMode ? 'black' : '',
+                                            color: darkMode ? 'lightgray' : ''
+                                        }}
                                     />
                                     {check === note &&
                                         <div className='note-svgs'>
@@ -213,7 +220,7 @@ export default function Notes() {
                                                 setOpenModal(true)
                                                 setData({ ...data, name: note.name, details: note.details })
                                             }}
-                                                className='note-svg-edit' src={EditPen} alt="Edit" />
+                                                className={`note-svg-edit ${darkMode ? 'dark-svg' : ''}`} src={EditPen} alt="Edit" />
                                         </div>
                                     }
                                 </div>

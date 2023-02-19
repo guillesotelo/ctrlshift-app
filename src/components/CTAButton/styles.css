@@ -47,11 +47,13 @@
 }
 
 #cta-btn:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    filter: brightness(120%);
 }
 
 .cta-btn-container:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    filter: brightness(120%);
 }
 
 .category-budget-setter {
@@ -61,7 +63,8 @@
 }
 
 .category-budget-setter:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    filter: brightness(120%);
 }
 
 .cta-login {
@@ -70,7 +73,8 @@
 }
 
 .cta-login:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    filter: brightness(120%);
 }
 
 .cta-register {
@@ -79,7 +83,8 @@
 }
 
 .cta-register:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    filter: brightness(120%);
 }
 
 .cta-new-ledger {
@@ -88,7 +93,8 @@
 }
 
 .cta-new-ledger:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    filter: brightness(120%);
 }
 
 .cta-connect-ledger {
@@ -101,7 +107,8 @@
 }
 
 .cta-connect-ledger:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    filter: brightness(120%);
 }
 
 .cta-menu {
@@ -154,7 +161,8 @@
     }
 
     #cta-btn:hover {
-        opacity: 0.8;
+        /* opacity: 0.8; */
+        filter: brightness(120%);
     }
 
     .category-budget-setter {
@@ -204,7 +212,7 @@
         align-items: center;
         width: 80%;
     }
-    
+
     .cta-btn-svg {
         height: 6vw;
         filter: invert(59%) sepia(67%) saturate(408%) hue-rotate(6deg) brightness(97%) contrast(91%);

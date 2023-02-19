@@ -9,7 +9,7 @@ import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
 import { APP_COLORS } from '../constants/colors'
 import { updateLedgerData, getLedger } from '../store/reducers/ledger';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
@@ -28,11 +28,16 @@ export default function Tasks() {
     const [tab, setTab] = useState('unChecked')
     const dispatch = useDispatch()
     const lan = getUserLanguage()
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
     registerLocale("es", es)
 
     useEffect(() => {
         pullTasks()
     }, [tab])
+
+    useEffect(() => {
+        toggleDatePickerColors()
+    }, [timeClicked, dateClicked])
 
     const updateData = (key, newData) => {
         setData({ ...data, [key]: newData })
@@ -174,7 +179,7 @@ export default function Tasks() {
         const afterDayAfter = new Date().setDate(now.getDate() + 3)
         const days = MESSAGE[lan].DAYS
         let parsed = `${withTime ? taskDate.toLocaleDateString() + ', ' + taskDate.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }) : taskDate.toLocaleDateString()}`
-        let color = 'black'
+        let color = darkMode ? 'lightgray' : 'black'
 
         if (taskDate.getDay() === now.getDay() && taskDate.getDate() === now.getDate()) {
             color = 'green'
@@ -232,12 +237,21 @@ export default function Tasks() {
         ...draggableStyle
     })
 
+    const toggleDatePickerColors = () => {
+        const header = document.querySelector('.react-datepicker__header')
+        const body = document.querySelector('.react-datepicker')
+        const time = document.querySelector('.react-datepicker__time-list')
+
+        if (header) header.style.backgroundColor = darkMode ? '#A1A1A1' : ''
+        if (body) body.style.backgroundColor = darkMode ? 'gray' : ''
+        if (time) time.style.backgroundColor = darkMode ? 'gray' : ''
+    }
+
     return (
-        <div className='tasks-container'>
-            <ToastContainer autoClose={1000} />
+        <div className={`tasks-container ${darkMode ? 'dark-mode' : ''}`}>
             {openModal ?
-                <div className='task-modal'>
-                    <h3 style={{ color: APP_COLORS.GRAY }} className='task-modal-title'>{isEdit ? MESSAGE[lan].T_EDIT : MESSAGE[lan].T_NEW}</h3>
+                <div className='task-modal' style={{ backgroundColor: darkMode ? 'black' : '', boxShadow: darkMode ? 'none' : '' }}>
+                    <h3 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }} className='task-modal-title'>{isEdit ? MESSAGE[lan].T_EDIT : MESSAGE[lan].T_NEW}</h3>
                     <InputField
                         label=''
                         updateData={updateData}
@@ -381,7 +395,10 @@ export default function Tasks() {
                                                                 borderBottom: '1px solid lightgray',
                                                             }}
                                                         >
-                                                            <h4 className={`${task.isChecked ? 'task-check-checked' : 'task-check'}`} onClick={() => checkTask(task)}>✓</h4>
+                                                            <h4
+                                                                className={`${task.isChecked ? 'task-check-checked' : 'task-check'}`}
+                                                                style={{ borderColor: darkMode ? 'lightgray' : '', color: darkMode ? 'lightgray' : '' }}
+                                                                onClick={() => checkTask(task)}>✓</h4>
                                                             <h4
                                                                 className='task-name'
                                                                 onClick={() => {
@@ -410,7 +427,7 @@ export default function Tasks() {
                                                                 :
                                                                 <img
                                                                     style={{ transform: 'scale(0.3)' }}
-                                                                    className='task-date'
+                                                                    className={`task-date ${darkMode ? 'dark-svg' : ''}`}
                                                                     src={ScheduleIcon}
                                                                     alt="Schedule"
                                                                     onClick={() => {
@@ -456,7 +473,7 @@ export default function Tasks() {
                 }}
                 style={{ color: 'black', borderRadius: '10vw', fontSize: '4vw' }}
                 className='new-task-btn-container'
-                btnClass='new-task-btn'
+                btnClass={`new-task-btn ${darkMode ? 'dark-mode-btn' : ''}`}
                 disabled={openModal}
             />
         </div>

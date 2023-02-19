@@ -11,7 +11,7 @@ import { MESSAGE } from '../constants/messages'
 import { APP_COLORS } from '../constants/colors'
 import { changePassword, updateUserData } from '../store/reducers/user'
 import { getUserLanguage } from '../helpers';
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import PuffLoader from "react-spinners/PuffLoader";
 
 export default function Account() {
@@ -27,7 +27,7 @@ export default function Account() {
   const ledger = JSON.parse(localStorage.getItem('ledger'))
   const dispatch = useDispatch()
   const history = useHistory()
-
+  const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
   const updateData = (key, newData) => {
     setIsEdit(true)
@@ -36,13 +36,13 @@ export default function Account() {
 
   const saveUserData = async () => {
     try {
-      if(data.newEmail) {
-        if(!data.newEmail.includes('@') || !data.newEmail.includes('.')) return toast.error(MESSAGE[lan].CHECK_FIELDS)
+      if (data.newEmail) {
+        if (!data.newEmail.includes('@') || !data.newEmail.includes('.')) return toast.error(MESSAGE[lan].CHECK_FIELDS)
       }
-      if(data.password) {
-        if(data.password !== data.password2 || !data.password2) return toast.error(MESSAGE[lan].CHECK_FIELDS)
+      if (data.password) {
+        if (data.password !== data.password2 || !data.password2) return toast.error(MESSAGE[lan].CHECK_FIELDS)
       }
-      
+
       setLoading(true)
       const saved = await dispatch(updateUserData(data)).then(data => data.payload)
 
@@ -64,8 +64,7 @@ export default function Account() {
   }
 
   return (
-    <div className='account-container'>
-      <ToastContainer autoClose={2000} />
+    <div className={`account-container ${darkMode ? 'dark-mode' : ''}`}>
       <div className='account-info'>
         <img style={{ transform: 'scale(1.2)' }} className='svg-account' src={AccountIcon} alt="User Group" />
         <div className='account-separator' style={{ borderLeft: '1px solid lightgray', height: '20vw' }}></div>
@@ -92,7 +91,7 @@ export default function Account() {
           {toggleContents}
         </Dropdown.Toggle>
 
-        <Dropdown.Menu  style={{ gap: 20, padding: 25, width: 'fit-content', borderRadius: '1vw' }}>
+        <Dropdown.Menu style={{ gap: 20, padding: 25, width: 'fit-content', borderRadius: '1vw' }}>
           {LANGUAGES.map(({ code, title }) => (
             <Dropdown.Item key={code} eventKey={code}><Flag height="16" code={code} /> {title}</Dropdown.Item>
           ))}
@@ -183,7 +182,7 @@ export default function Account() {
       {loading ? <PuffLoader color='#CCA43B' />
         : showPassBox || isEdit ?
           <>
-            {(data.password && data.currentPass && (data.password !== data.currentPass)) 
+            {(data.password && data.currentPass && (data.password !== data.currentPass))
               || (!showPassBox && isEdit) || data.newEmail || data.newName ?
               <CTAButton
                 label={MESSAGE[lan].SAVE}

@@ -1,10 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
+}
+
+::-webkit-scrollbar {
+  background: #150c01;
+  width: 1vw;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #515151;
+  border-radius: .5vw;
 }
 
 code {

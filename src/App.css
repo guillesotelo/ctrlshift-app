@@ -26,8 +26,16 @@ canvas {
 }
 
 .dark-mode {
-  background-color: #343434 !important;
+  background-color: #1E1F21 !important;
   color: lightgray !important;
+}
+
+.dark-svg {
+  filter: invert(73%) sepia(0%) saturate(7500%) hue-rotate(20deg) brightness(87%) contrast(103%) !important;
+}
+
+.dark-mode-btn {
+  box-shadow: none !important;
 }
 
 /* .dark-mode div {
@@ -232,6 +240,10 @@ h2 {
   cursor: pointer;
 }
 
+.login-register-link:hover {
+  text-decoration: underline;
+}
+
 .login-version-text {
   font-size: 1vw;
   text-align: center;
@@ -254,6 +266,10 @@ h2 {
   padding: 0;
   cursor: pointer;
   margin: 2vw 0;
+}
+
+.login-remember-link:hover {
+  text-decoration: underline;
 }
 
 .account-container {

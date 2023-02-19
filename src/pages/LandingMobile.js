@@ -6,15 +6,19 @@ import Footer from '../components/Footer'
 import MoonSon from '../assets/moon-sun.svg'
 import Landing from './Landing'
 
-export default function LandingMobile() {
-    const [darkMode, setDarkMode] = useState(false)
+export default function LandingMobile(props) {
+    const {
+        darkMode,
+        setDarkMode
+    } = props
+    
     const isMobile = window.innerWidth < 640
     const history = useHistory()
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('user'))
         const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
-        
+
         setDarkMode(mode)
 
         if (localUser && localUser.login) {

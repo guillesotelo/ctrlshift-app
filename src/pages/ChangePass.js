@@ -5,7 +5,7 @@ import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
 import Logo from '../assets/logo.png'
 import { APP_COLORS } from '../constants/colors'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { MESSAGE } from '../constants/messages'
 import { VERSION } from '../constants/app'
 import { getUserLanguage } from '../helpers';
@@ -58,7 +58,6 @@ export default function ChangePass() {
 
     return (
         <div className='login-container'>
-            <ToastContainer autoClose={2000} />
             <div className='logo-login-container'>
                 <img className='logo-img' src={Logo} alt="Control Shift" />
             </div>

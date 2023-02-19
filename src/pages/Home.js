@@ -19,7 +19,7 @@ import UpDownIcon from '../assets/up-down-icon.svg'
 import { getMovements, saveMovement, editMovement, removeMovement } from '../store/reducers/movement'
 import { updateLedgerData, getLedger } from '../store/reducers/ledger';
 import { APP_COLORS, PALETTE } from '../constants/colors'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-toastify/dist/ReactToastify.css';
 import SwitchBTN from '../components/SwitchBTN';
@@ -66,18 +66,16 @@ export default function Home() {
   const [extraType, setExtraType] = useState(false)
   const [calculator, setCalculator] = useState(false)
   const [negativeBalance, setNegativeBalance] = useState(0)
-  const [darkMode, setDarkMode] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
   const lan = getUserLanguage()
   const months = MESSAGE[lan].MONTHS
   const isMobile = window.screen.width <= 768
+  const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
-    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
-    setDarkMode(mode)
 
     if (!localUser || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
       localStorage.clear()
@@ -154,8 +152,20 @@ export default function Home() {
   }, [data, allCategories, allPayTypes, arrData])
 
   useEffect(() => {
+    toggleDatePickerColors()
+  }, [dateClicked])
+
+  useEffect(() => {
     if (allCategories.length) getAllMovements(data)
   }, [month])
+
+  const toggleDatePickerColors = () => {
+    const body = document.querySelector('.react-datepicker')
+    const header = document.querySelector('.react-datepicker__header')
+
+    if (body) body.style.backgroundColor = darkMode ? 'gray' : ''
+    if (header) header.style.backgroundColor = darkMode ? '#A1A1A1' : ''
+  }
 
   const randomColors = array => {
     return array.map(value => ({ value, sort: Math.random() }))
@@ -530,7 +540,6 @@ export default function Home() {
 
   return (
     <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
-      <ToastContainer autoClose={2000} />
       {removeModal &&
         <div className='remove-modal'>
           <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />{arrData[check].detail} <br /> ${arrData[check].amount}</h3>
@@ -555,7 +564,7 @@ export default function Home() {
       }
       {openModal &&
         <div className='fill-section-container' style={{
-          backgroundColor: darkMode ? '#252525' : '',
+          backgroundColor: darkMode ? 'black' : '',
           boxShadow: darkMode ? '5px 5px 11px #1b1b1b' : '5px 5px 11px #9b9b9b'
         }} onClick={() => setShowDropDown(false)}>
           <h3 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }}>{extraordinary ? MESSAGE[lan].EXTRA_INFO : MESSAGE[lan].MOV_INFO}:</h3>
@@ -579,7 +588,7 @@ export default function Home() {
                 inline
               />
             }
-            <div className='fill-amount-row'>
+            < div className='fill-amount-row'>
               <InputField
                 label=''
                 updateData={updateData}
@@ -620,6 +629,7 @@ export default function Home() {
                 updateData={updateData}
                 value={data.amount || 0}
                 setCalculator={setCalculator}
+                darkMode={darkMode}
               />
               :
               <>

@@ -11,7 +11,7 @@
 }
 
 .inputfield-field {
-    border: 1px solid #e5e5e5;
+    border: 1px solid  lightgray;
     background-color: #e5e5e5;
     font-weight: normal;
     border-radius: .5vw;
@@ -25,10 +25,11 @@
 .inputfield-field:focus {
     outline: #263d42;
     border: 1px solid #E4C69C;
+    background-color: #3a3a3a;
 }
 
 .inputfield-textarea {
-    border: 1px solid #e5e5e5;
+    border: 1px solid  lightgray;
     background-color: #e5e5e5;
     font-weight: normal;
     border-radius: .5vw;

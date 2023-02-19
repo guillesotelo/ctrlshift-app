@@ -36,7 +36,7 @@ export default function InputField(props) {
 
     return (
         <div className='inputfield-container' style={{ width: size }}>
-            {label ? <h4 style={{ color: APP_COLORS.GRAY }} className='inputfield-label'>{label || ''}</h4> : ''}
+            {label ? <h4 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }} className='inputfield-label'>{label || ''}</h4> : ''}
             {type === 'textarea' ?
                 <textarea
                     className='inputfield-textarea'
@@ -44,7 +44,12 @@ export default function InputField(props) {
                     placeholder={placeholder || ''}
                     cols={cols || 2}
                     rows={rows || 4}
-                    style={{ ...style, backgroundColor: darkMode ? '#3a3a3a' : '', color: darkMode ? 'lightgray' : '' }}
+                    style={{
+                        ...style,
+                        backgroundColor: darkMode ? '#2B2B2B' : '',
+                        color: darkMode ? 'lightgray' : '',
+                        border: darkMode ? '1px solid #adadad' : ''
+                    }}
                     value={value}
                 />
                 :
@@ -55,15 +60,20 @@ export default function InputField(props) {
                         onChange={handleChange}
                         placeholder={placeholder || ''}
                         type={type || 'text'}
-                        style={{ ...style, backgroundColor: darkMode ? '#3a3a3a' : '', color: darkMode ? 'lightgray' : '' }}
+                        style={{
+                            ...style,
+                            backgroundColor: darkMode ? '#2B2B2B' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            border: darkMode ? '1px solid #adadad' : ''
+                        }}
                         value={value}
                     />
                     {showDropDown && !dropSelected && items && items.length ?
-                        <div className='drop-item-container'>
+                        <div className={`drop-item-container ${darkMode ? 'dark-mode' : ''}`}>
                             {items.map((item, i) =>
                                 <h5
                                     key={i}
-                                    className='drop-item'
+                                    className={`drop-item ${darkMode ? 'dark-mode' : ''}`}
                                     style={{ borderBottom: i !== items.length - 1 && '1px solid #e7e7e7' }}
                                     onClick={() => {
                                         updateData(name, item)

@@ -5,8 +5,12 @@ import LandingMobile from './LandingMobile'
 import Logo from '../assets/logo.png'
 import MoonSon from '../assets/moon-sun.svg'
 
-export default function Landing() {
-    const [darkMode, setDarkMode] = useState(false)
+export default function Landing(props) {
+    const {
+        darkMode,
+        setDarkMode
+    } = props
+    
     const isMobile = window.innerWidth < 640
     const history = useHistory()
 
@@ -27,7 +31,7 @@ export default function Landing() {
         if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/splash')
     }, [])
 
-    return isMobile ? <LandingMobile />
+    return isMobile ? <LandingMobile darkMode={darkMode} setDarkMode={setDarkMode} />
         :
         <div className='landing-container' style={{ backgroundColor: darkMode ? '#202020' : '', color: darkMode ? 'lightgray' : '' }}>
             <div className='landing-header'>
