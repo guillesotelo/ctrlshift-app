@@ -9,6 +9,7 @@
     margin: 0 0 .3vw 0;
     text-align: left;
     color: rgb(105, 104, 105);
+    background-color: transparent;
 }
 
 .dropdown-select-section {

@@ -31,7 +31,10 @@ export default function Dropdown(props) {
     return (
         <div className={`dropdown-container ${darkMode ? 'dark-mode' : ''}`} style={style}>
             {label ?
-                <h4 className='dropdown-label' style={{ color: darkMode ? APP_COLORS.YELLOW : '' }}>
+                <h4 className='dropdown-label' style={{ 
+                    color: darkMode ? APP_COLORS.YELLOW : '',
+                    backgroundColor: darkMode ? 'black' : ''
+                    }}>
                     {label || ''}
                 </h4> : ''}
             <div className='dropdown-select-section'>

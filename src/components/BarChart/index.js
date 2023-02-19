@@ -36,7 +36,7 @@ export default function BarChart(props) {
     return (
         <div className='barchart-container' style={{ width: barWidth, height: barHeight }}>
             <h4 className='table-title' style={{ color: darkMode ? 'lightgray' : '#263d42' }}>{title || ''}</h4>
-            <img src={rotateIcon} className='chart-rotate-svg' onClick={() => setPosition(!position)} />
+            <img src={rotateIcon} className={`chart-rotate-svg ${darkMode ? 'dark-svg' : ''}`} onClick={() => setPosition(!position)} />
             <Bar data={chartData} height={barHeight} width={barWidth} options={options} />
         </div>
     )
