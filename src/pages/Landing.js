@@ -10,7 +10,7 @@ export default function Landing(props) {
         darkMode,
         setDarkMode
     } = props
-    
+
     const isMobile = window.innerWidth < 640
     const history = useHistory()
 
@@ -35,7 +35,7 @@ export default function Landing(props) {
         :
         <div className='landing-container' style={{ backgroundColor: darkMode ? '#202020' : '', color: darkMode ? 'lightgray' : '' }}>
             <div className='landing-header'>
-                <img className='landing-header-logo' src={Logo} alt="Ctrol Shiflt" />
+                <img className='landing-header-logo' src={Logo} alt="Ctrol Shiflt" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : '' }} />
                 <div className='landing-header-central'>
                     <a></a>
                 </div>
@@ -77,7 +77,7 @@ export default function Landing(props) {
                     </p>
                     <CTAButton
                         label='Start for free'
-                        className='landing-cta move-y-back'
+                        className='move-y-back landing-cta'
                         color='#CCA43B'
                         style={{ color: 'black' }}
                         handleClick={() => history.push('/register')}

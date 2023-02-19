@@ -11,6 +11,18 @@
     overflow: hidden;
 }
 
+.splash-dark {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    animation: zoom-in .8s;
+    overflow: hidden;
+}
 
 @keyframes zoom-in {
   0% {
@@ -39,6 +51,23 @@
   -webkit-transform: rotate(45deg);
   -webkit-animation: reflect 2s ease-in-out infinite;
 }
+
+.splash-dark::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 100%;
+  position: absolute;
+  top: -180px;
+  /* left: 0; */
+  background-color: #1E1F21;
+  opacity: 0;
+  transform: rotate(45deg);
+  animation: reflect 1s ease-in-out infinite;
+  -webkit-transform: rotate(45deg);
+  -webkit-animation: reflect 2s ease-in-out infinite;
+}
+
 @keyframes reflect {
   0% { transform: scale(0) rotate(45deg); opacity: 0; }
   80% { transform: scale(0) rotate(45deg); opacity: 0.5; }

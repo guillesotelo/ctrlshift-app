@@ -25,7 +25,7 @@
 .inputfield-field:focus {
     outline: #263d42;
     border: 1px solid #E4C69C;
-    background-color: #3a3a3a;
+    /* background-color: #3a3a3a; */
 }
 
 .inputfield-textarea {

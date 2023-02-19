@@ -22,6 +22,7 @@ export default function Register() {
     const [toggleContents, setToggleContents] = useState(<><Flag code={'us'} height="16" />{MESSAGE[lan].SET_LAN}</>)
     const dispatch = useDispatch()
     const history = useHistory()
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
     const updateData = (key, newData) => {
         setData({ ...data, [key]: newData })
@@ -69,12 +70,12 @@ export default function Register() {
     return (
         <div className='login-container'>
             <div className='logo-register-container'>
-                <img className='logo-img-register' src={Logo} alt="Ctrol Shiflt" />
+                <img className='logo-img-register' src={Logo} alt="Ctrol Shiflt" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : '' }} />
             </div>
             {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                 :
                 <div className='login-section'>
-                    <h4 className='hi-login'>{MESSAGE[lan].HI_REGISTER}</h4>
+                    <h4 className='hi-login' style={{ color: darkMode ? 'lightgray' : '' }}>{MESSAGE[lan].HI_REGISTER}</h4>
                     <Dropdown
                         style={{ margin: '2vw 0' }}
                         onSelect={selected => {
@@ -144,8 +145,8 @@ export default function Register() {
                         label={MESSAGE[lan].BACK_BTN}
                         handleClick={() => history.goBack()}
                         size='100%'
-                        color='#fff'
-                        style={{ marginTop: '10vw', fontSize: '4vw', color: 'black' }}
+                        color='transparent'
+                        style={{ marginTop: '10vw', fontSize: '4vw', color: darkMode ? 'lightgray' : 'black' }}
                     />
                 </div>
             }

@@ -91,7 +91,7 @@ export default function Login() {
     return (
         <div className={`login-container ${darkMode ? 'dark-mode' : ''}`}>
             <div className='logo-login-container'>
-                <img className='logo-img' src={Logo} alt="Control Shift" />
+                <img className='logo-img' src={Logo} alt="Control Shift" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : '' }}/>
             </div>
             {mailNModal &&
                 <div className='remove-modal'>
@@ -156,7 +156,7 @@ export default function Login() {
                 /> */}
                 <h4 className='login-register-text'>{MESSAGE[lan].HI_REGISTER} <button onClick={goToRegister} className='login-register-link'>{MESSAGE[lan].LOGIN_REG_LINK}</button></h4>
                 <button onClick={() => setMailModal(true)} className='login-remember-link'>{data.email ? MESSAGE[lan].LOGIN_REMEMBER : ''}</button>
-                <h4 className='login-version-text'>{VERSION}</h4>
+                <h4 className='login-version-text' style={{ color: darkMode ? 'lightgray' : '' }}>{VERSION}</h4>
             </div>
         </div>
     )

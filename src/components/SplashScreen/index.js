@@ -6,9 +6,9 @@ import Logo from '../../assets/logo.png'
 import './styles.css'
 
 export default function SplashScreen() {
-
     const history = useHistory()
     const dispatch = useDispatch()
+    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
     useEffect(() => {
         try {
@@ -41,11 +41,11 @@ export default function SplashScreen() {
 
     const render = () => {
         return (
-            <div className='splash-container'>
+            <div className={darkMode ? 'splash-dark' : 'splash-container'} >
                 <div className='logo-login-container'>
-                    <img className='logo-img' src={Logo} alt="Control Shift" />
+                    <img className='logo-img' src={Logo} alt="Control Shift" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : ''}}/>
                 </div>
-            </div>
+            </div >
         )
     }
 

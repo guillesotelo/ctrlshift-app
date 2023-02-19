@@ -11,7 +11,7 @@ export default function LandingMobile(props) {
         darkMode,
         setDarkMode
     } = props
-    
+
     const isMobile = window.innerWidth < 640
     const history = useHistory()
 
@@ -36,7 +36,7 @@ export default function LandingMobile(props) {
     return isMobile ?
         <div className='landing-mobile-container' style={{ backgroundColor: darkMode ? '#202020' : '', color: darkMode ? 'lightgray' : '' }}>
             <div className='landing-header move-y'>
-                <img className='landing-header-logo' src={Logo} alt="Ctrol Shiflt" />
+                <img className='landing-header-logo' src={Logo} alt="Ctrol Shiflt" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : '' }} />
                 <div className='landing-header-central'>
                     <a></a>
                 </div>
