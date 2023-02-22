@@ -541,7 +541,7 @@ export default function Home() {
   return (
     <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
       {removeModal &&
-        <div className='remove-modal'>
+        <div className='remove-modal' style={{ backgroundColor: darkMode ? 'black' : '', boxShadow: darkMode ? 'none' : '' }}>
           <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />{arrData[check].detail} <br /> ${arrData[check].amount}</h3>
           <div className='remove-btns'>
             <CTAButton

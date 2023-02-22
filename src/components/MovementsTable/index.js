@@ -36,10 +36,10 @@ export default function MovementsTable(props) {
 
     const getCellColor = position => {
         if(position % 2 === 0) {
-            if(darkMode) return '#595959'
+            if(darkMode) return '#353535'
             return '#eaeaea'
         } else {
-            if(darkMode) return '#676767'
+            if(darkMode) return '#414141'
             return 'white'
         }
     }
@@ -64,8 +64,8 @@ export default function MovementsTable(props) {
                                 className='table-row'
                                 onClick={() => handleCheck(i)}
                                 style={{
-                                    backgroundColor: check === i ? '#ffe49f' : getCellColor(i),
-                                    color: darkMode && check !== i ? 'lightgray' : row.extraordinary === 'up' ? '#117200' : row.extraordinary === 'down' ? '#af0000' : 'black'
+                                    backgroundColor: check === i ? '#cea22f' : getCellColor(i),
+                                    color: row.extraordinary === 'up' ? '#1aae00' : row.extraordinary === 'down' ? '#d80000' : darkMode && check !== i ? '#e6e6e6' : 'black'
                                 }}>
                                 <h4 className='table-row-item'>{new Date(row.date).toLocaleDateString()}</h4>
                                 <h4 className='table-row-item detail'>{row.detail || 'n/a'}</h4>

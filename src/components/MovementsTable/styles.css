@@ -67,8 +67,8 @@
 }
 
 .table-row:hover {
-    opacity: .7;
     cursor: pointer;
+    filter: brightness(150%);
 }
 
 .table-row-item {
@@ -177,6 +177,11 @@
         border-bottom: 1px solid #c0c0c0; */
         padding: 1vw;
         height: fit-content;
+    }
+
+    .table-row:hover {
+        /* opacity: .7; */
+        filter: none
     }
 
     .table-row-item {
