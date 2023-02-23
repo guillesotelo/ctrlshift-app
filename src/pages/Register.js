@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import CTAButton from '../components/CTAButton'
@@ -24,6 +24,10 @@ export default function Register() {
     const dispatch = useDispatch()
     const history = useHistory()
     const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    
+    useEffect(() => {
+        document.querySelector('body').style.backgroundColor = darkMode ? '#1E1F21' : ''
+    }, [])
 
     const updateData = (key, newData) => {
         setData({ ...data, [key]: newData })

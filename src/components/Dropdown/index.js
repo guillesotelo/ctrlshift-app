@@ -17,7 +17,9 @@ export default function Dropdown(props) {
         index,
         style,
         size,
-        darkMode
+        darkMode,
+        bg,
+        setIsEdit
     } = props
 
     useEffect(() => {
@@ -33,7 +35,7 @@ export default function Dropdown(props) {
             {label ?
                 <h4 className='dropdown-label' style={{ 
                     color: darkMode ? APP_COLORS.YELLOW : '',
-                    backgroundColor: darkMode ? 'black' : ''
+                    backgroundColor: darkMode ? bg ? bg : 'black' : ''
                     }}>
                     {label || ''}
                 </h4> : ''}
@@ -73,6 +75,7 @@ export default function Dropdown(props) {
                                 onClick={() => {
                                     updateData(name, option, index)
                                     setSelected(option)
+                                    if(setIsEdit) setIsEdit(true)
                                     if (items && setItems) {
                                         let newItems = items
                                         newItems.push(option)

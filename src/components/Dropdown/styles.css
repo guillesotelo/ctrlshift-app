@@ -76,7 +76,7 @@
 }
 
 .dropdown-option:hover {
-    opacity: .8;
+    opacity: .5;
     color: black;
 }
 
@@ -217,7 +217,7 @@
     }
 
     .dropdown-option:hover {
-        opacity: .8;
+        opacity: .5;
         color: black;
     }
 

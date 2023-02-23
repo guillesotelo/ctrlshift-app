@@ -123,10 +123,10 @@ const updateLedger = async data => {
     } catch (err) { console.log(err) }
 }
 
-const getAllLedgersByEmail = async email => {
+const getAllLedgersByEmail = async data => {
     try {
-        const ledgers = await axios.get(`${API_URL}/api/ledger/all`, { params: email, headers: getHeaders() })
-        return ledgers
+        const ledgers = await axios.get(`${API_URL}/api/ledger/all`, { params: data, headers: getHeaders() })
+        return ledgers.data
     } catch (err) { console.log(err) }
 }
 
@@ -145,6 +145,23 @@ const getLedgerById = async id => {
 const loginLedger = async data => {
     try {
         const res = await axios.post(`${API_URL}/api/ledger`, data, getConfig())
+        if (!res || !res.data) return false
+
+        const user = JSON.parse(localStorage.getItem('user'))
+        const updatedUser = await updateUser({ ...user, defaultLedger: JSON.stringify(res.data) })
+
+        localStorage.setItem('user', JSON.stringify({
+            ...user,
+            ...updatedUser.data
+        }))
+
+        return res.data
+    } catch (error) { console.log(error) }
+}
+
+const loginLocalLedger = async data => {
+    try {
+        const res = await axios.post(`${API_URL}/api/ledger/loginLocal`, data, getConfig())
         if (!res || !res.data) return false
 
         const user = JSON.parse(localStorage.getItem('user'))
@@ -203,6 +220,7 @@ export {
     getAllLedgersByEmail,
     getLedgerById,
     loginLedger,
+    loginLocalLedger,
     updateLedger,
     deleteMovement,
     createReport,

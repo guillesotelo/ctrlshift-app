@@ -88,7 +88,7 @@
   .menu-items {
     display: flex;
     flex-direction: column;
-    gap: 8vw;
+    gap: 6vw;
     margin: 8vw;
   }
 
@@ -107,7 +107,7 @@
   }
 
   .menu-item-text {
-    font-size: 3.8vw;
+    font-size: 3.5vw;
     text-align: left;
     margin: 0;
     width: 90%;

@@ -62,6 +62,7 @@ export default function LandingMobile(props) {
                         color='#CCA43B'
                         style={{ color: 'black' }}
                         handleClick={() => history.push('/register')}
+                        size='32vw'
                     />
                 </div>
             </div>

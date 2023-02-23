@@ -35,11 +35,11 @@ export default function MovementsTable(props) {
     }
 
     const getCellColor = position => {
-        if(position % 2 === 0) {
-            if(darkMode) return '#353535'
+        if (position % 2 === 0) {
+            if (darkMode) return '#353535'
             return '#eaeaea'
         } else {
-            if(darkMode) return '#414141'
+            if (darkMode) return '#414141'
             return 'white'
         }
     }
@@ -80,7 +80,11 @@ export default function MovementsTable(props) {
                         }
                     </>
                     :
-                    <div className='table-row' style={{ backgroundColor: '#E5E5E5', height: '2.5vw', justifyContent: 'center' }}>
+                    <div className='table-row' style={{
+                        backgroundColor: darkMode ? '#353535' : '#eaeaea',
+                        height: '2.5vw',
+                        justifyContent: 'center'
+                    }}>
                         {MESSAGE[lan].NO_MOVEMENTS}
                     </div>
             }
