@@ -32,6 +32,7 @@ export default function Menu(props) {
   const handleLogOut = () => {
     setMenuClass('menu-hidden')
     localStorage.clear()
+    localStorage.setItem('darkMode', darkMode)
     history.push('/login')
   }
 

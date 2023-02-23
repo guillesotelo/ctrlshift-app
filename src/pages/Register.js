@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
-import Logo from '../assets/logo.png'
+import WhiteLogo from '../assets/logos/ctrl_new_white.png'
+import DarkLogo from '../assets/logos/ctrl_new_dark.png'
 import { createUser, logIn } from '../store/reducers/user'
 import { APP_COLORS } from '../constants/colors'
 import { toast } from 'react-toastify';
@@ -69,9 +70,7 @@ export default function Register() {
 
     return (
         <div className='login-container'>
-            <div className='logo-register-container'>
-                <img className='logo-img-register' src={Logo} alt="Ctrol Shiflt" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : '' }} />
-            </div>
+            <img className='logo-img-register' src={darkMode ? DarkLogo : WhiteLogo} alt="Ctrol Shiflt" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : '' }} />
             {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                 :
                 <div className='login-section'>

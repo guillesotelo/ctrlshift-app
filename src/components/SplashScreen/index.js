@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getLedger } from '../../store/reducers/ledger';
-import Logo from '../../assets/logo.png'
+import WhiteLogo from '../../assets/logos/ctrl_new_white.png'
+import DarkLogo from '../../assets/logos/ctrl_new_dark.png'
 import './styles.css'
 
 export default function SplashScreen() {
@@ -43,7 +44,7 @@ export default function SplashScreen() {
         return (
             <div className={darkMode ? 'splash-dark' : 'splash-container'} >
                 <div className='logo-login-container'>
-                    <img className='logo-img' src={Logo} alt="Control Shift" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : ''}}/>
+                    <img className='logo-img' src={darkMode ? DarkLogo : WhiteLogo} alt="Control Shift" style={{ filter: darkMode ? ' invert(53%) sepia(61%) saturate(454%) hue-rotate(6deg) brightness(111%) contrast(87%)' : '' }} />
                 </div>
             </div >
         )

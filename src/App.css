@@ -177,13 +177,13 @@ h2 {
 }
 
 .logo-img {
-  width: 60%;
-  transform: translateX(4%);
+  width: 16vw;
+  margin: 3.5vw 0;
 }
 
 .logo-img-register {
-  width: 50%;
-  margin: 2vw 0 1vw 0;
+  width: 12vw;
+  margin: 2.5vw 0;
 }
 
 .dropdown {
@@ -1353,26 +1353,14 @@ h2 {
     margin: 0;
   }
 
-  .logo-login-container {
-    margin-top: 5vw;
-    line-height: 12vw;
-    text-align: center;
-  }
-
-  .logo-register-container {
-    margin-top: 5vw;
-    line-height: 12vw;
-    text-align: center;
-  }
-
   .logo-img {
-    width: 70%;
-    transform: translateX(4%);
+    width: 60vw;
+    margin: 14vw 0;
   }
 
   .logo-img-register {
-    width: 120%;
-    margin: 5vw 0;
+    width: 60vw;
+    margin: 14vw 0;
   }
 
   .hi-login {
