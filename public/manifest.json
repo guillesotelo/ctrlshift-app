@@ -20,6 +20,12 @@
       "purpose": "maskable"
     },
     {
+      "src": "/images/maskable_icon_x384.png",
+      "type": "image/png",
+      "sizes": "384x384",
+      "purpose": "maskable"
+    },
+    {
       "src": "/images/maskable_icon_x512.png",
       "type": "image/png",
       "sizes": "512x512",
