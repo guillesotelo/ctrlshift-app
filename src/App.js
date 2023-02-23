@@ -24,8 +24,10 @@ function App() {
 
   useEffect(() => {
     const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
-    document.querySelector('#root').style.backgroundColor = mode ? '#1E1F21' : ''
-    document.querySelector('body').style.backgroundColor = mode ? '#1E1F21' : ''
+    const root = document.querySelector('#root')
+    const body = document.querySelector('body')
+    root.style.backgroundColor = mode ? '#1E1F21' : ''
+    body.style.backgroundColor = mode && root.style.backgroundColor !== '#1E1F21' ? '#1E1F21' : ''
 
     setDarkMode(mode)
   }, [])

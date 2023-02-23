@@ -46,8 +46,9 @@ export default function LandingMobile(props) {
                         alt='Dark Mode'
                         className='landing-dark-mode'
                         onClick={() => {
-                            setDarkMode(!darkMode)
-                            localStorage.setItem('darkMode', !darkMode)
+                            const mode = !darkMode
+                            setDarkMode(mode)
+                            localStorage.setItem('darkMode', mode)
                         }} style={{ filter: darkMode ? 'invert(97%) sepia(0%) saturate(4674%) hue-rotate(353deg) brightness(80%) contrast(99%)' : '' }}
                     />                    <CTAButton
                         label='Login'

@@ -3,7 +3,7 @@ import './styles.css'
 import Logo from '../../assets/logo.png'
 
 export default function Footer({ darkMode }) {
-    console.log("DARK FOOTER", darkMode)
+
     return (
         <div className='footer-container' style={{
             backgroundColor: darkMode ? '#202020' : '',

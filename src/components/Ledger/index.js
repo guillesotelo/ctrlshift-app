@@ -30,6 +30,7 @@ export default function Ledger() {
     const lan = getUserLanguage()
     const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
     const localUser = JSON.parse(localStorage.getItem('user'))
+    const isMobile = window.screen.width <= 768
 
     console.log("data", data)
 
@@ -65,6 +66,7 @@ export default function Ledger() {
             console.error(err)
         }
     }
+
     const handleSaveLedger = async () => {
         try {
             const ledgerBook = await dispatch(saveLedger(data)).then(d => d.payload)
@@ -155,6 +157,7 @@ export default function Ledger() {
                     darkMode={darkMode}
                     bg='#1E1F21'
                     setIsEdit={setIsEdit}
+                    size={isMobile ? '' : '20vw'}
                 />
                 {isEdit ?
                     <div style={{ display: 'flex', flexDirection: 'row', gap: '3vw' }}>

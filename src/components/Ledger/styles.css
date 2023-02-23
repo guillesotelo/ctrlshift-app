@@ -54,9 +54,9 @@
     align-items: center;
 }
 
-.div-ledger-connected div{
+/* .div-ledger-connected div{
     width: 20vw;
-}
+} */
 
 .ledger-connected {
     text-align: center;
@@ -124,7 +124,7 @@
         align-items: center;
         padding: 4vw 0;
     }
-
+    
     .ledger-connected {
         font-size: 3vw;
         margin: 0;
