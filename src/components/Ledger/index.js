@@ -32,8 +32,6 @@ export default function Ledger() {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const isMobile = window.screen.width <= 768
 
-    console.log("data", data)
-
     useEffect(() => {
         const { email, username } = localUser
 
@@ -50,8 +48,13 @@ export default function Ledger() {
         }
 
         getLedgers()
-        setData({ email, settings: JSON.stringify(_settings) })
-        if (ledger?.name) updateData('name', ledger.name)
+
+        const newData = { 
+            name: ledger.name || '',
+            email, 
+            settings: JSON.stringify(_settings) 
+        }
+        setData(newData)
     }, [])
 
     const updateData = (key, newData) => {

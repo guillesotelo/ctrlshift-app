@@ -48,7 +48,7 @@ export default function InputField(props) {
                         ...style,
                         backgroundColor: darkMode ? '#2B2B2B' : '',
                         color: darkMode ? 'lightgray' : '',
-                        border: darkMode ? '1px solid #adadad' : ''
+                        border: darkMode ? '1px solid gray' : ''
                     }}
                     value={value}
                 />
@@ -64,7 +64,7 @@ export default function InputField(props) {
                             ...style,
                             backgroundColor: darkMode ? '#2B2B2B' : '',
                             color: darkMode ? 'lightgray' : '',
-                            border: darkMode ? '1px solid #adadad' : ''
+                            border: darkMode ? '1px solid gray' : ''
                         }}
                         value={value}
                     />

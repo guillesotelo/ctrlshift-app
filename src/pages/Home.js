@@ -73,6 +73,8 @@ export default function Home() {
   const isMobile = window.screen.width <= 768
   const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
+  console.log('data', data)
+
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
@@ -261,7 +263,8 @@ export default function Home() {
         setAllMovs(filteredMovs)
 
         setLastData(_arrData[0] || {})
-        setNegativeBalance(getNegativeBalance(_arrData))
+        const updatedNegativeBalance = getNegativeBalance(_arrData)
+        setNegativeBalance(updatedNegativeBalance)
       }
       setLoading(false)
     } catch (err) {
@@ -300,6 +303,10 @@ export default function Home() {
         ...item,
         date: new Date(item.date)
       })
+      if(item.extraordinary) {
+        setExtraordinary(true)
+        setExtraType(item.extraordinary === 'down' ? true : false)
+      }
     }
     setOpenModal(!openModal)
   }
@@ -369,11 +376,12 @@ export default function Home() {
         const submitData = {
           ...data,
           extraordinary: extraordinary ? extraType ? 'down' : 'up' : '',
-          amount: extraordinary && !extraType ? `-${data.amount}` : data.amount
+          amount: extraordinary ? !extraType && !data.amount.includes('-') ? `-${data.amount}` : `${data.amount.replace('-','')}` : data.amount
         }
         if (!submitData.detail) submitData.detail = '-'
 
         if (isEdit) {
+          console.log('submitData', submitData)
           saved = await dispatch(editMovement(submitData)).then(d => d.payload)
         }
         else {
