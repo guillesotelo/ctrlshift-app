@@ -23,7 +23,7 @@ function App() {
   const hasMovs = useSelector(state => state.movement && state.movement.data) || null
 
   useEffect(() => {
-    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : getSystemMode()
     const root = document.querySelector('#root')
     const body = document.querySelector('body')
     root.style.backgroundColor = mode ? '#1E1F21' : ''
@@ -31,6 +31,10 @@ function App() {
 
     setDarkMode(mode)
   }, [])
+
+  const getSystemMode = () => {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches || false
+  }
 
   return (
     <Switch>

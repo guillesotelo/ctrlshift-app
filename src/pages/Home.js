@@ -73,7 +73,7 @@ export default function Home() {
   const isMobile = window.screen.width <= 768
   const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
-  console.log('data', data)
+  // console.log('data', data)
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
