@@ -31,12 +31,17 @@ export default function Dropdown(props) {
     }, [])
 
     return (
-        <div className={`dropdown-container ${darkMode ? 'dark-mode' : ''}`} style={style}>
+        <div
+            className='dropdown-container'
+            style={{
+                ...style,
+                backgroundColor: darkMode ? 'black' : ''
+            }}>
             {label ?
-                <h4 className='dropdown-label' style={{ 
+                <h4 className='dropdown-label' style={{
                     color: darkMode ? APP_COLORS.YELLOW : '',
                     backgroundColor: darkMode ? bg ? bg : 'black' : ''
-                    }}>
+                }}>
                     {label || ''}
                 </h4> : ''}
             <div className='dropdown-select-section'>
@@ -75,7 +80,7 @@ export default function Dropdown(props) {
                                 onClick={() => {
                                     updateData(name, option, index)
                                     setSelected(option)
-                                    if(setIsEdit) setIsEdit(true)
+                                    if (setIsEdit) setIsEdit(true)
                                     if (items && setItems) {
                                         let newItems = items
                                         newItems.push(option)
