@@ -21,6 +21,7 @@ export default function Settings() {
     const [newSalary, setNewSalary] = useState(false)
     const [budget, setBudget] = useState({ total: 100 })
     const [edited, setEdited] = useState(false)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const lan = getUserLanguage()
     const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
@@ -70,6 +71,7 @@ export default function Settings() {
 
     const handleSave = async () => {
         try {
+            setLoading(true)
             const filteredBudget = {}
             data.categories.forEach(cat => {
                 if (budget[cat]) filteredBudget[cat] = budget[cat]
@@ -89,7 +91,11 @@ export default function Settings() {
                 setTimeout(() => pullSettings(), 1500)
             }
             setEdited(false)
-        } catch (err) { console.error(err) }
+            setLoading(false)
+        } catch (err) { 
+            console.error(err) 
+            setLoading(false)
+        }
     }
 
     const updateBudget = (category, type) => {
@@ -353,7 +359,7 @@ export default function Settings() {
             }
 
             {edited &&
-                <div className='save-div'>
+                <div className='save-div' style={{ backgroundColor: darkMode ? '#150c01' : '' }}>
                     <div className='save-div-btns'>
                         <CTAButton
                             handleClick={() => {
@@ -373,6 +379,7 @@ export default function Settings() {
                             size='fit-content'
                             disabled={!Object.keys(data).length}
                             style={{ marginTop: '8vw', color: 'black' }}
+                            loading={loading}
                         />
                     </div>
                 </div>

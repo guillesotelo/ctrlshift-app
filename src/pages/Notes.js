@@ -119,6 +119,7 @@ export default function Notes() {
                                         handleRemoveItem()
                                     }}
                                     size='fit-content'
+                                    loading={loading}
                                 />
                             </div>
                         </div>
@@ -179,6 +180,7 @@ export default function Notes() {
                                     size='100%'
                                     color={APP_COLORS.YELLOW}
                                     style={{ color: 'black' }}
+                                    loading={loading}
                                 />
                             </div>
                         </div>

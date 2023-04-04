@@ -356,6 +356,7 @@ export default function Tasks() {
                             size='100%'
                             color={APP_COLORS.YELLOW}
                             style={{ color: 'black' }}
+                            loading={loading}
                         />
                     </div>
                 </div>

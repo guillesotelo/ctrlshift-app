@@ -565,6 +565,7 @@ export default function Home() {
                 setRemoveModal(false)
                 handleRemoveItem()
               }}
+              loading={loading}
             // size='70%'
             />
           </div>
