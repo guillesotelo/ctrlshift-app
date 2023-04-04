@@ -14,6 +14,7 @@ import { PuffLoader } from 'react-spinners';
 export default function Notes() {
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loadingBtn, setLoadingBtn] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [removeModal, setRemoveModal] = useState(false)
     const [data, setData] = useState({ name: '', details: '', notes: [] })
@@ -23,6 +24,7 @@ export default function Notes() {
     const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
 
     useEffect(() => {
+        setLoading(true)
         pullNotes()
     }, [])
 
@@ -32,6 +34,7 @@ export default function Notes() {
 
     const handleSave = async () => {
         try {
+            setLoadingBtn(true)
             if (!data.name || !data.details) {
                 return toast.error(MESSAGE[lan].CHECK_DATA)
             }
@@ -56,13 +59,16 @@ export default function Notes() {
             }
             setOpenModal(false)
             setIsEdit(false)
+            setLoadingBtn(false)
         } catch (err) {
+            setLoadingBtn(false)
             console.error(err)
         }
     }
 
     const handleRemoveItem = async () => {
         try {
+            setLoading(true)
             const _notes = data.notes.filter(note => note !== check)
             const newLedger = await dispatch(updateLedgerData({
                 notes: JSON.stringify(_notes),
@@ -77,11 +83,14 @@ export default function Notes() {
             }
             setIsEdit(false)
             setCheck(-1)
-        } catch (err) { console.error(err) }
+            setLoading(false)
+        } catch (err) {
+            setLoading(false)
+            console.error(err)
+        }
     }
 
     const pullNotes = async () => {
-        setLoading(true)
         setData({ ...data, notes: [] })
 
         const { id } = JSON.parse(localStorage.getItem('ledger'))
@@ -119,7 +128,7 @@ export default function Notes() {
                                         handleRemoveItem()
                                     }}
                                     size='fit-content'
-                                    loading={loading}
+                                    loading={loadingBtn}
                                 />
                             </div>
                         </div>
@@ -180,7 +189,7 @@ export default function Notes() {
                                     size='100%'
                                     color={APP_COLORS.YELLOW}
                                     style={{ color: 'black' }}
-                                    loading={loading}
+                                    loading={loadingBtn}
                                 />
                             </div>
                         </div>

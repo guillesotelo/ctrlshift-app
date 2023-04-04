@@ -32,6 +32,7 @@ export default function Tasks() {
     registerLocale("es", es)
 
     useEffect(() => {
+        setLoading(true)
         pullTasks()
     }, [tab])
 
@@ -44,7 +45,6 @@ export default function Tasks() {
     }
 
     const pullTasks = async () => {
-        setLoading(true)
         const { id } = JSON.parse(localStorage.getItem('ledger'))
         const ledger = await dispatch(getLedger(id)).then(data => data.payload)
         const { tasks } = ledger
@@ -57,6 +57,7 @@ export default function Tasks() {
 
     const handleSave = async () => {
         try {
+            setLoading(true)
             if (!data.name) return toast.error(MESSAGE[lan].CHECK_DATA)
             const newTask = {
                 name: data.name,
@@ -93,7 +94,11 @@ export default function Tasks() {
                 date: ''
             })
             setIsEdit(false)
-        } catch (err) { console.error(err) }
+            setLoading(false)
+        } catch (err) {
+            setLoading(false)
+            console.error(err)
+        }
     }
 
     const saveTaskOrder = async newOrder => {
@@ -351,7 +356,7 @@ export default function Tasks() {
                         </div>
                             : ''}
                         <CTAButton
-                            handleClick={() => handleSave()}
+                            handleClick={handleSave}
                             label={MESSAGE[lan].SAVE}
                             size='100%'
                             color={APP_COLORS.YELLOW}
