@@ -15,6 +15,10 @@
     color: lightgray !important;
 }
 
+.dark-mode-titles h4{
+    color: lightgray !important;
+}
+
 .table-titles {
     display: flex;
     flex-direction: row;
@@ -123,10 +127,6 @@
         flex-direction: column;
         align-self: center;
         transform: none;
-    }
-
-    .dark-mode-titles h4{
-        color: lightgray !important;
     }
 
     .table-titles {

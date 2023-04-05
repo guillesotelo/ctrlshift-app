@@ -18,7 +18,7 @@ import EyeClosed from '../assets/eye-closed.svg'
 import UpDownIcon from '../assets/up-down-icon.svg'
 import { getMovements, saveMovement, editMovement, removeMovement } from '../store/reducers/movement'
 import { updateLedgerData, getLedger } from '../store/reducers/ledger';
-import { APP_COLORS, PALETTE } from '../constants/colors'
+import { APP_COLORS, PALETTE2 } from '../constants/colors'
 import { toast } from 'react-toastify';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-toastify/dist/ReactToastify.css';
@@ -176,9 +176,9 @@ export default function Home() {
   }
 
   const renderCharts = () => {
-    const categoryPattern = allCategories.map(_ => randomColors(PALETTE)[0])
-    const payTypePattern = allPayTypes.map(_ => randomColors(PALETTE)[0])
-    const authorPattern = allUsers.map(_ => randomColors(PALETTE)[0])
+    const categoryPattern = allCategories.map(_ => randomColors(PALETTE2)[0])
+    const payTypePattern = allPayTypes.map(_ => randomColors(PALETTE2)[0])
+    const authorPattern = allUsers.map(_ => randomColors(PALETTE2)[0])
 
     const localLedger = JSON.parse(localStorage.getItem('ledger'))
     const { salary, isMonthly } = JSON.parse(localLedger?.settings || '{}')
@@ -782,8 +782,8 @@ export default function Home() {
           {
             viewSalary ?
               <div className=''>
-                <h4 className='salary'>▴ {MESSAGE[lan].FIAT} {salary.toLocaleString('us-US', { currency: 'ARS' })}</h4>
-                <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })}</h4>
+                <h4 className='salary'>▴ {MESSAGE[lan].FIAT !== 'Kr' ? MESSAGE[lan].FIAT : ''} {salary.toLocaleString('us-US', { currency: 'ARS' })} {MESSAGE[lan].FIAT === 'Kr' ? 'Kr' : ''}</h4>
+                <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT !== 'Kr' ? MESSAGE[lan].FIAT : ''} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })} {MESSAGE[lan].FIAT === 'Kr' ? 'Kr' : ''}</h4>
               </div>
               : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
           }

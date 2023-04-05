@@ -20,13 +20,23 @@ export default function BarChart(props) {
         indexAxis: position ? 'y' : 'x',
         plugins: {
             legend: {
-                display: false
+                display: false,
+                labels: {
+                    color: darkMode ? 'lightgray' : 'black'
+                }
             }
         },
         scales: {
             x: {
                 ticks: {
-                    autoSkip: false
+                    autoSkip: false,
+                    color: darkMode ? 'lightgray' : 'black'
+                }
+            },
+            y: {
+                ticks: {
+                    autoSkip: false,
+                    color: darkMode ? 'lightgray' : 'black'
                 }
             }
         }
