@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import CTAButton from '../components/CTAButton'
@@ -19,6 +19,7 @@ import { VERSION } from '../constants/app'
 import { getUserLanguage } from '../helpers';
 import 'react-toastify/dist/ReactToastify.css';
 import { PuffLoader } from 'react-spinners';
+import { AppContext } from '../AppContext';
 
 export default function Login() {
     const [data, setData] = useState({})
@@ -27,7 +28,7 @@ export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const lan = getUserLanguage()
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         document.querySelector('body').style.backgroundColor = darkMode ? '#1E1F21' : ''

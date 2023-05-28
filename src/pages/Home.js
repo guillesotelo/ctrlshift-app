@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import { ExportToCsv } from 'export-to-csv';
@@ -26,6 +26,7 @@ import SwitchBTN from '../components/SwitchBTN';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
 import { PuffLoader } from 'react-spinners';
+import { AppContext } from '../AppContext';
 
 export default function Home() {
   const [data, setData] = useState({})
@@ -70,8 +71,7 @@ export default function Home() {
   const history = useHistory()
   const lan = getUserLanguage()
   const months = MESSAGE[lan].MONTHS
-  const isMobile = window.screen.width <= 768
-  const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+  const { darkMode, isMobile } = useContext(AppContext)
 
   // console.log('data', data)
 
@@ -303,7 +303,7 @@ export default function Home() {
         ...item,
         date: new Date(item.date)
       })
-      if(item.extraordinary) {
+      if (item.extraordinary) {
         setExtraordinary(true)
         setExtraType(item.extraordinary === 'down' ? true : false)
       }
@@ -376,7 +376,7 @@ export default function Home() {
         const submitData = {
           ...data,
           extraordinary: extraordinary ? extraType ? 'down' : 'up' : '',
-          amount: extraordinary ? !extraType && !data.amount.includes('-') ? `-${data.amount}` : `${data.amount.replace('-','')}` : data.amount
+          amount: extraordinary ? !extraType && !data.amount.includes('-') ? `-${data.amount}` : `${data.amount.replace('-', '')}` : data.amount
         }
         if (!submitData.detail) submitData.detail = '-'
 

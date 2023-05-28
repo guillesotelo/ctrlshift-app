@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import MenuIcon from '../../assets/menu-icon.svg'
 import LedgerIcon from '../../assets/ledger-icon.svg'
 import Menu from '../Menu'
 import { useHistory } from "react-router-dom";
 import './styles.css'
+import { AppContext } from '../../AppContext';
 
 export default function Header() {
   const [menuClass, setMenuClass] = useState('menu-hidden')
-  const [darkMode, setDarkMode] = useState(false)
+  const { darkMode, isMobile } = useContext(AppContext)
   const history = useHistory()
   const { name } = localStorage.getItem('ledger') ? JSON.parse(localStorage.getItem('ledger')) : {}
 
   useEffect(() => {
-    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
-    setDarkMode(mode)
     window.addEventListener('mouseup', e => {
       if (e.target != document.querySelector('#menu-icon')) setMenuClass('menu-hidden')
     })

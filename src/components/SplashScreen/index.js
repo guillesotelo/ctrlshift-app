@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getLedger } from '../../store/reducers/ledger';
 import WhiteLogo from '../../assets/logos/ctrl_new_white.png'
 import DarkLogo from '../../assets/logos/ctrl_new_dark.png'
 import './styles.css'
+import { AppContext } from '../../AppContext';
 
 export default function SplashScreen() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         try {

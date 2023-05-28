@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import CTAButton from '../CTAButton'
@@ -15,12 +15,13 @@ import LogoutIcon from '../../assets/menu/logout.svg'
 import Moon from '../../assets/menu/moon.svg'
 
 import './styles.css'
+import { AppContext } from '../../AppContext'
 
 export default function Menu(props) {
-  const [darkMode, setDarkMode] = useState(false)
   const { menuClass, setMenuClass } = props
   const history = useHistory()
   const lan = getUserLanguage()
+  const { darkMode, setDarkMode } = useContext(AppContext)
   const { name } = localStorage.getItem('ledger') &&
     localStorage.getItem('ledger') !== null ? JSON.parse(localStorage.getItem('ledger')) : {}
 

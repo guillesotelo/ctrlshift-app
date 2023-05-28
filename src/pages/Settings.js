@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import { APP_COLORS } from '../constants/colors'
@@ -7,6 +7,7 @@ import InputField from '../components/InputField'
 import { updateLedgerData } from '../store/reducers/ledger';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
+import { AppContext } from '../AppContext';
 
 export default function Settings() {
     const [data, setData] = useState({
@@ -24,7 +25,7 @@ export default function Settings() {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const lan = getUserLanguage()
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         pullSettings()

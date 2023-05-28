@@ -16,20 +16,21 @@ import ChangePass from "./pages/ChangePass";
 import Report from "./pages/Report";
 import { useSelector } from "react-redux";
 import Landing from './pages/Landing'
+import { AppProvider } from './AppContext';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
-
   const hasMovs = useSelector(state => state.movement && state.movement.data) || null
+  const isMobile = window.screen.width <= 768
 
   useEffect(() => {
-    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : getSystemMode()
+    const isDarkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : getSystemMode()
     const root = document.querySelector('#root')
     const body = document.querySelector('body')
-    root.style.backgroundColor = mode ? '#1E1F21' : ''
-    body.style.backgroundColor = mode && root.style.backgroundColor !== '#1E1F21' ? '#1E1F21' : ''
+    root.style.backgroundColor = isDarkMode ? '#1E1F21' : ''
+    body.style.backgroundColor = isDarkMode ? '#1E1F21' : ''
 
-    setDarkMode(mode)
+    setDarkMode(isDarkMode)
   }, [])
 
   const getSystemMode = () => {
@@ -37,56 +38,58 @@ function App() {
   }
 
   return (
-    <Switch>
-      <Route exact path="/">
-        <Landing darkMode={darkMode} setDarkMode={setDarkMode} />
-      </Route>
-      <Route exact path="/splash">
-        <SplashScreen />
-      </Route>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/register">
-        <Register />
-      </Route>
-      <Route path="/changePass">
-        <ChangePass />
-      </Route>
-      <Route path="/home">
-        <Header />
-        <Home />
-        {hasMovs && <Footer darkMode={darkMode} />}
-      </Route>
-      <Route path="/ledger">
-        <Header />
-        <Ledger />
-      </Route>
-      <Route path="/account">
-        <Header />
-        <Account />
-      </Route>
-      <Route path="/settings">
-        <Header />
-        <Settings />
-        <Footer darkMode={darkMode} />
-      </Route>
-      <Route path="/notes">
-        <Header />
-        <Notes />
-      </Route>
-      <Route path="/tasks">
-        <Header />
-        <Tasks />
-      </Route>
-      <Route path="/reportIssue">
-        <Header />
-        <Report />
-      </Route>
-      <Route>
-        <SplashScreen />
-      </Route>
-    </Switch>
+    <AppProvider darkMode={darkMode} setDarkMode={setDarkMode} isMobile={isMobile}>
+      <Switch>
+        <Route exact path="/">
+          <Landing darkMode={darkMode} setDarkMode={setDarkMode} />
+        </Route>
+        <Route exact path="/splash">
+          <SplashScreen />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/changePass">
+          <ChangePass />
+        </Route>
+        <Route path="/home">
+          <Header />
+          <Home />
+          {hasMovs && <Footer darkMode={darkMode} />}
+        </Route>
+        <Route path="/ledger">
+          <Header />
+          <Ledger />
+        </Route>
+        <Route path="/account">
+          <Header />
+          <Account />
+        </Route>
+        <Route path="/settings">
+          <Header />
+          <Settings />
+          <Footer darkMode={darkMode} />
+        </Route>
+        <Route path="/notes">
+          <Header />
+          <Notes />
+        </Route>
+        <Route path="/tasks">
+          <Header />
+          <Tasks />
+        </Route>
+        <Route path="/reportIssue">
+          <Header />
+          <Report />
+        </Route>
+        <Route>
+          <SplashScreen />
+        </Route>
+      </Switch>
+    </AppProvider>
   )
 }
 

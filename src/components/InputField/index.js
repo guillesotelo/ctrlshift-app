@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../../AppContext'
 import { APP_COLORS } from '../../constants/colors'
 import './styles.css'
 
 export default function InputField(props) {
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode, isMobile } = useContext(AppContext)
 
     const {
         name,
