@@ -161,6 +161,14 @@ export default function Home() {
     if (allCategories.length) getAllMovements(data)
   }, [month])
 
+  useEffect(() => {
+    const html = document.querySelector('html')
+    if (html) {
+      if (openModal) html.classList.add('overflow-hidden')
+      else html.classList.remove('overflow-hidden')
+    }
+  }, [openModal])
+
   const toggleDatePickerColors = () => {
     const body = document.querySelector('.react-datepicker')
     const header = document.querySelector('.react-datepicker__header')

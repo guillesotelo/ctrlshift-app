@@ -1616,7 +1616,7 @@ h2 {
 
   .svg-add {
     filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
-    height: 8.5vw;
+    height: 7vw;
     align-self: center;
   }
 
@@ -1625,7 +1625,7 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 3vw;
+    /* gap: 3vw; */
     margin: 2vw 0 0 0;
   }
 

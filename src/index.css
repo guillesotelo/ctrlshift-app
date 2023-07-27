@@ -31,3 +31,7 @@ code {
   display: block !important;
   font-family: unset !important;
 }
+
+.overflow-hidden {
+  overflow: hidden;
+}
