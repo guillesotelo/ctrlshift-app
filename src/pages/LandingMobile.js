@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import CTAButton from '../components/CTAButton'
 import Logo from '../assets/logo.png'
 import Footer from '../components/Footer'
 import MoonSon from '../assets/moon-sun.svg'
 import Landing from './Landing'
+import { AppContext } from '../AppContext'
 
-export default function LandingMobile(props) {
-    const {
-        darkMode,
-        setDarkMode
-    } = props
-
+export default function LandingMobile() {
     const isMobile = window.innerWidth < 640
+    const { darkMode, setDarkMode } = useContext(AppContext)
     const history = useHistory()
 
     useEffect(() => {

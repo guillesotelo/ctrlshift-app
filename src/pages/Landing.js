@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import CTAButton from '../components/CTAButton'
 import LandingMobile from './LandingMobile'
 import Logo from '../assets/logo.png'
 import MoonSon from '../assets/moon-sun.svg'
+import { AppContext } from '../AppContext'
 
-export default function Landing(props) {
-    const {
-        darkMode,
-        setDarkMode
-    } = props
-
+export default function Landing() {
     const isMobile = window.innerWidth < 640
     const history = useHistory()
+    const { darkMode, setDarkMode } = useContext(AppContext)
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('user'))
@@ -78,7 +75,7 @@ export default function Landing(props) {
                     </p>
                     <CTAButton
                         label='Start for free'
-                        className='move-y-back landing-cta'
+                        className='landing-cta move-x'
                         color='#CCA43B'
                         style={{ color: 'black' }}
                         handleClick={() => history.push('/register')}

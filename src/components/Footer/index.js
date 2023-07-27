@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './styles.css'
 import Logo from '../../assets/logo.png'
+import { AppContext } from '../../AppContext'
 
-export default function Footer({ darkMode }) {
+export default function Footer() {
+    const { darkMode } = useContext(AppContext)
 
     return (
         <div className='footer-container' style={{

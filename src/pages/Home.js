@@ -605,22 +605,22 @@ export default function Home() {
                 name='amount'
                 type='text'
                 value={data.amount || ''}
-                size='80%'
-                style={{ textAlign: 'center', backgroundColor: '#fff8e8', color: '#263d42', fontWeight: 'bold', width: '100%' }}
+                // size='80%'
+                style={{ textAlign: 'center', backgroundColor: '#fff8e8', color: '#263d42', fontWeight: 'bold' }}
               />
-              {!extraordinary ?
+              <img
+                onClick={() => setCalculator(!calculator)}
+                className='svg-calculator'
+                src={CalculatorIcon}
+                alt="Calculate"
+                style={{
+                  filter: darkMode ?
+                    'invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%)'
+                    : 'invert(18%) sepia(30%) saturate(612%) hue-rotate(143deg) brightness(95%) contrast(87%)'
+                }}
+              />
+              {extraordinary ?
                 <img
-                  onClick={() => setCalculator(!calculator)}
-                  className='svg-calculator'
-                  src={CalculatorIcon}
-                  alt="Calculate"
-                  style={{
-                    filter: darkMode ?
-                      'invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%)'
-                      : 'invert(18%) sepia(30%) saturate(612%) hue-rotate(143deg) brightness(95%) contrast(87%)'
-                  }}
-                />
-                : <img
                   onClick={() => setExtraType(!extraType)}
                   className='svg-updown'
                   style={{
@@ -631,7 +631,17 @@ export default function Home() {
                   src={UpDownIcon}
                   alt="Up-Down"
                 />
-              }
+                : ''}
+              <img
+                style={{ opacity: extraordinary ? 1 : .5 }}
+                className='svg-add'
+                src={ChangeIcon}
+                alt="Add Movement"
+                onClick={() => {
+                  setOpenModal(true)
+                  setExtraordinary(!extraordinary)
+                }}
+              />
             </div>
             {calculator ?
               <Calculator
@@ -747,14 +757,7 @@ export default function Home() {
             <div onClick={() => setRemoveModal(true)}>
               <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
             </div>
-            :
-            <div onClick={() => {
-              setOpenModal(true)
-              setExtraordinary(true)
-            }}>
-              <img style={{ transform: 'scale(0.8)' }} className='svg-add' src={ChangeIcon} alt="Add Movement" />
-            </div>
-          }
+            : ''}
           <CTAButton
             handleClick={() => {
               if (lastData.category) {

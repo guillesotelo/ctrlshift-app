@@ -25,13 +25,16 @@ function App() {
 
   useEffect(() => {
     const isDarkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : getSystemMode()
-    const root = document.querySelector('#root')
-    const body = document.querySelector('body')
-    root.style.backgroundColor = isDarkMode ? '#1E1F21' : ''
-    body.style.backgroundColor = isDarkMode ? '#1E1F21' : ''
-
     setDarkMode(isDarkMode)
   }, [])
+
+  useEffect(() => {
+    const root = document.querySelector('#root')
+    const body = document.querySelector('body')
+    root.style.backgroundColor = darkMode ? '#1E1F21' : ''
+    body.style.backgroundColor = darkMode ? '#1E1F21' : ''
+
+  }, [darkMode])
 
   const getSystemMode = () => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches || false
@@ -41,7 +44,7 @@ function App() {
     <AppProvider darkMode={darkMode} setDarkMode={setDarkMode} isMobile={isMobile}>
       <Switch>
         <Route exact path="/">
-          <Landing darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Landing />
         </Route>
         <Route exact path="/splash">
           <SplashScreen />
@@ -58,7 +61,7 @@ function App() {
         <Route path="/home">
           <Header />
           <Home />
-          {hasMovs && <Footer darkMode={darkMode} />}
+          {hasMovs && <Footer />}
         </Route>
         <Route path="/ledger">
           <Header />
@@ -71,7 +74,7 @@ function App() {
         <Route path="/settings">
           <Header />
           <Settings />
-          <Footer darkMode={darkMode} />
+          <Footer />
         </Route>
         <Route path="/notes">
           <Header />

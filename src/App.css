@@ -1095,7 +1095,7 @@ h2 {
 }
 
 .landing-cta:hover {
-  transform: translateY(-7%);
+  transform: translateY(-7%) !important;
   transition: .3s;
 }
 
@@ -2145,7 +2145,7 @@ h2 {
   }
 
   .landing-cta {
-    transition: .3s;
+    transition: .3s !important;
   }
 
   .landing-cta-scale {
@@ -2154,8 +2154,8 @@ h2 {
   }
 
   .landing-cta:hover {
-    transform: translateY(-7%);
-    transition: .3s;
+    transform: translateY(-7%) !important;
+    transition: .3s !important;
   }
 
   .landing-header-btns {
