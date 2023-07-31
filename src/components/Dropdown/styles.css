@@ -60,7 +60,7 @@
     width: 24.5vw;
     padding: 0 .5vw;
     z-index: 2;
-    max-height: 20vw;
+    max-height: 10vw;
     overflow-y: auto;
 }
 
