@@ -955,6 +955,7 @@ h2 {
   -webkit-text-fill-color: transparent;
   color: #263d42;
   cursor: pointer;
+  width: 15vw;
 }
 
 .month-before-dark {
@@ -963,6 +964,7 @@ h2 {
   -webkit-text-fill-color: transparent;
   color: #263d42;
   cursor: pointer;
+  width: 15vw;
 }
 
 .actual-month {
@@ -970,6 +972,7 @@ h2 {
   border-bottom: 2px solid #CCA43B;
   color: #263d42;
   cursor: pointer;
+  width: fit-content;
 }
 
 .actual-month-dark {
@@ -977,6 +980,7 @@ h2 {
   border-bottom: 2px solid #CCA43B;
   color: lightgray;
   cursor: pointer;
+  width: fit-content;
 }
 
 
@@ -986,6 +990,7 @@ h2 {
   -webkit-text-fill-color: transparent;
   color: #263d42;
   cursor: pointer;
+  width: 15vw;
 }
 
 .month-after-dark {
@@ -994,6 +999,7 @@ h2 {
   -webkit-text-fill-color: transparent;
   color: #263d42;
   cursor: pointer;
+  width: 15vw;
 }
 
 .month-arrow-right {

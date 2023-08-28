@@ -37,6 +37,7 @@ export default function Home() {
   const [loadingBtn, setLoadingBtn] = useState(false)
   const [arrData, setArrData] = useState([])
   const [allMovs, setAllMovs] = useState([])
+  const [monthlyMovs, setMonthtlyMovs] = useState([])
   const [dropSuggestions, setDropSuggestions] = useState([])
   const [showDropDown, setShowDropDown] = useState(false)
   const [dropSelected, setDropSelected] = useState(false)
@@ -255,7 +256,7 @@ export default function Home() {
 
   const getAllMovements = async newData => {
     try {
-      if (!arrData.length) setLoading(true)
+      if (!arrData.length ) setLoading(true)
       const { data } = await dispatch(getMovements(newData)).then(d => d.payload)
 
       if (data && Array.isArray(data)) {
@@ -268,6 +269,7 @@ export default function Home() {
         const { isMonthly } = localSettings
         const _arrData = isMonthly ? processMonthlyData(filteredMovs) : filteredMovs
         setArrData(_arrData)
+        setMonthtlyMovs(_arrData)
         setAllMovs(filteredMovs)
 
         setLastData(_arrData[0] || {})
@@ -493,7 +495,7 @@ export default function Home() {
 
   const triggerSearch = newData => {
     const searchWords = newData.split(' ')
-    const filteredMovs = arrData.filter(mov => {
+    const filteredMovs = monthlyMovs.filter(mov => {
       const stringMov = JSON.stringify({
         detail: mov.detail,
         author: mov.author,
@@ -512,13 +514,8 @@ export default function Home() {
       setArrData(filteredMovs)
     }
     else {
-      const newData = {
-        ...data,
-        ledger: ledger.id || -1,
-        user: ledger.email
-      }
       setData({ ...data, 'search': '' })
-      getAllMovements(newData)
+      setArrData(monthlyMovs)
     }
   }
 
@@ -611,7 +608,7 @@ export default function Home() {
                 updateData={updateData}
                 placeholder={`${MESSAGE[lan].FIAT} -`}
                 name='amount'
-                type='text'
+                type='number'
                 value={data.amount || ''}
                 // size='80%'
                 style={{ textAlign: 'center', backgroundColor: '#fff8e8', color: '#263d42', fontWeight: 'bold' }}
