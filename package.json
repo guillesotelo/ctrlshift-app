@@ -57,6 +57,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "ubuntu": "react-app-rewired --openssl-legacy-provider start",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
