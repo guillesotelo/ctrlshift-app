@@ -135,7 +135,7 @@ export default function Home() {
   useEffect(() => {
     const debited = data.salary - arrData.reduce((item, current) => item + Number(current.amount), 0)
     if (!isNaN(debited)) setSalary(debited)
-  }, [data, arrData])
+  }, [arrData])
 
   useEffect(() => {
     if (data.detail) {
@@ -152,7 +152,7 @@ export default function Home() {
     }
 
     renderCharts()
-  }, [data, allCategories, allPayTypes, arrData])
+  }, [data.detail, allCategories, allPayTypes, arrData])
 
   useEffect(() => {
     toggleDatePickerColors()
