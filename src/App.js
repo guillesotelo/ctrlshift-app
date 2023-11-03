@@ -21,7 +21,7 @@ import { AppProvider } from './AppContext';
 function App() {
   const [darkMode, setDarkMode] = useState(false)
   const hasMovs = useSelector(state => state.movement && state.movement.data) || null
-  const isMobile = window.screen.width <= 768
+  const isMobile = window.screen.width <= 640
 
   useEffect(() => {
     const isDarkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : getSystemMode()
