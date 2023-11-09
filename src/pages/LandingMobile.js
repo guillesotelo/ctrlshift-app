@@ -8,8 +8,7 @@ import Landing from './Landing'
 import { AppContext } from '../AppContext'
 
 export default function LandingMobile() {
-    const isMobile = window.innerWidth < 640
-    const { darkMode, setDarkMode } = useContext(AppContext)
+    const { darkMode, setDarkMode, isMobile } = useContext(AppContext)
     const history = useHistory()
 
     useEffect(() => {

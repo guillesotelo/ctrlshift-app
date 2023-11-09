@@ -7,9 +7,8 @@ import MoonSon from '../assets/moon-sun.svg'
 import { AppContext } from '../AppContext'
 
 export default function Landing() {
-    const isMobile = window.innerWidth < 640
     const history = useHistory()
-    const { darkMode, setDarkMode } = useContext(AppContext)
+    const { darkMode, setDarkMode, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('user'))
