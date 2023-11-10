@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 import MoonSon from '../assets/moon-sun.svg'
 import Landing from './Landing'
 import { AppContext } from '../AppContext'
-import PhoneApp from '../assets/phonapp.png'
+import PhoneApp from '../assets/phoneapp.png'
 
 export default function LandingMobile() {
     const { darkMode, setDarkMode, isMobile } = useContext(AppContext)

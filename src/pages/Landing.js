@@ -5,7 +5,7 @@ import LandingMobile from './LandingMobile'
 import Logo from '../assets/logo.png'
 import MoonSon from '../assets/moon-sun.svg'
 import { AppContext } from '../AppContext'
-import PhoneApp from '../assets/phonapp.png'
+import PhoneApp from '../assets/phoneapp.png'
 
 export default function Landing() {
     const history = useHistory()
