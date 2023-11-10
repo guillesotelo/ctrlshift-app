@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import MoonSon from '../assets/moon-sun.svg'
 import Landing from './Landing'
 import { AppContext } from '../AppContext'
+import PhoneApp from '../assets/phonapp.png'
 
 export default function LandingMobile() {
     const { darkMode, setDarkMode, isMobile } = useContext(AppContext)
@@ -74,7 +75,7 @@ export default function LandingMobile() {
                         handleClick={() => history.push('/register')}
                     />
                 </div>
-                <img src='https://i.postimg.cc/GtVz8x3L/smartmockups-ldue73hz.png' alt='mobile app image' className='landing-phone-image move-y-back' />
+                <img src={PhoneApp} alt='mobile app image' className='landing-phone-image move-y-back' />
                 <div className='landing-text-div2'>
                     <p className='landing-text move-x-back'>
                         <b>CtrlShift</b> is a comprehensive finance management app designed for homes and small businesses.<br />

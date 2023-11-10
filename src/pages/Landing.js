@@ -5,6 +5,7 @@ import LandingMobile from './LandingMobile'
 import Logo from '../assets/logo.png'
 import MoonSon from '../assets/moon-sun.svg'
 import { AppContext } from '../AppContext'
+import PhoneApp from '../assets/phonapp.png'
 
 export default function Landing() {
     const history = useHistory()
@@ -81,7 +82,7 @@ export default function Landing() {
                     />
                 </div>
                 <div className='landing-phone-div'>
-                    <img src='https://i.postimg.cc/GtVz8x3L/smartmockups-ldue73hz.png' alt='mobile app image' className='landing-phone-image move-x' />
+                    <img src={PhoneApp} alt='mobile app image' className='landing-phone-image move-x' />
                 </div>
             </div>
         </div>
