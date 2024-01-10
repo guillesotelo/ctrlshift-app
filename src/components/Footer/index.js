@@ -14,7 +14,7 @@ export default function Footer() {
             <img className='logo-footer' src={darkMode ? 'https://i.postimg.cc/t4bmrHsG/ctrlshift-logo.png' : Logo} alt="Ctrol Shiflt" />
             <div className='footer-text'>
                 <p style={{ color: darkMode ? 'lightgray' : '' }}>
-                    CtrlShift © 2022
+                    CtrlShift © 2024
                 </p>
             </div>
         </div>
