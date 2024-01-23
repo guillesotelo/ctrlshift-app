@@ -27,7 +27,8 @@ export default function Register() {
     const { darkMode, isMobile } = useContext(AppContext)
     
     useEffect(() => {
-        document.querySelector('body').style.backgroundColor = darkMode ? '#1E1F21' : ''
+        const body = document.querySelector('body')
+        if(body) body.style.backgroundColor = darkMode ? '#1E1F21' : ''
     }, [])
 
     const updateData = (key, newData) => {

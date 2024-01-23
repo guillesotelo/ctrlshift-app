@@ -31,8 +31,8 @@ function App() {
   useEffect(() => {
     const root = document.querySelector('#root')
     const body = document.querySelector('body')
-    root.style.backgroundColor = darkMode ? '#1E1F21' : ''
-    body.style.backgroundColor = darkMode ? '#1E1F21' : ''
+    if(root) root.style.backgroundColor = darkMode ? '#1E1F21' : ''
+    if(body) body.style.backgroundColor = darkMode ? '#1E1F21' : ''
 
   }, [darkMode])
 
