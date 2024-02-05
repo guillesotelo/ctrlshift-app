@@ -12,12 +12,12 @@ body {
 
 ::-webkit-scrollbar {
   background: #150c01;
-  width: 1vw;
+  width: .5rem;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #515151;
-  border-radius: .5vw;
+  border-radius: .5rem;
 }
 
 code {
