@@ -138,7 +138,7 @@ export default function Home() {
   }, [arrData])
 
   useEffect(() => {
-    if (data.detail) {
+    if (data.detail && allMovs && allMovs.length) {
       const newSuggestions = allMovs.map(mov => {
         if (mov.detail !== data.detail && mov.detail.toLowerCase().includes(data.detail.toLowerCase())) {
           setShowDropDown(true)
@@ -150,9 +150,11 @@ export default function Home() {
       setShowDropDown(false)
       setDropSelected(false)
     }
+  }, [data.detail])
 
+  useEffect(() => {
     renderCharts()
-  }, [data.detail, allCategories, allPayTypes, arrData])
+  }, [allCategories, allPayTypes, arrData])
 
   useEffect(() => {
     toggleDatePickerColors()
