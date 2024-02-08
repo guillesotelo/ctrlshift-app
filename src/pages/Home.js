@@ -258,7 +258,7 @@ export default function Home() {
 
   const getAllMovements = async newData => {
     try {
-      if (!arrData.length ) setLoading(true)
+      if (!arrData.length) setLoading(true)
       const { data } = await dispatch(getMovements(newData)).then(d => d.payload)
 
       if (data && Array.isArray(data)) {
@@ -874,8 +874,8 @@ export default function Home() {
               style={{ fontSize: '1vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
             />
           </div>
-          {
-            arrData.length || data.search ? <div className='div-charts'>
+          {!openModal && (arrData.length || data.search) ?
+            <div className='div-charts'>
               {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
               {Object.keys(budget).length > 1 && settings.isMonthly ?
                 <>
