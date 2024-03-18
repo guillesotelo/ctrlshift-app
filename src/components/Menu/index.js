@@ -25,11 +25,6 @@ export default function Menu(props) {
   const { name } = localStorage.getItem('ledger') &&
     localStorage.getItem('ledger') !== null ? JSON.parse(localStorage.getItem('ledger')) : {}
 
-  useEffect(() => {
-    const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
-    setDarkMode(mode)
-  }, [])
-
   const handleLogOut = () => {
     setMenuClass('menu-hidden')
     localStorage.clear()
@@ -114,7 +109,6 @@ export default function Menu(props) {
           onClick={() => {
             setDarkMode(!darkMode)
             localStorage.setItem('darkMode', !darkMode)
-            history.go(0)
           }}
         >
           <img src={Moon} className='menu-item-svg' alt={`${MESSAGE[lan].DARK_MODE} image`} />

@@ -1,12 +1,10 @@
 .inputfield-container {
-    display: flex;
-    flex-direction: column;
-    margin: 1vw 0;
+    width: 100%;
 }
 
 .inputfield-label {
-    font-size: 1.2vw;
-    margin: 1vw;
+    font-size: 1.2rem;
+    margin: 1rem;
     text-align: center;
 }
 
@@ -14,10 +12,9 @@
     border: 1px solid  lightgray;
     background-color: #e5e5e5;
     font-weight: normal;
-    border-radius: .5vw;
-    padding: .7vw 1vw;
-    /* text-align: center; */
-    font-size: 1vw !important;
+    border-radius: .5rem;
+    padding: .55rem;
+    font-size: .9rem;
     transition: .3s;
     margin: 0;
 }
@@ -32,11 +29,10 @@
     border: 1px solid  lightgray;
     background-color: #e5e5e5;
     font-weight: normal;
-    border-radius: .5vw;
-    margin: 0 !important;
-    padding: 1vw;
-    /* text-align: center; */
-    font-size: 1vw !important;
+    border-radius: .5rem;
+    margin: 0;
+    padding: .55rem;
+    font-size: .9rem;
     font-family: 'Montserrat', sans-serif !important;
     font-weight: normal;
     resize: none;
@@ -50,105 +46,41 @@
 
 
 .inputfield-field::placeholder {
-    font-size: 1vw;
+    font-size: .9rem;
     font-weight: normal;
 }
 
 .drop-item-container {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     background-color: white;
-    border: 1px solid #E4C69C;
+    border: 1px solid gray;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
     border-top: none;
+    width: calc(100% - 2px);
     z-index: 2;
-    width: 25.4vw;
-    margin-top: 2.6vw;
-    max-height: 20vw;
+    max-height: 20rem;
     overflow-y: auto;
+    overflow-x: hidden;
+    transition: .3s;
 }
 
 .drop-item {
-    color: #263d42;
-    margin: .5vw 0;
-    padding: 0 1vw;
-    height: 2vw;
-    line-height: 2vw;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: .9rem;
+    color: gray;
+    margin: 0;
+    height: 1.5rem;
+    line-height: 1.5rem;
     cursor: pointer;
+    padding: .4rem .7rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
 }
 
 
 .drop-item:hover {
     background-color: #cca43b;
-}
-
-@media only screen and (max-width: 640px) {
-    .inputfield-container {
-        display: flex;
-        flex-direction: column;
-        margin: 2vw 0;
-    }
-
-    .inputfield-label {
-        font-size: 4vw;
-        margin: 4vw 0;
-        text-align: center;
-    }
-
-    .inputfield-field {
-        background-color: #e5e5e5;
-        font-weight: normal;
-        border-radius: 1vw;
-        padding: 2vw;
-        /* text-align: center; */
-        font-size: 3vw !important;
-        margin: 0;
-    }
-
-    .inputfield-textarea {
-        background-color: #e5e5e5;
-        font-weight: bolder;
-        border-radius: 1vw;
-        padding: 2vw;
-        font-size: 3vw !important;
-        font-family: 'Montserrat', sans-serif !important;
-        font-weight: normal;
-        resize: none;
-    }
-
-    .inputfield-field::placeholder {
-        font-size: 3vw;
-        font-weight: normal;
-    }
-
-    .inputfield-field:focus {
-        border: 1px solid #E4C69C;
-    }
-
-    .inputfield-textarea:focus {
-        border: 1px solid #E4C69C;
-    }
-
-    .drop-item-container {
-        position: absolute;
-        background-color: white;
-        border: 1px solid #E4C69C;
-        border-top: none;
-        z-index: 2;
-        width: 84%;
-        margin-top: 8vw;
-        max-height: 40vw;
-    }
-
-    .drop-item {
-        color: #263d42;
-        margin: 1.5vw 0;
-        padding: 1vw 2vw;
-        height: 4.5vw;
-        line-height: 4.5vw;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
 }

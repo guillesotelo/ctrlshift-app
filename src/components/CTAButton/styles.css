@@ -2,18 +2,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     transition: 0.3s;
     transition: .3s;
 }
 
 .cta-btn {
-    font-size: 1vw !important;
-    padding: .8vw 1.2vw !important;
-    margin: 0vw !important;
+    font-size: .9rem;
+    padding: .55rem;
+    margin: 0rem;
     color: #E5E5E5;
     border: none;
-    border-radius: .5vw;
+    border-radius: .5rem;
     cursor: pointer;
 }
 
@@ -25,30 +24,8 @@
 }
 
 .cta-btn-svg {
-    height: 1.5vw;
+    height: 1.5rem;
     filter: invert(59%) sepia(67%) saturate(408%) hue-rotate(6deg) brightness(97%) contrast(91%);
-}
-
-#cta-btn {
-    font-size: 1vw !important;
-    padding: .8vw 1vw !important;
-    color: rgb(0, 0, 0);
-    background-color: rgb(156, 156, 156);
-    border: none;
-    border-radius: .5vw;
-    margin: 0vw !important;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1vw;
-    width: 100%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#cta-btn:hover {
-    /* opacity: 0.8; */
-    filter: brightness(120%);
 }
 
 .cta-btn-container:hover {
@@ -56,9 +33,13 @@
     filter: brightness(120%);
 }
 
+.cta-btn-container:active {
+    opacity: 0.8;
+}
+
 .category-budget-setter {
     width: 5%;
-    margin: 0 1vw;
+    margin: 0 1rem;
     transition: 0.3s;
 }
 
@@ -68,7 +49,7 @@
 }
 
 .cta-login {
-    margin: 1vw 0;
+    margin: 1rem 0;
     transition: 0.3s;
 }
 
@@ -78,35 +59,11 @@
 }
 
 .cta-register {
-    margin: 1vw 0;
+    margin: 1rem 0;
     transition: 0.3s;
 }
 
 .cta-register:hover {
-    /* opacity: 0.8; */
-    filter: brightness(120%);
-}
-
-.cta-new-ledger {
-    margin: 2vw;
-    transition: 0.3s;
-}
-
-.cta-new-ledger:hover {
-    /* opacity: 0.8; */
-    filter: brightness(120%);
-}
-
-.cta-connect-ledger {
-    margin: 1vw 0 2vw 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    transition: 0.3s;
-}
-
-.cta-connect-ledger:hover {
     /* opacity: 0.8; */
     filter: brightness(120%);
 }
@@ -120,101 +77,6 @@
 }
 
 .csv-cta-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: fit-content;
-}
-
-@media only screen and (max-width: 640px) {
-    .cta-btn-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .cta-btn {
-        font-size: 4vw !important;
-        padding: 2.5vw 4vw !important;
-        color: #E5E5E5;
-        border: none;
-        border-radius: 2vw;
-        margin: 0vw !important;
-    }
-
-    #cta-btn {
-        font-size: 4vw !important;
-        padding: 2.5vw 5vw !important;
-        color: rgb(0, 0, 0);
-        background-color: rgb(156, 156, 156);
-        border: none;
-        border-radius: 2vw;
-        margin: 0vw !important;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 2vw;
-        width: 100%;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    #cta-btn:hover {
-        /* opacity: 0.8; */
-        filter: brightness(120%);
-    }
-
-    .category-budget-setter {
-        width: 10%;
-        margin: 0 1vw;
-    }
-
-    .category-budget-setter button {
-        width: 12vw !important;
-    }
-
-    .cta-login {
-        margin: 5vw 0 8vw 0;
-    }
-
-    .cta-register {
-        margin: 3vw 0 10vw;
-    }
-
-    .cta-new-ledger {
-        margin: 0 0 4vw 0
-    }
-
-    .cta-connect-ledger {
-        margin: 4vw 0 2vw 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .cta-menu {
-        margin: 2vw 0 3vw 0
-    }
-
-    .csv-cta-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: fit-content;
-        transform: scale(0.9);
-    }
-
-    .cta-btn-svg-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        width: 80%;
-    }
-
-    .cta-btn-svg {
-        height: 6vw;
-        filter: invert(59%) sepia(67%) saturate(408%) hue-rotate(6deg) brightness(97%) contrast(91%);
-    }
+    margin: .5rem;
+    width: 100%;
 }

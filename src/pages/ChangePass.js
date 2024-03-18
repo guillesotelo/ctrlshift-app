@@ -85,6 +85,7 @@ export default function ChangePass() {
                         color={APP_COLORS.SPACE}
                         style={{ margin: '10vw', fontSize: '4vw' }}
                         className='cta-login'
+                        disabled={loading}
                     />
                 </div>
                 :
@@ -97,6 +98,7 @@ export default function ChangePass() {
                         color={APP_COLORS.SPACE}
                         style={{ margin: '10vw', fontSize: '4vw' }}
                         className='cta-login'
+                        disabled={loading}
                     />
                 </div>
             }

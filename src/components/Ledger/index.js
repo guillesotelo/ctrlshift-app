@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import CTAButton from '../CTAButton'
@@ -16,6 +16,7 @@ import { MESSAGE } from '../../constants/messages'
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css'
 import Dropdown from '../Dropdown';
+import { AppContext } from '../../AppContext';
 
 export default function Ledger() {
     const [data, setData] = useState({})
@@ -28,7 +29,7 @@ export default function Ledger() {
     const dispatch = useDispatch()
     const ledger = JSON.parse(localStorage.getItem('ledger'))
     const lan = getUserLanguage()
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode } = useContext(AppContext)
     const localUser = JSON.parse(localStorage.getItem('user'))
     const isMobile = window.screen.width <= 768
 
@@ -49,10 +50,10 @@ export default function Ledger() {
 
         getLedgers()
 
-        const newData = { 
+        const newData = {
             name: ledger.name || '',
-            email, 
-            settings: JSON.stringify(_settings) 
+            email,
+            settings: JSON.stringify(_settings)
         }
         setData(newData)
     }, [])
@@ -160,7 +161,7 @@ export default function Ledger() {
                     darkMode={darkMode}
                     bg='#1E1F21'
                     setIsEdit={setIsEdit}
-                    size={isMobile ? '' : '20vw'}
+                    size='15rem'
                 />
                 {isEdit ?
                     <div style={{ display: 'flex', flexDirection: 'row', gap: '3vw' }}>
@@ -168,15 +169,17 @@ export default function Ledger() {
                             label={MESSAGE[lan].CANCEL}
                             color='#363636'
                             handleClick={handleCancel}
-                            style={{ margin: '1vw', color: 'lightgray' }}
+                            style={{ margin: '1rem', color: 'lightgray' }}
                             className='cta-connect-ledger'
+                            disabled={loading}
                         />
                         <CTAButton
                             label={MESSAGE[lan].L_CONNECT}
                             color='#263d42'
                             handleClick={handleConnect}
-                            style={{ margin: '1vw', color: '#CCA43B' }}
+                            style={{ margin: '1rem', color: '#CCA43B' }}
                             className='cta-connect-ledger'
+                            disabled={loading}
                         />
                     </div>
                     : ''}
@@ -192,8 +195,9 @@ export default function Ledger() {
                                 setNewLedger(!newLedger)
                                 setConnect(false)
                             }}
-                            style={{ marginBottom: '4vw', color: 'black' }}
+                            style={{ marginBottom: '1rem', color: 'black' }}
                             className='cta-new-ledger'
+                            disabled={loading}
                         />
                         <CTAButton
                             label={MESSAGE[lan].L_CONN}
@@ -202,6 +206,7 @@ export default function Ledger() {
                                 setConnect(!connect)
                                 setNewLedger(false)
                             }}
+                            disabled={loading}
                         />
                     </> : ''}
                 {
@@ -217,7 +222,7 @@ export default function Ledger() {
                             name='name'
                             type='text'
                             autoComplete='new-password'
-                            style={{ marginTop: '1vw', alignSelf: 'center', fontWeight: 'normal', width: '45%' }}
+                            style={{ marginTop: '1rem', alignSelf: 'center', fontWeight: 'normal' }}
                         />
                         <InputField
                             label=''
@@ -226,22 +231,24 @@ export default function Ledger() {
                             name='pin'
                             type='password'
                             autoComplete='new-password'
-                            style={{ marginBottom: '1vw', alignSelf: 'center', fontWeight: 'normal', width: '45%' }}
+                            style={{ marginBottom: '1rem', alignSelf: 'center', fontWeight: 'normal' }}
                         />
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <CTAButton
                                 label={MESSAGE[lan].CANCEL}
                                 color='#363636'
                                 handleClick={handleCancel}
-                                style={{ margin: '1vw', color: 'lightgray' }}
+                                style={{ margin: '.5rem', color: 'lightgray' }}
                                 className='cta-connect-ledger'
+                                disabled={loading}
                             />
                             <CTAButton
                                 label={MESSAGE[lan].SAVE}
                                 color='#263d42'
                                 handleClick={handleSaveLedger}
-                                style={{ margin: '1vw', color: '#CCA43B' }}
+                                style={{ margin: '.5rem', color: 'lightgray' }}
                                 className='cta-connect-ledger'
+                                disabled={loading}
                             />
                         </div>
                     </div>
@@ -259,7 +266,7 @@ export default function Ledger() {
                             name='name'
                             type='text'
                             autoComplete='new-password'
-                            style={{ marginTop: '1vw', alignSelf: 'center', fontWeight: 'normal', width: '45%' }}
+                            style={{ marginTop: '1rem', alignSelf: 'center', fontWeight: 'normal' }}
                         />
                         <InputField
                             label=''
@@ -268,22 +275,24 @@ export default function Ledger() {
                             name='pin'
                             type='password'
                             autoComplete='new-password'
-                            style={{ marginBottom: '1vw', alignSelf: 'center', fontWeight: 'normal', width: '45%' }}
+                            style={{ marginBottom: '1vw', alignSelf: 'center', fontWeight: 'normal' }}
                         />
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <CTAButton
                                 label={MESSAGE[lan].CANCEL}
                                 color='#363636'
                                 handleClick={handleCancel}
-                                style={{ margin: '1vw', color: 'lightgray' }}
+                                style={{ margin: '.5rem', color: 'lightgray' }}
                                 className='cta-connect-ledger'
+                                disabled={loading}
                             />
                             <CTAButton
                                 label={MESSAGE[lan].L_CONNECT}
                                 color='#263d42'
                                 handleClick={handleConnect}
-                                style={{ margin: '1vw', color: '#CCA43B' }}
+                                style={{ margin: '.5rem', color: 'lightgray' }}
                                 className='cta-connect-ledger'
+                                disabled={loading}
                             />
                         </div>
                     </div>

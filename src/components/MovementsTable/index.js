@@ -65,7 +65,8 @@ export default function MovementsTable(props) {
                                 onClick={() => handleCheck(i)}
                                 style={{
                                     backgroundColor: check === i ? '#cea22f' : getCellColor(i),
-                                    color: row.extraordinary === 'up' ? '#1aae00' : row.extraordinary === 'down' ? '#d80000' : darkMode && check !== i ? '#e6e6e6' : 'black'
+                                    color: row.extraordinary === 'up' ? '#1aae00' : row.extraordinary === 'down' ? '#d80000' : darkMode && check !== i ? '#e6e6e6' : 'black',
+                                    animationDelay: `${((i || 1) + (maxItems > 10 ? 10 - maxItems : maxItems)) / 30}s`
                                 }}>
                                 <h4 className='table-row-item'>{new Date(row.date).toLocaleDateString()}</h4>
                                 <h4 className='table-row-item detail'>{row.detail || 'n/a'}</h4>

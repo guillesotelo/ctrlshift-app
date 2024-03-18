@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import AccountIcon from '../assets/account-icon.svg'
@@ -13,6 +13,7 @@ import { changePassword, updateUserData } from '../store/reducers/user'
 import { getUserLanguage } from '../helpers';
 import { toast } from 'react-toastify'
 import PuffLoader from "react-spinners/PuffLoader";
+import { AppContext } from '../AppContext.jsx'
 
 export default function Account() {
   const [showPassBox, setShowPassBox] = useState(false)
@@ -27,7 +28,7 @@ export default function Account() {
   const ledger = JSON.parse(localStorage.getItem('ledger'))
   const dispatch = useDispatch()
   const history = useHistory()
-  const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+  const { darkMode } = useContext(AppContext)
 
   const updateData = (key, newData) => {
     setIsEdit(true)
@@ -87,7 +88,7 @@ export default function Account() {
           setToggleContents(<><Flag code={code} height="16" /> {title}</>)
         }}
       >
-        <Dropdown.Toggle variant="secondary" id="cta-btn" className="text-left" style={{ width: '114%' }}>
+        <Dropdown.Toggle variant="secondary" id="dropdown-btn" className="text-left" style={{ width: '114%' }}>
           {toggleContents}
         </Dropdown.Toggle>
 
@@ -105,7 +106,6 @@ export default function Account() {
             placeholder={MESSAGE[lan].NAME}
             name='newName'
             type='text'
-            style={{ fontWeight: 'normal', fontSize: '4vw' }}
             autoComplete='new-password'
             value={data.newName || data.newName === '' ? data.newName : user.username}
           />
@@ -116,7 +116,7 @@ export default function Account() {
           handleClick={() => setShowNameBox(true)}
           size='55%'
           color={APP_COLORS.SPACE}
-          style={{ marginTop: '6vw', fontSize: '4vw' }}
+          disabled={loading}
         />
       }
 
@@ -127,7 +127,6 @@ export default function Account() {
             placeholder={MESSAGE[lan].EMAIL_PHR}
             name='newEmail'
             type='email'
-            style={{ fontWeight: 'normal', fontSize: '4vw' }}
             autoComplete='new-password'
             value={data.newEmail || data.newEmail === '' ? data.newEmail : user.email}
           />
@@ -138,7 +137,7 @@ export default function Account() {
           handleClick={() => setShowEmailBox(true)}
           size='55%'
           color={APP_COLORS.SPACE}
-          style={{ marginTop: '6vw', fontSize: '4vw' }}
+          disabled={loading}
         />
       }
 
@@ -149,7 +148,6 @@ export default function Account() {
             placeholder={MESSAGE[lan].ACTUAL_PASS}
             name='currentPass'
             type='password'
-            style={{ fontWeight: 'normal', fontSize: '4vw' }}
             autoComplete='new-password'
           />
           <InputField
@@ -157,7 +155,6 @@ export default function Account() {
             placeholder={MESSAGE[lan].NEW_PASS}
             name='password'
             type='password'
-            style={{ fontWeight: 'normal', fontSize: '4vw' }}
             autoComplete='new-password'
           />
           <InputField
@@ -165,7 +162,6 @@ export default function Account() {
             placeholder={MESSAGE[lan].PASS2}
             name='password2'
             type='password'
-            style={{ fontWeight: 'normal', fontSize: '4vw' }}
             autoComplete='new-password'
           />
         </div>
@@ -175,7 +171,7 @@ export default function Account() {
           handleClick={() => setShowPassBox(true)}
           size='55%'
           color={APP_COLORS.SPACE}
-          style={{ marginTop: '6vw', fontSize: '4vw' }}
+          disabled={loading}
         />
       }
 
@@ -189,7 +185,8 @@ export default function Account() {
                 handleClick={() => saveUserData()}
                 size='55%'
                 color={APP_COLORS.YELLOW}
-                style={{ marginTop: '6vw', fontSize: '4vw', color: 'black' }}
+                style={{ color: 'black' }}
+                disabled={loading}
               />
               : ''
             }
@@ -207,7 +204,7 @@ export default function Account() {
               }}
               size='55%'
               color={APP_COLORS.GRAY}
-              style={{ marginTop: '6vw', fontSize: '4vw' }}
+              disabled={loading}
             />
           </>
           : ''

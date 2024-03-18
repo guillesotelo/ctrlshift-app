@@ -122,7 +122,7 @@ export default function Login() {
                     placeholder='Email'
                     name='email'
                     type='email'
-                    style={{ fontWeight: 'normal', fontSize: '4vw' }}
+                    style={{ fontWeight: 'normal', width: '93%' }}
                 />
                 <InputField
                     label=''
@@ -130,16 +130,16 @@ export default function Login() {
                     placeholder={MESSAGE[lan].PASS_PHR}
                     name='password'
                     type='password'
-                    style={{ fontWeight: 'normal', fontSize: '4vw' }}
+                    style={{ fontWeight: 'normal', width: '93%' }}
                 />
-                {loading ? <div style={{ alignSelf: 'center', marginTop: '4vw', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
+                {loading ? <div style={{ alignSelf: 'center', marginTop: '2rem', display: 'flex' }}><PuffLoader color='#CCA43B' /></div>
                     :
                     <CTAButton
                         label={MESSAGE[lan].LOGIN_BTN}
                         handleClick={onLogin}
                         size='100%'
                         color={APP_COLORS.SPACE}
-                        style={{ margin: '10vw', fontSize: '4vw' }}
+                        style={{ margin: '2rem 0', width: '100%'}}
                         className='cta-login'
                     />
                 }
@@ -152,7 +152,7 @@ export default function Login() {
                     text='continue_with'
                     shape='circle'
                 /> */}
-                <h4 className='login-register-text'>{MESSAGE[lan].HI_REGISTER} <button onClick={goToRegister} className='login-register-link'>{MESSAGE[lan].LOGIN_REG_LINK}</button></h4>
+                <h4 className='login-register-text'>{MESSAGE[lan].HI_REGISTER}&nbsp;&nbsp;<button onClick={goToRegister} className='login-register-link'>{MESSAGE[lan].LOGIN_REG_LINK}</button></h4>
                 <button onClick={() => setMailModal(true)} className='login-remember-link'>{data.email ? MESSAGE[lan].LOGIN_REMEMBER : ''}</button>
                 <h4 className='login-version-text' style={{ color: darkMode ? 'lightgray' : '' }}>{VERSION}</h4>
             </div>

@@ -25,7 +25,7 @@ export default function Landing() {
             }
         }
 
-        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/splash')
+        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/home')
     }, [])
 
     return isMobile ? <LandingMobile darkMode={darkMode} setDarkMode={setDarkMode} />

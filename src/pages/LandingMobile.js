@@ -47,7 +47,8 @@ export default function LandingMobile() {
                             setDarkMode(mode)
                             localStorage.setItem('darkMode', mode)
                         }} style={{ filter: darkMode ? 'invert(97%) sepia(0%) saturate(4674%) hue-rotate(353deg) brightness(80%) contrast(99%)' : '' }}
-                    />                    <CTAButton
+                    />
+                    <CTAButton
                         label='Login'
                         className='landing-cta'
                         color='transparent'

@@ -1,26 +1,34 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { MESSAGE } from '../../constants/messages'
-import { getUserLanguage } from '../../helpers';
+import React, { useContext } from 'react'
 import './styles.css'
+import { AppContext } from '../../AppContext'
 
 export default function SwitchBTN(props) {
-
-    const lan = getUserLanguage()
+    const { darkMode } = useContext(AppContext)
 
     const {
-        onChangeSw,
-        sw,
         label,
+        on,
+        off,
+        value,
+        setValue,
         style
     } = props
 
     return (
-        <div className='switch-container' style={style}>
-            <h4 className='switch-label'>{label || ''}</h4>
-            <div className='switch-box' onClick={() => onChangeSw()}>
-                <div className={sw ? 'switch-off' : 'switch-on'} style={{ backgroundColor: sw ? '' : '#535353' }}>{sw ? '' : MESSAGE[lan].NO}</div>
-                <div className={sw ? 'switch-on' : 'switch-off'}>{sw ? MESSAGE[lan].YES : ''}</div>
+        <div
+            className="switch__container"
+            onClick={() => setValue(!value)}
+            style={style}
+        >
+            {label ? <p className={`switch__label${darkMode ? '--dark' : ''}`}>{label}</p> : ''}
+            <div
+                className={`switch__row${darkMode ? '--dark' : ''}`}
+                style={{
+                    backgroundColor: value ? '#a4d8a4' : '',
+                }}>
+                <p className="switch__on">{on || 'ON'}</p>
+                <p className={`switch__slider${value ? '--on' : '--off'}`} style={{ color: darkMode ? 'black' : '' }}></p>
+                <p className="switch__off" style={{ color: darkMode ? 'lightgray' : '' }}>{off || 'OFF'}</p>
             </div>
         </div>
     )

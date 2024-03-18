@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CTAButton from '../components/CTAButton'
 import InputField from '../components/InputField'
@@ -10,6 +10,7 @@ import EditPen from '../assets/edit-icon.svg'
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
 import { PuffLoader } from 'react-spinners';
+import { AppContext } from '../AppContext';
 
 export default function Notes() {
     const [isEdit, setIsEdit] = useState(false)
@@ -21,7 +22,7 @@ export default function Notes() {
     const [check, setCheck] = useState({})
     const dispatch = useDispatch()
     const lan = getUserLanguage()
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode } = useContext(AppContext)
 
     useEffect(() => {
         setLoading(true)

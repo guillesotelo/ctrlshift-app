@@ -45,13 +45,13 @@ canvas {
 .main-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
+  margin: 0 .5rem;
 }
 
 .main-section button {
-  width: 10vw !important;
+  width: 8rem;
   background-color: #f20bc4;
 }
 
@@ -60,30 +60,38 @@ canvas {
   flex-direction: column;
   align-items: center;
   box-shadow: 5px 5px 11px rgb(155, 155, 155);
-  border-radius: 1vw;
-  position: absolute;
-  /* top: 5%; */
-  /* left: 34%;  */
-  transform: translate(108%, 0%) scale(.8);
+  border-radius: .5rem;
+  position: fixed;
   z-index: 1;
-  width: 30%;
-  height: fit-content !important;
+  min-width: 30vw;
+  max-height: 85vh;
   background-color: white;
   filter: none !important;
-  padding: 0.8vw;
+  padding: 1rem;
   animation: move-modal .5s ease-in-out;
 }
 
-@keyframes move-modal {
-  0% {
-    transform: translate(108%, -100%) scale(.8);
-    opacity: 0;
-  }
+.fill-section-dd {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+}
 
-  100% {
-    transform: translate(108%, 0%) scale(.8);
-    opacity: 1
-  }
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: transparent;
+  z-index: 3;
+  align-self: center !important;
+  justify-self: center !important;
 }
 
 .fill-section-container h3 {
@@ -95,8 +103,37 @@ canvas {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 85%;
+  gap: 1rem;
+  width: 100%;
   /* padding: 1vw 1vw */
+}
+
+@keyframes move-modal {
+  0% {
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1
+  }
+}
+
+@keyframes close-animation {
+  0% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+
+  100% {
+      opacity: 0;
+      transform: translateY(-30%);
+  }
+}
+
+.close-animation {
+  animation: close-animation .3s ease-in forwards !important;
 }
 
 .installments-section {
@@ -117,11 +154,11 @@ canvas {
 }
 
 .div-modal-btns {
-  margin: 1vw;
+  margin: 1rem 0 0 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 4vw;
+  gap: 1rem;
 }
 
 .remove-modal {
@@ -220,7 +257,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0vw;
+  gap: 1rem;
   width: 20%;
 }
 
@@ -312,7 +349,11 @@ h2 {
 }
 
 .account-change-pass {
-  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: .5rem 0;
 }
 
 
@@ -323,13 +364,13 @@ h2 {
 
 .svg-calculator {
   filter: invert(18%) sepia(30%) saturate(612%) hue-rotate(143deg) brightness(95%) contrast(87%);
-  height: 2vw;
+  height: 2rem;
   width: auto;
   cursor: pointer;
 }
 
 .svg-updown {
-  height: 2vw;
+  height: 2rem;
   width: auto;
   transition: .3s;
   cursor: pointer;
@@ -341,7 +382,6 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 1vw;
-  margin: 1vw 0 0 0;
 }
 
 .settings-container {
@@ -485,7 +525,7 @@ h2 {
 
 .svg-add {
   filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
-  height: 2.5vw;
+  height: 2rem;
   align-self: center;
   cursor: pointer;
 }
@@ -1250,29 +1290,8 @@ h2 {
     align-items: center;
   }
 
-  .main-section button {
-    width: 80% !important;
-  }
-
   .fill-section-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 5px 5px 11px #9b9b9b;
-    border-radius: 2vw;
-    margin: 4vw;
-    padding: 0;
-    transition: height 0.25s linear;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-55%, -50%);
-    z-index: 1;
     width: 80%;
-    height: fit-content !important;
-    background-color: white;
-    filter: none !important;
-    animation: move-modal-mobile .3s ease-in-out;
   }
 
   @keyframes move-modal-mobile {
@@ -1305,13 +1324,6 @@ h2 {
     flex-wrap: wrap;
   }
 
-  .fill-section-dd {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* column-gap: 2vw; */
-  }
-
   .installments-section {
     display: flex;
     flex-direction: row;
@@ -1328,10 +1340,11 @@ h2 {
   }
 
   .div-modal-btns {
-    margin: 8vw 0 4vw 0;
+    margin: 1rem 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%;
   }
 
   .remove-modal {
@@ -1368,7 +1381,7 @@ h2 {
     align-items: center;
     overflow-x: hidden;
     position: relative;
-    height: 100%;
+    height: 100vh;
   }
 
   .logo-container h1,
@@ -1398,7 +1411,10 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     width: 70%;
+    text-align: center;
+    gap: 1rem;
   }
 
   .login-register-text {
@@ -1408,14 +1424,12 @@ h2 {
   }
 
   .login-version-text {
-    position: inherit;
     font-size: 3.5vw;
     text-align: center;
     font-weight: normal;
     align-self: center;
-    margin-top: 40vw;
     /* position: absolute; */
-    bottom: 0;
+    bottom: 1rem;
     width: 70%;
     color: gray;
   }
@@ -1476,10 +1490,6 @@ h2 {
     height: 25vw;
     margin: 0;
     padding: 0;
-  }
-
-  .account-change-pass {
-    width: 55%;
   }
 
   .info-section {
@@ -1634,7 +1644,6 @@ h2 {
     align-items: center;
     justify-content: space-between;
     /* gap: 3vw; */
-    margin: 2vw 0 0 0;
   }
 
   .svg-calculator {
@@ -1809,13 +1818,13 @@ h2 {
   .sub-table-btns {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    margin: 3vw 1vw 1vw 2vw;
+    margin: 1rem .5rem;
   }
 
   .sub-table-btns button {
-    transform: scale(.8);
+    /* transform: scale(.8); */
   }
 
   .search-container {

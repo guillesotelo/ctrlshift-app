@@ -68,6 +68,8 @@
     border-bottom: 2px solid #263d42; */
     padding: 0.3vw;
     height: fit-content;
+    opacity: 0;
+    animation: fade-in .5s forwards;
 }
 
 .table-row:hover {
@@ -119,6 +121,16 @@
 
 .table-lazy-btn:hover {
     opacity: 0.7;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @media only screen and (max-width: 640px) {

@@ -11,28 +11,35 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 2rem 0 0 0;
 }
 
 .new-group-section {
-    margin: 1vw;
+    margin: 1rem;
     box-shadow: 4px 4px 11px rgb(155, 155, 155);
     border-radius: 1vw;
-    width: 60%;
+    padding: 1rem;
+    gap: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .connect-group-section {
-    margin: 1vw;
+    margin: 1rem;
     box-shadow: 4px 4px 11px rgb(155, 155, 155);
     border-radius: 1vw;
-    width: 60%;
+    padding: 1rem;
+    gap: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .group-text {
-    font-size: 1vw;
-    font-weight: normal;
-    text-align: center;
-    width: 80%;
-    align-self: center;
+    font-size: 1rem;
     font-weight: normal;
     text-align: center;
     width: 60%;
@@ -124,7 +131,7 @@
         align-items: center;
         padding: 4vw 0;
     }
-    
+
     .ledger-connected {
         font-size: 3vw;
         margin: 0;

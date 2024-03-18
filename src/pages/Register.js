@@ -25,10 +25,10 @@ export default function Register() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { darkMode, isMobile } = useContext(AppContext)
-    
+
     useEffect(() => {
         const body = document.querySelector('body')
-        if(body) body.style.backgroundColor = darkMode ? '#1E1F21' : ''
+        if (body) body.style.backgroundColor = darkMode ? '#1E1F21' : ''
     }, [])
 
     const updateData = (key, newData) => {
@@ -82,7 +82,7 @@ export default function Register() {
                 <div className='login-section'>
                     <h4 className='hi-login' style={{ color: darkMode ? 'lightgray' : '' }}>{MESSAGE[lan].HI_REGISTER}</h4>
                     <Dropdown
-                        style={{ margin: '2vw 0' }}
+                        style={{ margin: '1rem 0 0 0', width: '100%' }}
                         onSelect={selected => {
                             const { code, title } = LANGUAGES.find(({ code }) => selected === code)
 
@@ -91,13 +91,13 @@ export default function Register() {
                             setToggleContents(<><Flag code={code} height="16" /> {title}</>)
                         }}
                     >
-                        <Dropdown.Toggle variant="secondary" id="cta-btn" className="text-left" style={{ width: '100%' }}>
+                        <Dropdown.Toggle variant="secondary" id="dropdown-btn" className="text-left" style={{ width: '100%' }}>
                             {toggleContents}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu style={{ gap: 20, padding: 25, width: 'fit-content', borderRadius: '1vw' }}>
                             {LANGUAGES.map(({ code, title }) => (
-                                <Dropdown.Item key={code} eventKey={code}><Flag height="16" code={code} /> {title}</Dropdown.Item>
+                                <Dropdown.Item key={code} eventKey={code}><Flag height="16" code={code} />&nbsp;&nbsp;&nbsp;{title}</Dropdown.Item>
                             ))}
                         </Dropdown.Menu>
                     </Dropdown>
@@ -107,8 +107,8 @@ export default function Register() {
                         placeholder={MESSAGE[lan].NAME}
                         name='username'
                         type='text'
-                        style={{ fontWeight: 'normal', fontSize: '4vw' }}
                         autoComplete='new-password'
+                        style={{ width: '93%' }}
                     />
                     <InputField
                         label=''
@@ -116,8 +116,8 @@ export default function Register() {
                         placeholder='Email'
                         name='email'
                         type='email'
-                        style={{ fontWeight: 'normal', fontSize: '4vw' }}
                         autoComplete='new-password'
+                        style={{ width: '93%' }}
                     />
                     <InputField
                         label=''
@@ -125,8 +125,8 @@ export default function Register() {
                         placeholder={MESSAGE[lan].PASS_PHR}
                         name='password'
                         type='password'
-                        style={{ fontWeight: 'normal', fontSize: '4vw' }}
                         autoComplete='new-password'
+                        style={{ width: '93%' }}
                     />
                     <InputField
                         label=''
@@ -134,8 +134,8 @@ export default function Register() {
                         placeholder={MESSAGE[lan].PASS2}
                         name='password2'
                         type='password'
-                        style={{ fontWeight: 'normal', fontSize: '4vw' }}
                         autoComplete='new-password'
+                        style={{ width: '93%' }}
                     />
 
                     <CTAButton
@@ -143,15 +143,14 @@ export default function Register() {
                         handleClick={onRegister}
                         size='100%'
                         color={APP_COLORS.YELLOW}
-                        style={{ marginTop: '6vw', fontSize: '4vw', color: 'black' }}
-                        className='cta-register'
+                        style={{ marginTop: '2rem', color: 'black', width: '100%' }}
                     />
                     <CTAButton
                         label={MESSAGE[lan].BACK_BTN}
                         handleClick={() => history.goBack()}
                         size='100%'
                         color='transparent'
-                        style={{ marginTop: '10vw', fontSize: '4vw', color: darkMode ? 'lightgray' : 'black' }}
+                        style={{ marginTop: '2rem', color: darkMode ? 'lightgray' : 'black', width: '100%' }}
                     />
                 </div>
             }

@@ -1,10 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { AppContext } from '../../AppContext'
 import { APP_COLORS } from '../../constants/colors'
 import './styles.css'
 
 export default function InputField(props) {
     const { darkMode, isMobile } = useContext(AppContext)
+    const inputRef = useRef(null)
+    const dropRef = useRef(null)
 
     const {
         name,
@@ -22,8 +24,16 @@ export default function InputField(props) {
         value,
         cols,
         rows,
-        size
     } = props
+
+    useEffect(() => {
+        if (inputRef.current && dropRef.current) {
+            const bounding = inputRef.current.getBoundingClientRect()
+            if (bounding) {
+                dropRef.current.style.width = (bounding.width).toFixed(0) + 'px'
+            }
+        }
+    }, [value, showDropDown])
 
     const handleChange = (newValue) => {
         const { valueAsNumber, value } = newValue.target
@@ -36,7 +46,7 @@ export default function InputField(props) {
     }
 
     return (
-        <div className='inputfield-container' style={{ width: size }}>
+        <div className='inputfield-container'>
             {label ? <h4 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }} className='inputfield-label'>{label || ''}</h4> : ''}
             {type === 'textarea' ?
                 <textarea
@@ -68,14 +78,14 @@ export default function InputField(props) {
                             border: darkMode ? '1px solid gray' : ''
                         }}
                         value={value}
+                        ref={inputRef}
                     />
                     {showDropDown && !dropSelected && items && items.length ?
-                        <div className={`drop-item-container ${darkMode ? 'dark-mode' : ''}`}>
+                        <div className={`drop-item-container ${darkMode ? 'dark-mode' : ''}`} ref={dropRef}>
                             {items.map((item, i) =>
                                 <h5
                                     key={i}
                                     className={`drop-item ${darkMode ? 'dark-mode' : ''}`}
-                                    style={{ borderBottom: i !== items.length - 1 && '1px solid #e7e7e7' }}
                                     onClick={() => {
                                         updateData(name, item)
                                         setShowDropDown(false)

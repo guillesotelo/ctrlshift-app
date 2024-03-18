@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import { ExportToCsv } from 'export-to-csv';
@@ -68,13 +68,12 @@ export default function Home() {
   const [extraType, setExtraType] = useState(false)
   const [calculator, setCalculator] = useState(false)
   const [negativeBalance, setNegativeBalance] = useState(0)
+  const [closeAnimation, setCloseAnimation] = useState('')
   const dispatch = useDispatch()
   const history = useHistory()
   const lan = getUserLanguage()
   const months = MESSAGE[lan].MONTHS
   const { darkMode, isMobile } = useContext(AppContext)
-
-  // console.log('data', data)
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
@@ -158,10 +157,17 @@ export default function Home() {
 
   useEffect(() => {
     toggleDatePickerColors()
-  }, [dateClicked])
+  }, [dateClicked, darkMode])
 
   useEffect(() => {
-    if (allCategories.length) getAllMovements(data)
+    if (allCategories.length) {
+      const localLedger = JSON.parse(localStorage.getItem('ledger'))
+      const localSettings = JSON.parse(localLedger.settings)
+      const { isMonthly } = localSettings
+      const _arrData = isMonthly ? processMonthlyData(allMovs) : allMovs
+      setArrData(_arrData)
+      setLastData(_arrData[0] || {})
+    }
   }, [month])
 
   useEffect(() => {
@@ -171,6 +177,17 @@ export default function Home() {
       else html.classList.remove('overflow-hidden')
     }
   }, [openModal])
+
+  useEffect(() => {
+    if (lastData.category) {
+      setData({
+        ...data,
+        author: lastData.author,
+        pay_type: lastData.pay_type,
+        category: lastData.category
+      })
+    }
+  }, [lastData])
 
   const toggleDatePickerColors = () => {
     const body = document.querySelector('.react-datepicker')
@@ -256,34 +273,36 @@ export default function Home() {
     })
   }
 
-  const getAllMovements = async newData => {
-    try {
-      if (!arrData.length) setLoading(true)
-      const { data } = await dispatch(getMovements(newData)).then(d => d.payload)
+  const getAllMovements = useMemo(() => {
+    return async newData => {
+      try {
+        if (!arrData.length) setLoading(true)
+        const { data } = await dispatch(getMovements(newData)).then(d => d.payload)
 
-      if (data && Array.isArray(data)) {
-        let filteredMovs = [...data]
-        const localLedger = JSON.parse(localStorage.getItem('ledger'))
-        const localSettings = JSON.parse(localLedger.settings)
+        if (data && Array.isArray(data)) {
+          let filteredMovs = [...data]
+          const localLedger = JSON.parse(localStorage.getItem('ledger'))
+          const localSettings = JSON.parse(localLedger.settings)
 
-        setSettings(localSettings)
+          setSettings(localSettings)
 
-        const { isMonthly } = localSettings
-        const _arrData = isMonthly ? processMonthlyData(filteredMovs) : filteredMovs
-        setArrData(_arrData)
-        setMonthtlyMovs(_arrData)
-        setAllMovs(filteredMovs)
+          const { isMonthly } = localSettings
+          const _arrData = isMonthly ? processMonthlyData(filteredMovs) : filteredMovs
+          setArrData(_arrData)
+          setMonthtlyMovs(_arrData)
+          setAllMovs(filteredMovs)
 
-        setLastData(_arrData[0] || {})
-        const updatedNegativeBalance = getNegativeBalance(_arrData)
-        setNegativeBalance(updatedNegativeBalance)
+          setLastData(_arrData[0] || {})
+          const updatedNegativeBalance = getNegativeBalance(_arrData)
+          setNegativeBalance(updatedNegativeBalance)
+        }
+        setLoading(false)
+      } catch (err) {
+        console.error(err)
+        setLoading(false)
       }
-      setLoading(false)
-    } catch (err) {
-      console.error(err)
-      setLoading(false)
     }
-  }
+  }, [])
 
   const getNegativeBalance = data => {
     let total = 0
@@ -553,44 +572,301 @@ export default function Home() {
     }
   }
 
-  return (
-    <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
-      {removeModal &&
-        <div className='remove-modal' style={{ backgroundColor: darkMode ? 'black' : '', boxShadow: darkMode ? 'none' : '' }}>
-          <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />{arrData[check].detail} <br /> ${arrData[check].amount}</h3>
-          <div className='remove-btns'>
-            <CTAButton
-              label={MESSAGE[lan].CANCEL}
-              color={APP_COLORS.GRAY}
-              handleClick={() => setRemoveModal(false)}
-            // size='fit-content'
+  const renderTableAndGraphs = () => {
+    return (
+      <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
+        <MovementsTable
+          tableData={arrData}
+          tableTitle={`${MESSAGE[lan].MOVEMENTS} (${arrData.length})`}
+          tableYear={year}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
+          setCheck={setCheck}
+          check={check}
+          darkMode={darkMode}
+        />
+        <div className='sub-table-btns'>
+          <SwitchBTN
+            on={MESSAGE[lan].YES}
+            off={MESSAGE[lan].NO}
+            value={sw}
+            setValue={onChangeSw}
+            label={MESSAGE[lan].MONTHLY}
+          />
+          <div className='search-container'>
+            <InputField
+              label=''
+              updateData={updateData}
+              placeholder={MESSAGE[lan].MOV_SEARCH}
+              type='text'
+              name='search'
+              value={data.search || ''}
+              style={{ transform: 'scale(.85)' }}
             />
-            <CTAButton
-              label={MESSAGE[lan].CONFIRM}
-              color={APP_COLORS.SPACE}
-              handleClick={() => {
-                setRemoveModal(false)
-                handleRemoveItem()
-              }}
-              loading={loading}
-            // size='70%'
+            {data.search && data.search !== '' &&
+              <h3
+                className='search-erase-btn'
+                onClick={() => {
+                  updateData('search', '')
+                  renderCharts()
+                }}>✖</h3>}
+          </div>
+          <CTAButton
+            handleClick={downloadCSV}
+            label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
+            color={APP_COLORS.SPACE}
+            disabled={loading}
+          />
+        </div>
+        {!openModal && (arrData.length || data.search) ?
+          <div className='div-charts'>
+            {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
+            {Object.keys(budget).length > 1 && settings.isMonthly ?
+              <>
+                <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} darkMode={darkMode} />
+                {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
+              </>
+              : ''}
+            {settings.isMonthly ?
+              <>
+                <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} darkMode={darkMode} />
+                {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
+              </> : ''}
+            {budget.total && Number(budget.total) !== 100 ?
+              <>
+                <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} darkMode={darkMode} />
+                {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
+              </> : ''}
+            {!settings.isMonthly ?
+              <>
+                <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} darkMode={darkMode} />
+                {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
+              </> : ''}
+            {settings.isMonthly ?
+              <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} darkMode={darkMode} />
+              : ''}
+            {isMobile && settings.isMonthly ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
+            <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} darkMode={darkMode} />
+          </div> : ''}
+      </div>
+    )
+  }
+
+  const renderLoading = () => {
+    return (
+      <div style={{ alignSelf: 'center', marginTop: '18vw', display: 'flex', height: '20vw' }}>
+        <PuffLoader color='#CCA43B' />
+      </div>
+    )
+  }
+
+  const renderMonthSelector = () => {
+    return (
+      <div className={darkMode ? 'home-month-dark' : 'home-month-tab'} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+        <h4 className={darkMode ? 'month-before-dark' : 'month-before'} onClick={() => {
+          if (months[month - 1]) {
+            setMonth(month - 1)
+          } else {
+            setMonth(11)
+            setYear(year - 1)
+          }
+        }}>
+          {months[month - 1] ? months[month - 1] : months[11]}
+        </h4>
+        <h4 className={darkMode ? 'actual-month-dark' : 'actual-month'}>{months[month]}</h4>
+        <h4 className={darkMode ? 'month-after-dark' : 'month-after'} onClick={() => {
+          if (months[month + 1]) {
+            setMonth(month + 1)
+          } else {
+            setMonth(0)
+            setYear(year + 1)
+          }
+        }}>
+          {months[month + 1] ? months[month + 1] : months[0]}
+        </h4>
+      </div>
+    )
+  }
+
+  const renderBalance = () => {
+    return (
+      <div className='salary-div' onClick={() => setViewSalary(!viewSalary)} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+        <h4 className='salary-text'>{MESSAGE[lan].SALARY}:</h4>
+        {
+          viewSalary ?
+            <div className=''>
+              <h4 className='salary'>▴ {MESSAGE[lan].FIAT !== 'Kr' ? MESSAGE[lan].FIAT : ''} {salary.toLocaleString('us-US', { currency: 'ARS' })} {MESSAGE[lan].FIAT === 'Kr' ? 'Kr' : ''}</h4>
+              <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT !== 'Kr' ? MESSAGE[lan].FIAT : ''} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })} {MESSAGE[lan].FIAT === 'Kr' ? 'Kr' : ''}</h4>
+            </div>
+            : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
+        }
+      </div>
+    )
+  }
+
+  const renderCTAButtons = () => {
+    return (
+      <div className='main-section' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+        <CTAButton
+          handleClick={handleEdit}
+          label={MESSAGE[lan].EDIT}
+          size='80%'
+          color={darkMode ? '#263d42' : APP_COLORS.GRAY}
+          disabled={!isEdit || loading}
+        />
+        {isEdit ?
+          <div onClick={() => setRemoveModal(true)}>
+            <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
+          </div>
+          : ''}
+        <CTAButton
+          handleClick={() => {
+            setIsEdit(false)
+            setOpenModal(!openModal)
+          }}
+          label={MESSAGE[lan].MOV_NEW}
+          size='80%'
+          color={APP_COLORS.YELLOW}
+          style={{ color: 'black' }}
+          disabled={loading}
+        />
+      </div>
+    )
+  }
+
+  const renderModal = () => {
+
+    const closeModal = () => {
+      setCloseAnimation('close-animation')
+      setTimeout(() => {
+        handleCancel()
+        setCloseAnimation('')
+      }, 300)
+    }
+
+    const renderModalDetails = () => {
+      return (
+        <>
+          <InputField
+            label=''
+            updateData={updateData}
+            placeholder={MESSAGE[lan].MOV_DETAIL}
+            name='detail'
+            type='text'
+            value={data.detail}
+            items={dropSuggestions}
+            setItems={setDropSuggestions}
+            showDropDown={showDropDown}
+            setShowDropDown={setShowDropDown}
+            dropSelected={dropSelected}
+            setDropSelected={setDropSelected}
+            style={{ width: '93%' }}
+          />
+          <div className='fill-section-dd'>
+            <Dropdown
+              options={allUsers}
+              label={MESSAGE[lan].AUTHOR}
+              name='author'
+              updateData={updateData}
+              value={data.author}
+              darkMode={darkMode}
+              style={{ width: '45%' }}
+            />
+            <Dropdown
+              options={allPayTypes}
+              label={MESSAGE[lan].PAY_TYPE}
+              name='pay_type'
+              updateData={updateData}
+              value={data.pay_type}
+              darkMode={darkMode}
+              style={{ width: '45%' }}
             />
           </div>
-        </div>
-      }
-      {openModal &&
-        <div className='fill-section-container' style={{
-          backgroundColor: darkMode ? 'black' : '',
-          boxShadow: darkMode ? '5px 5px 11px #1b1b1b' : '5px 5px 11px #9b9b9b'
-        }} onClick={() => setShowDropDown(false)}>
+          <div className='fill-section-dd'>
+            {!isEdit && !extraordinary &&
+              <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
+                <SwitchBTN
+                  on={MESSAGE[lan].YES}
+                  off={MESSAGE[lan].NO}
+                  value={withInstallments}
+                  setValue={setWithInstallments}
+                  label={MESSAGE[lan].INSTALLMENTS}
+                />
+                {withInstallments &&
+                  <div className='installments-count'>
+                    <CTAButton
+                      handleClick={() => installments < 120 ? setInstallments(installments + 1) : {}}
+                      label='+'
+                      color={APP_COLORS.YELLOW}
+                      style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
+                      className='category-budget-setter'
+                      disabled={loading}
+                    />
+                    <h4 style={{ alignSelf: 'center', margin: 0 }}>{installments}</h4>
+                    <CTAButton
+                      handleClick={() => installments > 2 ? setInstallments(installments - 1) : {}}
+                      label='─'
+                      color={APP_COLORS.YELLOW}
+                      style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
+                      className='category-budget-setter'
+                      disabled={loading}
+                    />
+                  </div>
+                }
+              </div>
+            }
+            <Dropdown
+              options={allCategories}
+              label={MESSAGE[lan].CATEGORY}
+              name='category'
+              updateData={updateData}
+              value={data.category}
+              darkMode={darkMode}
+              style={{ width: '45%' }}
+            />
+          </div>
+          <div className='div-modal-btns'>
+            <CTAButton
+              handleClick={closeModal}
+              label={MESSAGE[lan].CANCEL}
+              color={APP_COLORS.GRAY}
+              style={{ width: '100%' }}
+              size='50%'
+              disabled={loading}
+            />
+            <CTAButton
+              handleClick={handleSave}
+              label={MESSAGE[lan].SAVE}
+              color={APP_COLORS.YELLOW}
+              loading={loadingBtn}
+              style={{ color: 'black', width: '100%' }}
+              size='50%'
+            />
+          </div>
+        </>
+      )
+    }
+
+    return (
+      <div className='modal-container'>
+        <div
+          className={`fill-section-container ${closeAnimation}`}
+          style={{
+            backgroundColor: darkMode ? 'black' : '',
+            boxShadow: darkMode ? '5px 5px 11px #1b1b1b' : '5px 5px 11px #9b9b9b'
+          }}
+          onClick={() => setShowDropDown(false)}>
           <h3 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }}>{extraordinary ? MESSAGE[lan].EXTRA_INFO : MESSAGE[lan].MOV_INFO}:</h3>
           <div className='fill-section'>
             <CTAButton
               handleClick={() => setDateClicked(!dateClicked)}
               label={data.date.toLocaleDateString()}
-              size='100%'
               color={darkMode ? APP_COLORS.YELLOW : APP_COLORS.SPACE}
-              style={{ color: darkMode ? 'black' : 'white' }}
+              style={{
+                color: darkMode ? 'black' : 'white',
+                width: '100%'
+              }}
+              disabled={loading}
             />
             {dateClicked &&
               <DatePicker
@@ -612,8 +888,14 @@ export default function Home() {
                 name='amount'
                 type='number'
                 value={data.amount || ''}
-                // size='80%'
-                style={{ textAlign: 'center', backgroundColor: '#fff8e8', color: '#263d42', fontWeight: 'bold' }}
+                style={{
+                  textAlign: 'center',
+                  backgroundColor: '#fff8e8',
+                  color: '#263d42',
+                  fontWeight: 'bold',
+                  width: '80%'
+                }}
+                size='80%'
               />
               <img
                 onClick={() => setCalculator(!calculator)}
@@ -656,255 +938,50 @@ export default function Home() {
                 value={data.amount || 0}
                 setCalculator={setCalculator}
                 darkMode={darkMode}
+                style={{ width: isMobile ? '100%' : '20rem' }}
               />
               :
-              <>
-                <InputField
-                  label=''
-                  updateData={updateData}
-                  placeholder={MESSAGE[lan].MOV_DETAIL}
-                  name='detail'
-                  type='text'
-                  value={data.detail}
-                  items={dropSuggestions}
-                  setItems={setDropSuggestions}
-                  showDropDown={showDropDown}
-                  setShowDropDown={setShowDropDown}
-                  dropSelected={dropSelected}
-                  setDropSelected={setDropSelected}
-                  style={{ width: '93%' }}
-                />
-                <div className='fill-section-dd'>
-                  <Dropdown
-                    options={allUsers}
-                    label={MESSAGE[lan].AUTHOR}
-                    name='author'
-                    updateData={updateData}
-                    value={data.author}
-                    darkMode={darkMode}
-                  />
-                  <Dropdown
-                    options={allPayTypes}
-                    label={MESSAGE[lan].PAY_TYPE}
-                    name='pay_type'
-                    updateData={updateData}
-                    value={data.pay_type}
-                    darkMode={darkMode}
-                  />
-                  {!isEdit && !extraordinary &&
-                    <div className='installments-section' style={{ border: withInstallments ? '1px solid #CCA43B' : 'none' }}>
-                      <SwitchBTN
-                        sw={withInstallments}
-                        onChangeSw={() => setWithInstallments(!withInstallments)}
-                        label={MESSAGE[lan].INSTALLMENTS}
-                        style={{ margin: 0, transform: 'scale(.9)' }}
-                      />
-                      {withInstallments &&
-                        <div className='installments-count'>
-                          <CTAButton
-                            handleClick={() => installments < 120 ? setInstallments(installments + 1) : {}}
-                            label='+'
-                            color={APP_COLORS.YELLOW}
-                            style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
-                            className='category-budget-setter'
-                          />
-                          <h4 style={{ alignSelf: 'center', margin: 0 }}>{installments}</h4>
-                          <CTAButton
-                            handleClick={() => installments > 2 ? setInstallments(installments - 1) : {}}
-                            label='─'
-                            color={APP_COLORS.YELLOW}
-                            style={{ color: 'black', fontWeight: 'bold', transform: 'scale(0.7)' }}
-                            className='category-budget-setter'
-                          />
-                        </div>
-                      }
-                    </div>
-                  }
-                  <Dropdown
-                    options={allCategories}
-                    label={MESSAGE[lan].CATEGORY}
-                    name='category'
-                    updateData={updateData}
-                    value={data.category}
-                    darkMode={darkMode}
-                  />
-                </div>
-                <div className='div-modal-btns'>
-                  <CTAButton
-                    handleClick={handleCancel}
-                    label={MESSAGE[lan].CANCEL}
-                    size='100%'
-                    color={APP_COLORS.GRAY}
-                  />
-                  <CTAButton
-                    handleClick={handleSave}
-                    label={MESSAGE[lan].SAVE}
-                    size='100%'
-                    color={APP_COLORS.YELLOW}
-                    loading={loadingBtn}
-                    style={{ color: '#263d42' }}
-                  />
-                </div>
-              </>
+              renderModalDetails()
             }
           </div>
         </div>
-      }
-      {
-        <div className='main-section' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
+      </div>
+    )
+  }
+
+  const renderRemoveModal = () => {
+    return (
+      <div className='remove-modal' style={{ backgroundColor: darkMode ? 'black' : '', boxShadow: darkMode ? 'none' : '' }}>
+        <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />{arrData[check].detail} <br /> ${arrData[check].amount}</h3>
+        <div className='remove-btns'>
           <CTAButton
-            handleClick={handleEdit}
-            label={MESSAGE[lan].EDIT}
-            size='80%'
-            color={darkMode ? '#263d42' : APP_COLORS.GRAY}
-            disabled={!isEdit}
-            style={{ fontSize: '4vw' }}
+            label={MESSAGE[lan].CANCEL}
+            color={APP_COLORS.GRAY}
+            handleClick={() => setRemoveModal(false)}
+            disabled={loading}
           />
-          {isEdit ?
-            <div onClick={() => setRemoveModal(true)}>
-              <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
-            </div>
-            : ''}
           <CTAButton
+            label={MESSAGE[lan].CONFIRM}
+            color={APP_COLORS.SPACE}
             handleClick={() => {
-              if (lastData.category) {
-                setData({
-                  ...data,
-                  author: lastData.author,
-                  pay_type: lastData.pay_type,
-                  category: lastData.category
-                })
-              }
-              setIsEdit(false)
-              setOpenModal(!openModal)
+              setRemoveModal(false)
+              handleRemoveItem()
             }}
-            label={MESSAGE[lan].MOV_NEW}
-            size='80%'
-            color={APP_COLORS.YELLOW}
-            style={{ color: 'black', fontSize: '4vw' }}
+            loading={loading}
           />
         </div>
-      }
+      </div>
+    )
+  }
 
-      {settings.isMonthly ?
-        <div className='salary-div' onClick={() => setViewSalary(!viewSalary)} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
-          <h4 className='salary-text'>{MESSAGE[lan].SALARY}:</h4>
-          {
-            viewSalary ?
-              <div className=''>
-                <h4 className='salary'>▴ {MESSAGE[lan].FIAT !== 'Kr' ? MESSAGE[lan].FIAT : ''} {salary.toLocaleString('us-US', { currency: 'ARS' })} {MESSAGE[lan].FIAT === 'Kr' ? 'Kr' : ''}</h4>
-                <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT !== 'Kr' ? MESSAGE[lan].FIAT : ''} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })} {MESSAGE[lan].FIAT === 'Kr' ? 'Kr' : ''}</h4>
-              </div>
-              : <img className='svg-eye' src={EyeClosed} alt="Show Salary" />
-          }
-        </div> : <div style={{ height: '4vw' }}></div>
-      }
-      {/* {viewSalary && settings.isMonthly ? <div className='home-balance' onClick={() => setViewSalary(!viewSalary)}>
-        <h4 className='negative-balance'>▾ {MESSAGE[lan].FIAT} {negativeBalance.toLocaleString('us-US', { currency: 'ARS' })}</h4>
-      </div> : ''} */}
-
-      {settings.isMonthly ?
-        <div className={darkMode ? 'home-month-dark' : 'home-month-tab'} style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
-          <h4 className={darkMode ? 'month-before-dark' : 'month-before'} onClick={() => {
-            if (months[month - 1]) {
-              setMonth(month - 1)
-            } else {
-              setMonth(11)
-              setYear(year - 1)
-            }
-          }}>
-            {months[month - 1] ? months[month - 1] : months[11]}
-          </h4>
-          <h4 className={darkMode ? 'actual-month-dark' : 'actual-month'}>{months[month]}</h4>
-          <h4 className={darkMode ? 'month-after-dark' : 'month-after'} onClick={() => {
-            if (months[month + 1]) {
-              setMonth(month + 1)
-            } else {
-              setMonth(0)
-              setYear(year + 1)
-            }
-          }}>
-            {months[month + 1] ? months[month + 1] : months[0]}
-          </h4>
-        </div>
-        : ''}
-
-      {loading ?
-        <div style={{ alignSelf: 'center', marginTop: '18vw', display: 'flex', height: '20vw' }}><PuffLoader color='#CCA43B' /></div>
-        :
-        <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
-          <MovementsTable
-            tableData={arrData}
-            tableTitle={`${MESSAGE[lan].MOVEMENTS} (${arrData.length})`}
-            tableYear={year}
-            setIsEdit={setIsEdit}
-            isEdit={isEdit}
-            setCheck={setCheck}
-            check={check}
-            darkMode={darkMode}
-          />
-          <div className='sub-table-btns'>
-            <SwitchBTN
-              sw={sw}
-              onChangeSw={onChangeSw}
-              label={MESSAGE[lan].MONTHLY}
-            />
-            <div className='search-container'>
-              <InputField
-                label=''
-                updateData={updateData}
-                placeholder={MESSAGE[lan].MOV_SEARCH}
-                type='text'
-                name='search'
-                value={data.search || ''}
-              />
-              {data.search && data.search !== '' &&
-                <h3
-                  className='search-erase-btn'
-                  onClick={() => {
-                    updateData('search', '')
-                    renderCharts()
-                  }}>✖</h3>}
-            </div>
-            <CTAButton
-              handleClick={downloadCSV}
-              label={`⇩ ${MESSAGE[lan].CSV_BTN}`}
-              color={APP_COLORS.SPACE}
-              className='csv-cta-btn'
-              style={{ fontSize: '1vw', margin: '2vw', alignSelf: 'flex-end', cursor: 'pointer' }}
-            />
-          </div>
-          {!openModal && (arrData.length || data.search) ?
-            <div className='div-charts'>
-              {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
-              {Object.keys(budget).length > 1 && settings.isMonthly ?
-                <>
-                  <BarChart chartData={budgetChart} title={MESSAGE[lan].CAT_REST} darkMode={darkMode} />
-                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
-                </>
-                : ''}
-              {settings.isMonthly ?
-                <>
-                  <BarChart chartData={categoryChart} title={MESSAGE[lan].CAT_EXP} darkMode={darkMode} />
-                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
-                </> : ''}
-              {budget.total && Number(budget.total) !== 100 ?
-                <>
-                  <PieChart chartData={budgetChart2} title={`${MESSAGE[lan].CAT_BUD} %`} darkMode={darkMode} />
-                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
-                </> : ''}
-              {!settings.isMonthly ?
-                <>
-                  <BarChart chartData={balanceChart} title={MESSAGE[lan].AN_BAL} darkMode={darkMode} />
-                  {isMobile ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
-                </> : ''}
-              {settings.isMonthly ?
-                <PolarChart chartData={typeChart} title={MESSAGE[lan].PAY_TYPES} darkMode={darkMode} />
-                : ''}
-              {isMobile && settings.isMonthly ? <div className='separator' style={{ width: '85%', borderColor: darkMode ? 'gray' : 'lightgray' }}></div> : ''}
-              <PolarChart chartData={authorChart} title={MESSAGE[lan].AUTHORS} darkMode={darkMode} />
-            </div> : ''}
-        </div>}
+  return (
+    <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
+      {removeModal ? renderRemoveModal() : ''}
+      {openModal ? renderModal() : ''}
+      {renderCTAButtons()}
+      {settings.isMonthly ? renderBalance() : <div style={{ height: '1.5rem' }}></div>}
+      {settings.isMonthly ? renderMonthSelector() : ''}
+      {loading ? renderLoading() : renderTableAndGraphs()}
     </div>
   )
 }

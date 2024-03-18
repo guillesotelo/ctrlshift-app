@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CTAButton from '../components/CTAButton'
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
 import { PuffLoader } from 'react-spinners';
+import { AppContext } from '../AppContext';
 
 export default function Report() {
     const [loading, setLoading] = useState(false)
@@ -19,7 +20,7 @@ export default function Report() {
     const dispatch = useDispatch()
     const history = useHistory()
     const lan = getUserLanguage()
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode } = useContext(AppContext)
 
     const updateData = (key, newData) => {
         setData({ ...data, [key]: newData })
@@ -126,7 +127,7 @@ export default function Report() {
                             size='100%'
                             color={APP_COLORS.YELLOW}
                             loading={loading}
-                            style={{ color: '#263d42' }}
+                            style={{ color: 'black' }}
                         />
                     </div>
                     {isAdmin ?

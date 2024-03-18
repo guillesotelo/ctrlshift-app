@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { APP_COLORS } from '../../constants/colors'
 import './styles.css'
+import { AppContext } from '../../AppContext'
 
 export default function Dropdown(props) {
     const [openDrop, setOpenDrop] = useState(false)
     const [selected, setSelected] = useState(null)
+    const { isMobile } = useContext(AppContext)
+    const dropRef = useRef(null)
+    const optionsRef = useRef(null)
 
     const {
         label,
@@ -30,6 +34,16 @@ export default function Dropdown(props) {
         })
     }, [])
 
+    useEffect(() => {
+        if (dropRef.current && optionsRef.current) {
+            const bounding = dropRef.current.getBoundingClientRect()
+            if (bounding) {
+                optionsRef.current.style.marginTop = (bounding.height - 2).toFixed(0) + 'px'
+                optionsRef.current.style.width = (bounding.width + (isMobile ? 0 : -2)).toFixed(0) + 'px'
+            }
+        }
+    }, [openDrop])
+
     return (
         <div
             className='dropdown-container'
@@ -44,7 +58,7 @@ export default function Dropdown(props) {
                 }}>
                     {label || ''}
                 </h4> : ''}
-            <div className='dropdown-select-section'>
+            <div className='dropdown-select-section' ref={dropRef}>
                 <div
                     className='dropdown-select'
                     style={{
@@ -66,7 +80,8 @@ export default function Dropdown(props) {
                             border: !darkMode && openDrop && '1px solid #E4C69C',
                             borderTop: 'none',
                             width: size ? size : ''
-                        }}>
+                        }}
+                        ref={optionsRef}>
                         {options.map((option, i) =>
                             option && option !== '' &&
                             <h4

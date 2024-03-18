@@ -17,6 +17,7 @@ import Report from "./pages/Report";
 import { useSelector } from "react-redux";
 import Landing from './pages/Landing'
 import { AppProvider } from './AppContext';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -31,8 +32,8 @@ function App() {
   useEffect(() => {
     const root = document.querySelector('#root')
     const body = document.querySelector('body')
-    if(root) root.style.backgroundColor = darkMode ? '#1E1F21' : ''
-    if(body) body.style.backgroundColor = darkMode ? '#1E1F21' : ''
+    if (root) root.style.backgroundColor = darkMode ? '#1E1F21' : ''
+    if (body) body.style.backgroundColor = darkMode ? '#1E1F21' : ''
 
   }, [darkMode])
 
@@ -42,6 +43,7 @@ function App() {
 
   return (
     <AppProvider darkMode={darkMode} setDarkMode={setDarkMode} isMobile={isMobile}>
+      <ToastContainer autoClose={2000} theme={darkMode ? 'dark' : 'light'} />
       <Switch>
         <Route exact path="/">
           <Landing />

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { APP_COLORS } from '../../constants/colors'
 import CTAButton from '../CTAButton'
 import './styles.css'
+import { AppContext } from '../../AppContext'
 
 export default function Calculator(props) {
 
@@ -10,7 +11,6 @@ export default function Calculator(props) {
         updateData,
         setCalculator,
         style,
-        darkMode
     } = props
 
     const [val, setVal] = useState(value)
@@ -18,6 +18,7 @@ export default function Calculator(props) {
     const [resetScreen, setResetScreen] = useState(false)
     const [math, setMath] = useState('')
     const [screenStyle, setScreenStyle] = useState({})
+    const { darkMode } = useContext(AppContext)
 
     const symbols = ['+', '-', '×', '÷', '=']
 
@@ -25,7 +26,7 @@ export default function Calculator(props) {
         const input = e.target.textContent
 
         if (symbols.includes(input)) {
-            setScreenStyle({ color: '#B9B9B9' })
+            setScreenStyle({ color: '#272727' })
             setTimeout(() => setScreenStyle({}), 30)
 
             setResetScreen(true)
@@ -70,73 +71,94 @@ export default function Calculator(props) {
             }}>
                 <h4 className='calculator-screen' style={{
                     ...screenStyle,
-                    backgroundColor: darkMode ? '#B9B9B9' : ''
-                    }}>{val}</h4>
+                    backgroundColor: darkMode ? '#272727' : '#d4d4d4'
+                }}>{val}</h4>
                 <div className='calculator-btns'>
                     <div className='calculator-row'>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>7</h4>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>8</h4>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>9</h4>
                         <h4 onClick={handleClick} style={{
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#898246' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn diff-btn'>÷</h4>
                     </div>
                     <div className='calculator-row'>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>4</h4>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>5</h4>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>6</h4>
                         <h4 onClick={handleClick} style={{
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#898246' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn diff-btn'>×</h4>
                     </div>
                     <div className='calculator-row'>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>1</h4>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>2</h4>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>3</h4>
                         <h4 onClick={handleClick} style={{
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#898246' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn diff-btn'>-</h4>
                     </div>
                     <div className='calculator-row'>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: darkMode ? '#B9B9B9' : '',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#272727' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn'>0</h4>
                         <h4 onClick={handleClick} style={{
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#898246' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn diff-btn'>.</h4>
                         <h4 onClick={handleClick} style={{
-                            backgroundColor: '#d6c9a7',
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: '#b07f00',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn diff-btn'>=</h4>
                         <h4 onClick={handleClick} style={{
+                            color: darkMode ? 'lightgray' : '',
+                            backgroundColor: darkMode ? '#898246' : '',
                             boxShadow: darkMode ? 'none' : ''
                         }} className='calculator-btn diff-btn'>+</h4>
                     </div>
@@ -147,7 +169,8 @@ export default function Calculator(props) {
                                 setCalculator(false)
                             }}
                             color={APP_COLORS.GRAY}
-                            size='100%'
+                            size='50%'
+                            style={{ width: '100%' }}
                         />
                         <CTAButton
                             label='Ok'
@@ -157,8 +180,8 @@ export default function Calculator(props) {
                                 updateData('amount', newVal % 1 !== 0 ? newVal.toFixed(2) : newVal)
                             }}
                             color={APP_COLORS.YELLOW}
-                            size='100%'
-                            style={{ color: 'black' }}
+                            size='50%'
+                            style={{ color: 'black', width: '100%' }}
                         />
                     </div>
                 </div>

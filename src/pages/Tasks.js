@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker, { registerLocale } from 'react-datepicker'
 import es from "date-fns/locale/es"
@@ -14,6 +14,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MESSAGE } from '../constants/messages'
 import { getUserLanguage } from '../helpers';
 import { PuffLoader } from 'react-spinners';
+import { AppContext } from '../AppContext';
 
 export default function Tasks() {
     const [allTasks, setAllTasks] = useState([])
@@ -28,7 +29,7 @@ export default function Tasks() {
     const [tab, setTab] = useState('unChecked')
     const dispatch = useDispatch()
     const lan = getUserLanguage()
-    const darkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+    const { darkMode } = useContext(AppContext)
     registerLocale("es", es)
 
     useEffect(() => {
