@@ -74,7 +74,7 @@
 
 .table-row:hover {
     cursor: pointer;
-    filter: brightness(150%);
+    filter: brightness(110%);
 }
 
 .table-row-item {

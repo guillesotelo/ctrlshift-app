@@ -86,7 +86,7 @@ export default function Dropdown(props) {
                             option && option !== '' &&
                             <h4
                                 key={i}
-                                className='dropdown-option'
+                                className={`dropdown-option${darkMode ? '--dark' : ''}`}
                                 style={{
                                     borderTop: i === 0 && 'none',
                                     backgroundColor: darkMode ? '#1E1F21' : '',

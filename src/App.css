@@ -740,7 +740,7 @@ h2 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 0 2vw 1vw 2vw;
+  margin: 1rem 2rem;
 }
 
 .search-container {
@@ -996,6 +996,7 @@ h2 {
   color: #263d42;
   cursor: pointer;
   width: 15vw;
+  text-align: center;
 }
 
 .month-before-dark {
@@ -1005,6 +1006,7 @@ h2 {
   color: #263d42;
   cursor: pointer;
   width: 15vw;
+  text-align: center;
 }
 
 .actual-month {
@@ -1013,6 +1015,7 @@ h2 {
   color: #263d42;
   cursor: pointer;
   width: fit-content;
+  text-align: center;
 }
 
 .actual-month-dark {
@@ -1021,6 +1024,7 @@ h2 {
   color: lightgray;
   cursor: pointer;
   width: fit-content;
+  text-align: center;
 }
 
 
@@ -1031,7 +1035,7 @@ h2 {
   color: #263d42;
   cursor: pointer;
   width: 15vw;
-  text-align: right;
+  text-align: center;
 }
 
 .month-after-dark {
@@ -1041,7 +1045,7 @@ h2 {
   color: #263d42;
   cursor: pointer;
   width: 15vw;
-  text-align: right;
+  text-align: center;
 }
 
 .month-arrow-right {

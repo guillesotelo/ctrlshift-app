@@ -87,10 +87,28 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: normal;
+
 }
 
 .dropdown-option:hover {
-    background-color: #105fc62d;
+    background-color: lightgray;
+}
+
+.dropdown-option--dark {
+    font-size: .9rem;
+    color: gray;
+    margin: 0;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    cursor: pointer;
+    padding: .4rem .7rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+}
+
+.dropdown-option--dark:hover {
+    background-color: gray !important;
 }
 
 .dropdown-new {
