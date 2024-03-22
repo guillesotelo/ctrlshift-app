@@ -19,7 +19,7 @@ canvas {
 
 /* -----Desktop----- */
 .home-container {
-  padding-top: 5vw;
+  padding-top: 4rem;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ canvas {
 .main-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin: 0 .5rem;
 }
@@ -122,13 +122,13 @@ canvas {
 
 @keyframes close-animation {
   0% {
-      opacity: 1;
-      transform: translateY(0%);
+    opacity: 1;
+    transform: translateY(0%);
   }
 
   100% {
-      opacity: 0;
-      transform: translateY(-30%);
+    opacity: 0;
+    transform: translateY(-30%);
   }
 }
 
@@ -649,7 +649,7 @@ h2 {
 }
 
 .notes-container textarea {
-  width: 40%;
+  width: 30rem;
   align-self: center;
   border-radius: .5vw;
 }
@@ -669,16 +669,16 @@ h2 {
 
 .note-container {
   border: 2px solid lightgray;
-  border-radius: 0.5vw;
-  margin: 1.5vw;
-  width: 40%;
+  border-radius: 0.5rem;
+  margin: 1rem;
+  width: 32rem;
   cursor: pointer;
 }
 
 .note-name {
   font-size: 1vw !important;
   font-weight: bold;
-  margin: 2vw 0 1vw 2vw
+  margin: 1rem;
 }
 
 .note-details {
@@ -686,18 +686,14 @@ h2 {
   font-family: 'Montserrat', sans-serif !important;
   font-weight: normal;
   border: none;
-  /* overflow: hidden; */
-  height: fit-content;
-  /* overflow-y: scroll; */
-  margin: 0 2vw 2vw 2vw;
+  margin: 1rem;
   resize: none;
-  /* height: 4em; */
-  width: fit-content !important;
+  width: 30rem;
 }
 
 .note-container:focus {
   max-height: fit-content;
-  min-height: 30vw;
+  min-height: 30rem;
   height: fit-content !important;
 }
 
@@ -732,7 +728,7 @@ h2 {
   flex-direction: row;
   align-items: center;
   width: fit-content;
-  margin: 0 1.5vw 1vw;
+  margin: 1rem;
 }
 
 .sub-table-btns {
@@ -802,8 +798,8 @@ h2 {
 }
 
 .new-task-btn {
-  font-size: 2vw !important;
-  padding: 1.5vw 2vw !important;
+  font-size: 2rem !important;
+  padding: 1rem 1.6rem !important;
   color: #E5E5E5;
   border: none;
   border-radius: 2vw;
@@ -826,7 +822,7 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-  width: 30%;
+  width: 30rem;
   height: fit-content !important;
   background-color: white;
   padding: 2vw;
@@ -835,12 +831,13 @@ h2 {
 }
 
 .task-modal input {
-  width: 80%;
+  width: 28rem;
   align-self: center;
+  margin: 1rem 0;
 }
 
 .task-modal textarea {
-  width: 80%;
+  width: 28rem;
   align-self: center;
 }
 
@@ -1284,13 +1281,13 @@ h2 {
   .home-container {
     overflow-x: hidden;
     min-height: 90vh;
-    padding-top: 22vw;
+    padding-top: 4rem;
   }
 
   .main-section {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   }
 
@@ -1750,7 +1747,7 @@ h2 {
   }
 
   .notes-container textarea {
-    width: 70%;
+    width: 30rem;
     border-radius: 1vw;
     align-self: center;
   }
@@ -1771,17 +1768,16 @@ h2 {
 
   .note-container {
     border: 1px solid lightgray;
-    border-radius: 2vw;
-    margin: 4vw 0 1vw 0;
+    border-radius: .5rem;
+    margin: 1rem;
     width: 90%;
-    /* max-height: 30vw; */
     overflow: hidden;
   }
 
   .note-name {
     font-size: 3.5vw !important;
     font-weight: bold;
-    margin: 3vw 0 1vw 3vw
+    margin: 1rem
   }
 
   .note-details {
@@ -1870,18 +1866,18 @@ h2 {
     position: fixed;
     bottom: 0;
     right: 0;
-    margin: 10vw 10vw;
+    margin: 2rem;
     background-color: transparent !important;
   }
 
   .new-task-btn {
-    font-size: 7vw !important;
-    padding: 5vw 7.2vw !important;
+    font-size: 2rem !important;
+    padding: 1rem 1.6rem !important;
     color: #E5E5E5;
     border: none;
     border-radius: 2vw;
     margin: 0vw !important;
-    box-shadow: 3px 3px 7px #a2a2a2;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.200);
   }
 
   .task-modal {

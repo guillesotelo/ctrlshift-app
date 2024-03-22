@@ -327,18 +327,17 @@ export default function Home() {
     if (_settings.budget) setBudget(_settings.budget)
   }
 
-  const handleEdit = () => {
-    if (isEdit) {
-      const item = arrData[check]
-      setData({
-        ...item,
-        date: new Date(item.date)
-      })
-      if (item.extraordinary) {
-        setExtraordinary(true)
-        setExtraType(item.extraordinary === 'down' ? true : false)
-      }
+  const handleEdit = (check) => {
+    const item = arrData[check]
+    setData({
+      ...item,
+      date: new Date(item.date)
+    })
+    if (item.extraordinary) {
+      setExtraordinary(true)
+      setExtraType(item.extraordinary === 'down' ? true : false)
     }
+    setTimeout(() => setShowDropDown(false), 100)
     setOpenModal(!openModal)
   }
 
@@ -581,7 +580,7 @@ export default function Home() {
           tableYear={year}
           setIsEdit={setIsEdit}
           isEdit={isEdit}
-          setCheck={setCheck}
+          setCheck={handleEdit}
           check={check}
           darkMode={darkMode}
         />
@@ -704,36 +703,6 @@ export default function Home() {
     )
   }
 
-  const renderCTAButtons = () => {
-    return (
-      <div className='main-section' style={{ filter: (openModal || removeModal) && 'blur(10px)' }}>
-        <CTAButton
-          handleClick={handleEdit}
-          label={MESSAGE[lan].EDIT}
-          size='80%'
-          color={darkMode ? '#263d42' : APP_COLORS.GRAY}
-          disabled={!isEdit || loading}
-        />
-        {isEdit ?
-          <div onClick={() => setRemoveModal(true)}>
-            <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
-          </div>
-          : ''}
-        <CTAButton
-          handleClick={() => {
-            setIsEdit(false)
-            setOpenModal(!openModal)
-          }}
-          label={MESSAGE[lan].MOV_NEW}
-          size='80%'
-          color={APP_COLORS.YELLOW}
-          style={{ color: 'black' }}
-          disabled={loading}
-        />
-      </div>
-    )
-  }
-
   const renderModal = () => {
 
     const closeModal = () => {
@@ -834,6 +803,12 @@ export default function Home() {
               size='50%'
               disabled={loading}
             />
+            {isEdit ?
+              <div onClick={() => setRemoveModal(true)}>
+                <img style={{ transform: 'scale(0.7)' }} className='svg-trash' src={TrashCan} alt="Trash Can" />
+              </div>
+              : ''
+            }
             <CTAButton
               handleClick={handleSave}
               label={MESSAGE[lan].SAVE}
@@ -978,10 +953,21 @@ export default function Home() {
     <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
       {removeModal ? renderRemoveModal() : ''}
       {openModal ? renderModal() : ''}
-      {renderCTAButtons()}
       {settings.isMonthly ? renderBalance() : <div style={{ height: '1.5rem' }}></div>}
       {settings.isMonthly ? renderMonthSelector() : ''}
       {loading ? renderLoading() : renderTableAndGraphs()}
+      <CTAButton
+        label='+'
+        color={APP_COLORS.YELLOW}
+        handleClick={() => {
+          setIsEdit(false)
+          setOpenModal(!openModal)
+        }}
+        style={{ color: 'black', borderRadius: '10vw', fontSize: '4vw' }}
+        className='new-task-btn-container'
+        btnClass={`new-task-btn ${darkMode ? 'dark-mode-btn' : ''}`}
+        disabled={openModal}
+      />
     </div>
   )
 }
