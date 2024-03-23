@@ -539,10 +539,13 @@ export default function Home() {
     }
   }
 
-  const updateData = (key, newData) => {
-    if (key === 'search') triggerSearch(newData)
+  const updateData = (key, value) => {
+    if (key === 'search') triggerSearch(value)
     else {
-      setData({ ...data, [key]: key === 'amount' ? newData.toString().replace(/[^.0-9]/, '') : newData })
+      const newData = key === 'amount' ?
+        value.toString().replace(/[^.0-9]/, '')
+        : value
+      setData({ ...data, [key]: newData })
     }
   }
 
