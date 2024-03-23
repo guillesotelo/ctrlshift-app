@@ -302,7 +302,7 @@ export default function Home() {
         setLoading(false)
       }
     }
-  }, [])
+  }, [arrData, allMovs])
 
   const getNegativeBalance = data => {
     let total = 0
@@ -327,8 +327,9 @@ export default function Home() {
     if (_settings.budget) setBudget(_settings.budget)
   }
 
-  const handleEdit = (check) => {
-    const item = arrData[check]
+  const handleEdit = (dataIndex) => {
+    const item = arrData[dataIndex]
+    setCheck(dataIndex)
     setData({
       ...item,
       date: new Date(item.date)
@@ -706,16 +707,15 @@ export default function Home() {
     )
   }
 
-  const renderModal = () => {
+  const closeModal = () => {
+    setCloseAnimation('close-animation')
+    setTimeout(() => {
+      handleCancel()
+      setCloseAnimation('')
+    }, 300)
+  }
 
-    const closeModal = () => {
-      setCloseAnimation('close-animation')
-      setTimeout(() => {
-        handleCancel()
-        setCloseAnimation('')
-      }, 300)
-    }
-
+  const renderModal = () => {    
     const renderModalDetails = () => {
       return (
         <>
@@ -826,7 +826,7 @@ export default function Home() {
     }
 
     return (
-      <div className='modal-container'>
+      <div className='modal-container' style={{ filter: removeModal && 'blur(10px)' }}>
         <div
           className={`fill-section-container ${closeAnimation}`}
           style={{
@@ -930,22 +930,27 @@ export default function Home() {
   const renderRemoveModal = () => {
     return (
       <div className='remove-modal' style={{ backgroundColor: darkMode ? 'black' : '', boxShadow: darkMode ? 'none' : '' }}>
-        <h3>{MESSAGE[lan].TO_DELETE}:<br /><br />{arrData[check].detail} <br /> ${arrData[check].amount}</h3>
+        <p>{MESSAGE[lan].TO_DELETE}:<br /><br /><strong>{arrData[check].detail}</strong> <br /> ${arrData[check].amount}</p>
         <div className='remove-btns'>
           <CTAButton
             label={MESSAGE[lan].CANCEL}
             color={APP_COLORS.GRAY}
             handleClick={() => setRemoveModal(false)}
             disabled={loading}
+            style={{ width: '100%' }}
+            size='100%'
           />
           <CTAButton
             label={MESSAGE[lan].CONFIRM}
             color={APP_COLORS.SPACE}
             handleClick={() => {
               setRemoveModal(false)
+              closeModal()
               handleRemoveItem()
             }}
             loading={loading}
+            style={{ width: '100%' }}
+            size='100%'
           />
         </div>
       </div>

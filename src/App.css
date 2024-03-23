@@ -175,7 +175,7 @@ canvas {
   width: 20%;
   height: fit-content !important;
   background-color: white;
-  padding: 2vw 3vw;
+  padding: 1rem;
   text-align: center;
   font-size: 1vw;
 }
@@ -187,6 +187,7 @@ canvas {
   align-items: center;
   margin-top: 3vw;
   gap: 1vw;
+  width: 100%;
 }
 
 /* ----LOGIN---- */
