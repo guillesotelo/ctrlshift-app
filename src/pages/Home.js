@@ -166,7 +166,7 @@ export default function Home() {
       const { isMonthly } = localSettings
       const _arrData = isMonthly ? processMonthlyData(allMovs) : allMovs
       setArrData(_arrData)
-      setLastData(_arrData[0] || {})
+      setLastData(allMovs[0] || {})
     }
   }, [month])
 
@@ -292,7 +292,7 @@ export default function Home() {
           setMonthtlyMovs(_arrData)
           setAllMovs(filteredMovs)
 
-          setLastData(_arrData[0] || {})
+          setLastData(filteredMovs[0] || {})
           const updatedNegativeBalance = getNegativeBalance(_arrData)
           setNegativeBalance(updatedNegativeBalance)
         }
@@ -426,7 +426,7 @@ export default function Home() {
         if (saved && saved.status === 200) toast.success(MESSAGE[lan].MOV_SAVED)
         else toast.error(MESSAGE[lan].SAVE_ERR)
 
-        setTimeout(() => getAllMovements(submitData), 500)
+        setTimeout(() => getAllMovements(submitData), 200)
 
         setData({
           ...data,
@@ -441,6 +441,7 @@ export default function Home() {
           user: user.email,
           extraordinary: extraordinary ? extraType ? 'down' : 'up' : ''
         })
+        setLastData(arrData[0] || {})
         setOpenModal(false)
         setIsEdit(false)
         setWithInstallments(false)

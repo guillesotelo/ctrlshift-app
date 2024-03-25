@@ -401,14 +401,26 @@ h2 {
 }
 
 .settings-salary input {
-  font-size: 0.9vw !important;
-  padding: 0.5vw;
+  /* font-size: 0.9rem !important;
+  padding: 0.5rem; */
+}
+
+
+.settings-new-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid lightgray;
+  border-radius: .5rem;
 }
 
 .settings-new-item input {
-  font-size: 0.9vw !important;
-  padding: 0.5vw;
+  /* font-size: 0.9rem !important;
+  padding: 0.5rem; */
 }
+
 
 .settings-module-title {
   font-size: 1vw;
@@ -424,18 +436,18 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 80%;
 }
 
 .div-settings-module input {
-  font-size: 0.9vw !important;
-  padding: 0.5vw;
+  /* font-size: 0.9rem !important;
+  padding: 0.5rem; */
 }
 
 .settings-container button {
   cursor: pointer;
   width: fit-content !important;
-  padding: 1vw 1.5vw !important;
+  padding: .5rem 1rem !important;
 }
 
 .settings-list-item {
@@ -490,14 +502,22 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   font-size: 1vw;
 }
 
 .settings-budget-item-text {
   width: 10%;
-  margin: 0 6vw;
-  font-size: 1vw;
+  overflow: hidden;
+}
+
+.settings-budget-item-cat {
+  margin: 0;
+  font-size: 1rem;
   font-weight: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .settings-budget-item-percent {
@@ -508,7 +528,6 @@ h2 {
 }
 
 .settings-budget-rest {
-  width: 20%;
   display: flex;
   align-items: center;
 }
@@ -809,7 +828,7 @@ h2 {
 }
 
 .new-task-btn-container:hover {
-  opacity: 0.8;
+  filter: brightness(120%);
 }
 
 .task-modal {
@@ -1607,6 +1626,16 @@ h2 {
     font-size: 3.2vw;
     text-align: center;
     width: 17%;
+  }
+
+
+  .settings-budget-item-cat {
+    margin: 0;
+    font-size: .8rem;
+    font-weight: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .save-div {

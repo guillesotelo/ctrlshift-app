@@ -138,7 +138,7 @@ export default function Settings() {
         <div className={`settings-container ${darkMode ? 'dark-mode' : ''}`}>
             <h4 className='settings-title' style={{ color: darkMode ? '#CCA43B' : '' }}>{MESSAGE[lan].SET_TITLE}</h4>
 
-            <h4 className='settings-module-title' style={{ marginBottom: 0 }}>{MESSAGE[lan].SET_SALARY}</h4>
+            <h4 className='settings-module-title' style={{ marginBottom: '.5rem' }}>{MESSAGE[lan].SET_SALARY}</h4>
             <div className='settings-salary'>
                 <InputField
                     label=''
@@ -226,7 +226,7 @@ export default function Settings() {
                 {
                     data.categories.map((cat, i) =>
                         <div key={i} className='settings-list-budget'>
-                            <h4 className='settings-budget-item-text'>{cat}</h4>
+                            <h4 className='settings-budget-item-text'> <p className='settings-budget-item-cat'>{cat}</p></h4>
                             <CTAButton
                                 handleClick={() => updateBudget(cat, '-')}
                                 label='-'
