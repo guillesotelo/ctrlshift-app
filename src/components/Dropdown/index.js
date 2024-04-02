@@ -23,7 +23,8 @@ export default function Dropdown(props) {
         size,
         darkMode,
         bg,
-        setIsEdit
+        setIsEdit,
+        maxHeight
     } = props
 
     useEffect(() => {
@@ -80,7 +81,8 @@ export default function Dropdown(props) {
                         style={{
                             border: !darkMode && openDrop && '1px solid #E4C69C',
                             borderTop: 'none',
-                            width: size ? size : ''
+                            width: size ? size : '',
+                            maxHeight: maxHeight || ''
                         }}
                         ref={optionsRef}>
                         {options.map((option, i) =>

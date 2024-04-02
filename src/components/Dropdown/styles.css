@@ -73,6 +73,8 @@
     z-index: 2;
     max-height: 20rem;
     overflow-y: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
     transition: .3s;
 }
 
@@ -87,7 +89,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: normal;
-
 }
 
 .dropdown-option:hover {

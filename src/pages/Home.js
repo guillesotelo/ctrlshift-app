@@ -744,6 +744,7 @@ export default function Home() {
               value={data.author}
               darkMode={darkMode}
               style={{ width: '45%' }}
+              maxHeight='10rem'
             />
             <Dropdown
               options={allPayTypes}
@@ -753,6 +754,7 @@ export default function Home() {
               value={data.pay_type}
               darkMode={darkMode}
               style={{ width: '45%' }}
+              maxHeight='10rem'
             />
           </div>
           <div className='fill-section-dd'>
@@ -796,6 +798,7 @@ export default function Home() {
               value={data.category}
               darkMode={darkMode}
               style={{ width: '45%' }}
+              maxHeight='10rem'
             />
           </div>
           <div className='div-modal-btns'>
