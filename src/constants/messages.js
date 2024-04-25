@@ -157,6 +157,7 @@ export const MESSAGE = {
         CAT_EXP: 'Gastos por categoría',
         PAY_TYPES: 'Tipos de Pago',
         AUTHORS: 'Autores',
+        USE_LAST_DATE: 'Última fecha',
 
         //REPORTS
         REPORTS_TITLE: 'Reportar un problema',
@@ -325,6 +326,7 @@ export const MESSAGE = {
         CAT_EXP: 'Expenses by category',
         PAY_TYPES: 'Payment Types',
         AUTHORS: 'Authors',
+        USE_LAST_DATE: 'Use last date',
 
         //REPORTS
         REPORTS_TITLE: 'Report a problem',
@@ -493,6 +495,7 @@ export const MESSAGE = {
         CAT_EXP: 'Expenses by category',
         PAY_TYPES: 'Payment Types',
         AUTHORS: 'Authors',
+        USE_LAST_DATE: 'Use last date',
 
         //REPORTS
         REPORTS_TITLE: 'Report a problem',

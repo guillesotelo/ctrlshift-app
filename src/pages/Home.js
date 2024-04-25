@@ -69,6 +69,7 @@ export default function Home() {
   const [calculator, setCalculator] = useState(false)
   const [negativeBalance, setNegativeBalance] = useState(0)
   const [closeAnimation, setCloseAnimation] = useState('')
+  const [useLastDate, setUseLastDate] = useState(null)
   const dispatch = useDispatch()
   const history = useHistory()
   const lan = getUserLanguage()
@@ -104,13 +105,15 @@ export default function Home() {
       authors,
       categories,
       payTypes,
-      salary
+      salary,
+      useLastDate
     } = JSON.parse(localLedger.settings)
     if (isMonthly) setSw(isMonthly)
 
     setAllUsers(authors)
     setAllPayTypes(payTypes)
     setAllCategories(categories)
+    setUseLastDate(useLastDate || false)
 
     const newData = {
       ...data,
@@ -130,6 +133,10 @@ export default function Home() {
     getAllMovements(newData)
     pullSettings()
   }, [])
+
+  useEffect(() => {
+    updateLastDate()
+  }, [useLastDate])
 
   useEffect(() => {
     const debited = data.salary - arrData.reduce((item, current) => item + Number(current.amount), 0)
@@ -187,7 +194,16 @@ export default function Home() {
         category: lastData.category
       })
     }
+    updateLastDate()
   }, [lastData])
+
+  const updateLastDate = () => {
+    if (useLastDate !== null) {
+      const lastDate = new Date(useLastDate ? lastData.date || new Date() : new Date())
+      updateData('date', lastDate)
+      updateLedgerSettings({ useLastDate })
+    }
+  }
 
   const toggleDatePickerColors = () => {
     const body = document.querySelector('.react-datepicker')
@@ -325,6 +341,7 @@ export default function Home() {
     const { settings } = JSON.parse(localStorage.getItem('ledger'))
     const _settings = JSON.parse(settings)
     if (_settings.budget) setBudget(_settings.budget)
+    if (_settings.useLastDate) setUseLastDate(_settings.useLastDate)
   }
 
   const handleEdit = (dataIndex) => {
@@ -412,7 +429,6 @@ export default function Home() {
         if (!submitData.detail) submitData.detail = '-'
 
         if (isEdit) {
-          console.log('submitData', submitData)
           saved = await dispatch(editMovement(submitData)).then(d => d.payload)
         }
         else {
@@ -551,18 +567,32 @@ export default function Home() {
     }
   }
 
-  const onChangeSw = async () => {
+  const updateLedgerSettings = async (newSettings) => {
     try {
-      const newSettings = JSON.parse(ledger.settings)
-
+      const ledgerSettings = JSON.parse(ledger.settings)
       const newLedger = await dispatch(updateLedgerData({
-        settings: JSON.stringify({ ...newSettings, isMonthly: !sw }),
+        settings: JSON.stringify({ ...ledgerSettings, ...newSettings }),
         id: ledger.id
       })).then(data => data.payload)
 
       if (newLedger) {
         localStorage.removeItem('ledger')
         localStorage.setItem('ledger', JSON.stringify(newLedger.data))
+        setTimeout(() => {
+          pullSettings()
+        }, 2000)
+      }
+
+      return newLedger
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const onChangeSw = async () => {
+    try {
+      const newLedger = await updateLedgerSettings({ isMonthly: !sw })
+      if (newLedger) {
         toast.info(`${!sw ? MESSAGE[lan].SW_MON : MESSAGE[lan].SW_ALL}`)
         setTimeout(() => {
           pullSettings()
@@ -716,7 +746,7 @@ export default function Home() {
     }, 300)
   }
 
-  const renderModal = () => {    
+  const renderModal = () => {
     const renderModalDetails = () => {
       return (
         <>
@@ -766,6 +796,7 @@ export default function Home() {
                   value={withInstallments}
                   setValue={setWithInstallments}
                   label={MESSAGE[lan].INSTALLMENTS}
+                  style={{ marginLeft: withInstallments && '.5rem' }}
                 />
                 {withInstallments &&
                   <div className='installments-count'>
@@ -840,16 +871,26 @@ export default function Home() {
           onClick={() => setShowDropDown(false)}>
           <h3 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }}>{extraordinary ? MESSAGE[lan].EXTRA_INFO : MESSAGE[lan].MOV_INFO}:</h3>
           <div className='fill-section'>
-            <CTAButton
-              handleClick={() => setDateClicked(!dateClicked)}
-              label={data.date.toLocaleDateString()}
-              color={darkMode ? APP_COLORS.YELLOW : APP_COLORS.SPACE}
-              style={{
-                color: darkMode ? 'black' : 'white',
-                width: '100%'
-              }}
-              disabled={loading}
-            />
+            < div className='fill-datetime-row'>
+              <CTAButton
+                handleClick={() => setDateClicked(!dateClicked)}
+                label={data.date.toLocaleDateString()}
+                color={darkMode ? APP_COLORS.YELLOW : APP_COLORS.SPACE}
+                style={{
+                  color: darkMode ? 'black' : 'white',
+                  width: '100%'
+                }}
+                disabled={loading}
+                size='70%'
+              />
+              <SwitchBTN
+                on={MESSAGE[lan].YES}
+                off={MESSAGE[lan].NO}
+                value={useLastDate}
+                setValue={setUseLastDate}
+                label={MESSAGE[lan].USE_LAST_DATE}
+              />
+            </div>
             {dateClicked &&
               <DatePicker
                 selected={data.date || ''}
@@ -862,7 +903,7 @@ export default function Home() {
                 inline
               />
             }
-            < div className='fill-amount-row'>
+            <div className='fill-amount-row'>
               <InputField
                 label=''
                 updateData={updateData}
@@ -877,7 +918,7 @@ export default function Home() {
                   fontWeight: 'bold',
                   width: '80%'
                 }}
-                size='80%'
+                size='100%'
               />
               <img
                 onClick={() => setCalculator(!calculator)}

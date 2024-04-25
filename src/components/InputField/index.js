@@ -24,6 +24,7 @@ export default function InputField(props) {
         value,
         cols,
         rows,
+        size
     } = props
 
     useEffect(() => {
@@ -46,7 +47,7 @@ export default function InputField(props) {
     }
 
     return (
-        <div className='inputfield-container'>
+        <div className='inputfield-container' style={{ width: size }}>
             {label ? <h4 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }} className='inputfield-label'>{label || ''}</h4> : ''}
             {type === 'textarea' ?
                 <textarea
