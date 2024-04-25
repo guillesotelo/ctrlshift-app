@@ -478,6 +478,7 @@ export default function Home() {
   }
 
   const handleCancel = () => {
+    const lastDate = new Date(useLastDate ? lastData.date || new Date() : new Date())
     setIsEdit(false)
     setCheck(-1)
     setOpenModal(false)
@@ -493,7 +494,7 @@ export default function Home() {
       pay_type: allPayTypes[0],
       category: allCategories[0],
       author: allUsers[0],
-      date: new Date(),
+      date: lastDate,
     })
   }
 
