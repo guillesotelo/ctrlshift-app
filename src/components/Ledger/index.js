@@ -73,6 +73,7 @@ export default function Ledger() {
 
     const handleSaveLedger = async () => {
         try {
+            setLoading(true)
             const ledgerBook = await dispatch(saveLedger(data)).then(d => d.payload)
 
             if (ledgerBook) {
@@ -83,7 +84,11 @@ export default function Ledger() {
                 setTimeout(() => history.push('/home'), 2000)
 
             } else toast.error(MESSAGE[lan].SAVE_ERR,)
-        } catch (err) { toast.error(MESSAGE[lan].SAVE_ERR) }
+            setLoading(false)
+        } catch (err) {
+            toast.error(MESSAGE[lan].SAVE_ERR)
+            setLoading(false)
+        }
     }
 
     const handleConnect = async () => {
@@ -93,6 +98,7 @@ export default function Ledger() {
 
     const connectLocalLedger = async () => {
         try {
+            setLoading(true)
             const loginLedger = await dispatch(logLocalLedger(data)).then(d => d.payload)
 
             if (loginLedger) {
@@ -103,11 +109,16 @@ export default function Ledger() {
                 setTimeout(() => history.push('/home'), 2000)
 
             } else toast.error(MESSAGE[lan].CONN_ERR)
-        } catch (err) { toast.error(MESSAGE[lan].CONN_ERR) }
+            setLoading(false)
+        } catch (err) {
+            toast.error(MESSAGE[lan].CONN_ERR)
+            setLoading(false)
+        }
     }
 
     const connectNewLedger = async () => {
         try {
+            setLoading(true)
             const loginLedger = await dispatch(logLedger(data)).then(d => d.payload)
 
             if (loginLedger) {
@@ -118,7 +129,11 @@ export default function Ledger() {
                 setTimeout(() => history.push('/home'), 2000)
 
             } else toast.error(MESSAGE[lan].CONN_ERR)
-        } catch (err) { toast.error(MESSAGE[lan].CONN_ERR) }
+            setLoading(false)
+        } catch (err) {
+            toast.error(MESSAGE[lan].CONN_ERR)
+            setLoading(false)
+        }
     }
 
     const handleCancel = () => {
