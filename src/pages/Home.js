@@ -562,7 +562,7 @@ export default function Home() {
     if (key === 'search') triggerSearch(value)
     else {
       const newData = key === 'amount' ?
-        value.toString().replaceAll(/[^.0-9]/, '')
+        value.toString().replace(/[^.0-9]/g, '')
         : value
       setData({ ...data, [key]: newData })
     }
