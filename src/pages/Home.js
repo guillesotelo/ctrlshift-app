@@ -911,7 +911,7 @@ export default function Home() {
                 placeholder={`${MESSAGE[lan].FIAT} -`}
                 name='amount'
                 type='number'
-                value={data.amount || ''}
+                value={data.amount}
                 style={{
                   textAlign: 'center',
                   backgroundColor: '#fff8e8',
