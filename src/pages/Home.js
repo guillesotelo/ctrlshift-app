@@ -195,7 +195,7 @@ export default function Home() {
       })
     }
     updateLastDate()
-  }, [lastData])
+  }, [lastData, useLastDate])
 
   const updateLastDate = () => {
     if (useLastDate !== null) {
@@ -562,7 +562,7 @@ export default function Home() {
     if (key === 'search') triggerSearch(value)
     else {
       const newData = key === 'amount' ?
-        value.toString().replace(/[^.0-9]/, '')
+        value.toString().replaceAll(/[^.0-9]/, '')
         : value
       setData({ ...data, [key]: newData })
     }
