@@ -170,6 +170,7 @@ export default function Home() {
       const _arrData = isMonthly ? processMonthlyData(allMovs) : allMovs
       setArrData(_arrData)
       setLastData(allMovs[0] || {})
+      setMonthtlyMovs(_arrData)
     }
   }, [month])
 
