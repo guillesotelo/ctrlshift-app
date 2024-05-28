@@ -135,10 +135,6 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    updateLastDate()
-  }, [useLastDate])
-
-  useEffect(() => {
     const debited = data.salary - arrData.reduce((item, current) => item + Number(current.amount), 0)
     if (!isNaN(debited)) setSalary(debited)
   }, [arrData])
@@ -187,12 +183,12 @@ export default function Home() {
 
   useEffect(() => {
     if (lastData.category) {
-      setData({
-        ...data,
+      setData(prev => ({
+        ...prev,
         author: lastData.author,
         pay_type: lastData.pay_type,
         category: lastData.category
-      })
+      }))
     }
     updateLastDate()
   }, [lastData, useLastDate])
@@ -201,6 +197,7 @@ export default function Home() {
     if (useLastDate !== null) {
       const lastDate = new Date(useLastDate ? lastData.date || new Date() : new Date())
       updateData('date', lastDate)
+      setMonth(lastDate.getMonth())
       updateLedgerSettings({ useLastDate })
     }
   }
