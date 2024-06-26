@@ -177,6 +177,7 @@ export default function Ledger() {
                     bg='#1E1F21'
                     setIsEdit={setIsEdit}
                     size='15rem'
+                    maxHeight='8rem'
                 />
                 {isEdit ?
                     <div style={{ display: 'flex', flexDirection: 'row', gap: '3vw' }}>

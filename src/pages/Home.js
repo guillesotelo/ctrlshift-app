@@ -183,25 +183,44 @@ export default function Home() {
   }, [openModal])
 
   useEffect(() => {
+    updateLastDate()
+  }, [lastData, useLastDate])
+
+  const updateLastDate = () => {
+    const lastDate = new Date(useLastDate ? lastData.date || new Date() : new Date())
+
+    if (useLastDate !== null) {
+      setMonth(lastDate.getMonth())
+      updateLedgerSettings({ useLastDate })
+    }
+
     if (lastData.category) {
       setData(prev => ({
         ...prev,
         author: lastData.author,
         pay_type: lastData.pay_type,
-        category: lastData.category
+        category: lastData.category,
+        date: lastDate
       }))
     }
-    updateLastDate()
-  }, [lastData, useLastDate])
-
-  const updateLastDate = () => {
-    if (useLastDate !== null) {
-      const lastDate = new Date(useLastDate ? lastData.date || new Date() : new Date())
-      updateData('date', lastDate)
-      setMonth(lastDate.getMonth())
-      updateLedgerSettings({ useLastDate })
-    }
   }
+
+  useEffect(() => {
+    if (data.detail && data.category) {
+      const words = data.detail.toLowerCase().split(' ')
+      let newCategory = null
+
+      allCategories.forEach((cat, i) => {
+        words.forEach(word => {
+          if (word && cat.toLowerCase().includes(word)) {
+            newCategory = allCategories[i]
+          }
+        })
+      })
+
+      if (newCategory) updateData('category', newCategory)
+    }
+  }, [data.detail])
 
   const toggleDatePickerColors = () => {
     const body = document.querySelector('.react-datepicker')
@@ -444,13 +463,10 @@ export default function Home() {
 
         setData({
           ...data,
-          pay_type: allPayTypes[0],
-          category: allCategories[0],
-          author: allUsers[0],
           amount: '',
           detail: '',
           installments: 2,
-          date: new Date(),
+          date: new Date(useLastDate ? lastData.date || new Date() : new Date()),
           ledger: ledger.id,
           user: user.email,
           extraordinary: extraordinary ? extraType ? 'down' : 'up' : ''
@@ -562,6 +578,7 @@ export default function Home() {
       const newData = key === 'amount' ?
         value.toString().replace(/[^.0-9]/g, '')
         : value
+
       setData({ ...data, [key]: newData })
     }
   }

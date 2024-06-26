@@ -11,3 +11,13 @@ export const getUserLanguage = () => {
     })
     return userLang
 }
+
+export const sortArray = (arr, key, order) => {
+    return arr.slice().sort((a, b) => {
+        const aValue = a[key]
+        const bValue = b[key]
+        if (typeof aValue !== 'number' && !aValue) return 1
+        if (typeof bValue !== 'number' && !bValue) return -1
+        return order ? aValue < bValue ? 1 : -1 : aValue < bValue ? -1 : 1
+    })
+}
