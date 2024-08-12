@@ -38,7 +38,7 @@ export default function Menu(props) {
   }
 
   return (
-    <div className={`menu-container ${menuClass}`} style={{ backgroundColor: darkMode ? '#150c01' : '' }}>
+    <div className={`menu-container ${menuClass}`} style={{ backgroundColor: darkMode ? '#282828' : '' }}>
       <div className='menu-items'>
         <div
           className='menu-item'

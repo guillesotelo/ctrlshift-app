@@ -5,14 +5,15 @@
     justify-content: space-between;
     align-items: center;
     background-color: #263d42;
-    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.200);
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.16);
     position: fixed;
     width: 97%;
+    height: 4vh;
     z-index: 2;
 }
 
 .dark-mode-header {
-    background-color: #150c01 !important;
+    background-color: #282828 !important;
     /* box-shadow: 3px 5px 7px rgb(21, 21, 21) !important; */
 }
 
@@ -33,6 +34,10 @@
     cursor: pointer;
 }
 
+.hamburger-react {
+    width: fit-content;
+}
+
 
 @media only screen and (max-width: 640px) {
     .header-container {
@@ -42,7 +47,7 @@
         justify-content: space-between;
         align-items: center;
         background-color: #263d42;
-        box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.200);
+        box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.16);
         position: fixed;
         width: 90.2%;
         z-index: 2;

@@ -1,22 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import CTAButton from '../CTAButton'
-import InputField from '../InputField'
-import { APP_COLORS } from '../../constants/colors'
+import CTAButton from '../components/CTAButton'
+import InputField from '../components/InputField'
 import { toast } from 'react-toastify';
 import {
     getUserLedgers,
     saveLedger,
     logLedger,
     logLocalLedger
-} from '../../store/reducers/ledger'
-import { getUserLanguage } from '../../helpers';
-import { MESSAGE } from '../../constants/messages'
+} from '../store/reducers/ledger'
+import { getUserLanguage } from '../helpers';
+import { MESSAGE } from '../constants/messages'
 import 'react-toastify/dist/ReactToastify.css';
-import './styles.css'
-import Dropdown from '../Dropdown';
-import { AppContext } from '../../AppContext';
+import Dropdown from '../components/Dropdown';
+import { AppContext } from '../AppContext';
 
 export default function Ledger() {
     const [data, setData] = useState({})
@@ -30,16 +28,15 @@ export default function Ledger() {
     const ledger = JSON.parse(localStorage.getItem('ledger'))
     const lan = getUserLanguage()
     const { darkMode } = useContext(AppContext)
-    const localUser = JSON.parse(localStorage.getItem('user'))
-    const isMobile = window.screen.width <= 768
+    const localUser = JSON.parse(localStorage.getItem('user') || '{}')
 
     useEffect(() => {
-        const { email, username } = localUser
-
-        if (!localUser || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
+        if (!localUser || !localUser.email || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
             localStorage.clear()
             return history.push('/login')
         }
+        
+        const { email, username } = localUser
 
         const _settings = {
             authors: [`${username}`],
@@ -48,7 +45,7 @@ export default function Ledger() {
             salary: 0
         }
 
-        getLedgers()
+        getLedgers(email)
 
         const newData = {
             name: ledger.name || '',
@@ -62,11 +59,14 @@ export default function Ledger() {
         setData({ ...data, [key]: newData })
     }
 
-    const getLedgers = async () => {
+    const getLedgers = async (email) => {
         try {
-            const ledgers = await dispatch(getUserLedgers({ email: localUser.email })).then(data => data.payload)
+            setLoading(true)
+            const ledgers = await dispatch(getUserLedgers({ email })).then(data => data.payload)
             setUserLedgers(ledgers.map(ledger => ledger.name))
+            setLoading(false)
         } catch (err) {
+            setLoading(false)
             console.error(err)
         }
     }

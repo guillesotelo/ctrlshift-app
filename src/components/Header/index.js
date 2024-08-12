@@ -1,41 +1,39 @@
 import React, { useState, useEffect, useContext } from 'react'
-import MenuIcon from '../../assets/menu-icon.svg'
 import LedgerIcon from '../../assets/ledger-icon.svg'
 import Menu from '../Menu'
 import { useHistory } from "react-router-dom";
 import './styles.css'
 import { AppContext } from '../../AppContext';
+import Hamburger from 'hamburger-react'
 
 export default function Header() {
   const [menuClass, setMenuClass] = useState('menu-hidden')
-  const { darkMode, isMobile } = useContext(AppContext)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { darkMode } = useContext(AppContext)
   const history = useHistory()
   const { name } = localStorage.getItem('ledger') ? JSON.parse(localStorage.getItem('ledger')) : {}
 
   useEffect(() => {
     window.addEventListener('mouseup', e => {
-      if (e.target != document.querySelector('#menu-icon')) setMenuClass('menu-hidden')
+      if (e.target != document.querySelector('.hamburger-react')) setMenuOpen(false)
     })
   }, [])
 
-  const toggleMenu = () => {
-    menuClass === 'menu-hidden' ? setMenuClass('menu-toggled') : setMenuClass('menu-hidden')
-  }
+  useEffect(() => {
+    setMenuClass(menuOpen ? 'menu-toggled' : 'menu-hidden')
+  }, [menuOpen])
 
   return (
     <>
       <div className={`header-container ${darkMode ? 'dark-mode-header' : ''}`}>
-        <div onClick={() => history.push('/ledger')}>
+        <div onClick={() => history.push('/ledger')} className='header-col'>
           <img style={{ transform: 'scale(1.2)' }} className='svg-menu' src={LedgerIcon} alt="User Group" />
         </div>
 
-        <div onClick={name ? () => history.push('/home') : () => { }}>
+        <div onClick={name ? () => history.push('/home') : () => { }}className='header-col'> 
           <h4 className='user-group-title'>{name || ''}</h4>
         </div>
-
-        <div className='header-menu' onClick={() => toggleMenu()}>
-          <img id='menu-icon' className='svg-menu' src={MenuIcon} alt="Menu" />
-        </div>
+        <Hamburger size={25} toggled={menuOpen} toggle={setMenuOpen} color='#CCA43B' easing="ease-in" rounded label="Show menu" />
       </div>
       <Menu menuClass={menuClass} setMenuClass={setMenuClass} />
     </>

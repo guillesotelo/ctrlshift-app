@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Header from './components/Header'
-import Ledger from './components/Ledger'
+import Ledger from './pages/Ledger'
 import Account from './pages/Account'
 import Settings from './pages/Settings'
 import Footer from "./components/Footer";

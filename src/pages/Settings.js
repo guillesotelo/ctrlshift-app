@@ -360,7 +360,7 @@ export default function Settings() {
             }
 
             {edited &&
-                <div className='save-div' style={{ backgroundColor: darkMode ? '#150c01' : '' }}>
+                <div className='save-div' style={{ backgroundColor: darkMode ? '#282828' : '' }}>
                     <div className='save-div-btns'>
                         <CTAButton
                             handleClick={() => {

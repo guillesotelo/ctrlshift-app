@@ -364,6 +364,79 @@ h2 {
   margin: .5rem 0;
 }
 
+.user-group-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6vw;
+  min-height: 90vh;
+}
+
+.no-ledger-section {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0 0 0;
+}
+
+.new-group-section {
+  margin: 1rem;
+  box-shadow: 4px 4px 11px rgb(155, 155, 155);
+  border-radius: 1vw;
+  padding: 1rem;
+  gap: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.connect-group-section {
+  margin: 1rem;
+  box-shadow: 4px 4px 11px rgb(155, 155, 155);
+  border-radius: 1vw;
+  padding: 1rem;
+  gap: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.group-text {
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: center;
+  width: 60%;
+  align-self: center;
+  margin-bottom: .5vw;
+  background-color: #adbfc4;
+  padding: 2vw;
+  border-radius: 1vw 1vw 0 1vw;
+}
+
+.div-ledger-connected {
+  width: 25vw;
+  box-shadow: 4px 4px 11px rgb(155, 155, 155);
+  border-radius: 1vw;
+  padding: 1vw;
+  margin-top: 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .div-ledger-connected div{
+  width: 20vw;
+} */
+
+.ledger-connected {
+  text-align: center;
+  font-size: 1.5vw;
+  align-self: center;
+  padding: 4vw 8vw;
+}
 
 .svg-account {
   height: 4vw;
@@ -1528,6 +1601,70 @@ h2 {
   .svg-account {
     height: 15vw;
     filter: invert(11%) sepia(5%) saturate(5738%) hue-rotate(178deg) brightness(96%) contrast(81%);
+  }
+
+  .user-group-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    padding-top: 22vw;
+    min-height: 90vh;
+  }
+
+  .no-ledger-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vw;
+  }
+
+  .new-group-section {
+    box-shadow: 4px 4px 11px rgb(155, 155, 155);
+    margin: 4vw;
+    border-radius: 2vw;
+    align-self: center;
+    width: 70%;
+    gap: 3vw;
+    padding: 0 4vw 4vw 4vw;
+  }
+
+  .connect-group-section {
+    box-shadow: 4px 4px 11px rgb(155, 155, 155);
+    margin: 4vw;
+    border-radius: 2vw;
+    align-self: center;
+    width: 70%;
+    gap: 3vw;
+    padding: 0 4vw 4vw 4vw;
+  }
+
+  .group-text {
+    font-size: 3.5vw;
+    font-weight: normal;
+    text-align: center;
+    width: 80%;
+    align-self: center;
+    margin-bottom: 0.5vw;
+    background-color: #adbfc4;
+    padding: 3vw;
+    border-radius: 3vw 3vw 0 3vw;
+  }
+
+  .div-ledger-connected {
+    width: 70%;
+    box-shadow: 4px 4px 11px rgb(155, 155, 155);
+    border-radius: 2vw;
+    margin: 10vw 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4vw 0;
+  }
+
+  .ledger-connected {
+    font-size: 3vw;
+    margin: 0;
   }
 
   .settings-container {
