@@ -26,11 +26,11 @@ export default function Header() {
   return (
     <>
       <div className={`header-container ${darkMode ? 'dark-mode-header' : ''}`}>
-        <div onClick={() => history.push('/ledger')} className='header-col'>
+        <div onClick={() => history.push('/ledger')}>
           <img style={{ transform: 'scale(1.2)' }} className='svg-menu' src={LedgerIcon} alt="User Group" />
         </div>
 
-        <div onClick={name ? () => history.push('/home') : () => { }}className='header-col'> 
+        <div onClick={name ? () => history.push('/home') : () => { }}>
           <h4 className='user-group-title'>{name || ''}</h4>
         </div>
         <Hamburger size={25} toggled={menuOpen} toggle={setMenuOpen} color='#CCA43B' easing="ease-in" rounded label="Show menu" />
