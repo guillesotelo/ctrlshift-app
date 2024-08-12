@@ -20,11 +20,11 @@ import { AppContext } from '../AppContext';
 export default function Register() {
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(false)
-    const [lan, setLan] = useState(navigator.language || navigator.userLanguage)
+    const [lan, setLan] = useState(navigator.language || navigator.userLanguage || 'en')
     const [toggleContents, setToggleContents] = useState(<><Flag code={'us'} height="16" />{MESSAGE[lan].SET_LAN}</>)
+    const { darkMode } = useContext(AppContext)
     const dispatch = useDispatch()
     const history = useHistory()
-    const { darkMode, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         const body = document.querySelector('body')

@@ -12,24 +12,6 @@ export default function LandingMobile() {
     const { darkMode, setDarkMode, isMobile } = useContext(AppContext)
     const history = useHistory()
 
-    useEffect(() => {
-        const localUser = JSON.parse(localStorage.getItem('user'))
-        const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
-
-        setDarkMode(mode)
-
-        if (localUser && localUser.login) {
-            const login = new Date(localUser.login).getTime()
-            const now = new Date().getTime()
-
-            if (now - login > 2506000000) {
-                return localStorage.clear()
-            }
-        }
-
-        if (localUser && localUser.token && localUser.app && localUser.app === 'ctrl-shift') return history.push('/splash')
-    }, [])
-
     return isMobile ?
         <div className='landing-mobile-container' style={{ backgroundColor: darkMode ? '#202020' : '', color: darkMode ? 'lightgray' : '' }}>
             <div className='landing-header move-y'>

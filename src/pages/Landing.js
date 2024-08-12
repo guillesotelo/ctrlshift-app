@@ -12,8 +12,8 @@ export default function Landing() {
     const { darkMode, setDarkMode, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        const localUser = JSON.parse(localStorage.getItem('user'))
-        const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : false
+        const localUser = JSON.parse(localStorage.getItem('user') || '{}')
+        const mode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode') || 'false') : false
         setDarkMode(mode)
 
         if (localUser && localUser.login) {

@@ -25,7 +25,7 @@ function App() {
   const isMobile = window.screen.width <= 768
 
   useEffect(() => {
-    const isDarkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode')) : getSystemMode()
+    const isDarkMode = localStorage.getItem('darkMode') ? JSON.parse(localStorage.getItem('darkMode') || 'false') : getSystemMode()
     setDarkMode(isDarkMode)
   }, [])
 
