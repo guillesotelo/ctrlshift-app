@@ -15,6 +15,7 @@ import { MESSAGE } from '../constants/messages'
 import 'react-toastify/dist/ReactToastify.css';
 import { PuffLoader } from 'react-spinners';
 import { AppContext } from '../AppContext';
+import { getUserLanguage } from '../helpers/index.js';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Register() {

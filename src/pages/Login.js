@@ -28,7 +28,7 @@ export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const lan = getUserLanguage()
-    const { darkMode, isMobile } = useContext(AppContext)
+    const { darkMode } = useContext(AppContext)
 
     useEffect(() => {
         document.querySelector('body').style.backgroundColor = darkMode ? '#1E1F21' : ''
