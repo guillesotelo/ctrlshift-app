@@ -21,7 +21,7 @@ export default function Register() {
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(false)
     const [lan, setLan] = useState(navigator.language || navigator.userLanguage || 'en')
-    const [toggleContents, setToggleContents] = useState(<><Flag code={'us'} height="16" />{MESSAGE[lan].SET_LAN}</>)
+    const [toggleContents, setToggleContents] = useState(null)
     const { darkMode } = useContext(AppContext)
     const dispatch = useDispatch()
     const history = useHistory()
@@ -30,6 +30,10 @@ export default function Register() {
         const body = document.querySelector('body')
         if (body) body.style.backgroundColor = darkMode ? '#1E1F21' : ''
     }, [])
+
+    useEffect(() => {
+        if(typeof lan === 'string') setToggleContents(<><Flag code={'us'} height="16" />{MESSAGE[lan].SET_LAN}</>)
+    },[lan])
 
     const updateData = (key, newData) => {
         setData({ ...data, [key]: newData })
