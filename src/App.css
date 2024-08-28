@@ -19,7 +19,7 @@ canvas {
 
 /* -----Desktop----- */
 .home-container {
-  padding: 4rem 0 10rem 0;
+  padding: 9vh 0 10rem 0;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -424,16 +424,12 @@ h2 {
   width: 25vw;
   box-shadow: 4px 4px 11px rgb(155, 155, 155);
   border-radius: 1vw;
-  padding: 1vw;
+  padding: 1rem;
   margin-top: 2vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-/* .div-ledger-connected div{
-  width: 20vw;
-} */
 
 .ledger-connected {
   text-align: center;
@@ -1385,7 +1381,6 @@ h2 {
   .home-container {
     overflow-x: hidden;
     min-height: 90vh;
-    padding-top: 4rem;
   }
 
   .main-section {
@@ -1657,12 +1652,11 @@ h2 {
   .div-ledger-connected {
     width: 70%;
     box-shadow: 4px 4px 11px rgb(155, 155, 155);
-    border-radius: 2vw;
-    margin: 10vw 0;
+    border-radius: .5rem;
+    margin: 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4vw 0;
   }
 
   .ledger-connected {

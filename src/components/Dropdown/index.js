@@ -30,8 +30,10 @@ export default function Dropdown(props) {
     useEffect(() => {
         window.addEventListener('mouseup', e => {
             if (e.target && e.target.className) {
+                if(e.target.className.includes('dropdown-select')) return
                 if (e.target.className !== 'dropdown-option'
                     && e.target.className !== 'dropdown-option--dark') setOpenDrop(false)
+
             } else setOpenDrop(false)
         })
     }, [])

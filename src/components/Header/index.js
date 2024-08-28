@@ -21,6 +21,9 @@ export default function Header() {
 
   useEffect(() => {
     setMenuClass(menuOpen ? 'menu-toggled' : 'menu-hidden')
+
+    const html = document.querySelector('html')
+    html.style.overflow = menuOpen ? 'hidden' : ''
   }, [menuOpen])
 
   return (

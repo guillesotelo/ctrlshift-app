@@ -1,15 +1,14 @@
 .header-container {
-    padding: .9vw 1.5vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: #263d42;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.16);
-    position: fixed;
-    width: 97%;
-    height: 4vh;
+    height: 9vh;
     z-index: 2;
+    position: fixed;
+    width: 100vw;
 }
 
 .dark-mode-header {
@@ -21,6 +20,7 @@
     height: 1.3vw;
     filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
     cursor: pointer;
+    margin: 1rem;
 }
 
 .user-group-title {
@@ -36,20 +36,18 @@
 
 .hamburger-react {
     width: fit-content;
+    margin: .5rem;
 }
 
 
 @media only screen and (max-width: 640px) {
     .header-container {
-        padding: 5vw;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         background-color: #263d42;
         box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.16);
-        position: fixed;
-        width: 90.2%;
         z-index: 2;
     }
 

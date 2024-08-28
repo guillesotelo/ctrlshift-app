@@ -412,7 +412,7 @@ export default function Home() {
   const chartCalculator = (data, col, type) => {
     let sum = 0
     data.forEach(mov => {
-      if (mov[type] === col) sum += parseInt(mov.amount)
+      if (mov[type] === col) sum += parseFloat(mov.amount)
     })
     return sum
   }
@@ -601,7 +601,7 @@ export default function Home() {
     if (key === 'search') triggerSearch(value)
     else {
       const newData = key === 'amount' ?
-        value.toString().replace(/[^.0-9]/g, '')
+        value.toString().replace(/[^.0-9]/g, '').replace('..', '.')
         : value
 
       setData({ ...data, [key]: newData })
@@ -950,7 +950,6 @@ export default function Home() {
                 updateData={updateData}
                 placeholder={`${MESSAGE[lan].FIAT} -`}
                 name='amount'
-                type='number'
                 value={data.amount}
                 style={{
                   textAlign: 'center',
@@ -1051,19 +1050,20 @@ export default function Home() {
       {settings.isMonthly ? renderMonthSelector() : ''}
       {/* {loading ? renderLoading() : ''} */}
       {renderTableAndGraphs()}
-      <CTAButton
-        label='+'
-        color={APP_COLORS.YELLOW}
-        handleClick={() => {
-          setIsEdit(false)
-          setOpenModal(!openModal)
-        }}
-        style={{ color: 'black', borderRadius: '10vw', fontSize: '4vw' }}
-        className='new-task-btn-container'
-        btnClass={`new-task-btn ${darkMode ? 'dark-mode-btn' : ''}`}
-        disabled={openModal}
-        loading={loading}
-      />
+      {removeModal || openModal ? '' :
+        <CTAButton
+          label='+'
+          color={APP_COLORS.YELLOW}
+          handleClick={() => {
+            setIsEdit(false)
+            setOpenModal(!openModal)
+          }}
+          style={{ color: 'black', borderRadius: '10vw', fontSize: '4vw' }}
+          className='new-task-btn-container'
+          btnClass={`new-task-btn ${darkMode ? 'dark-mode-btn' : ''}`}
+          disabled={openModal}
+          loading={loading}
+        />}
     </div>
   )
 }

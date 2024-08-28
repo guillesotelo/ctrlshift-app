@@ -4,11 +4,10 @@
   gap: 2vw;
   background-color: #263d42;
   position: fixed;
-  width: 20%;
+  width: 20vw;
   height: 100%;
-  padding: 3vw;
+  padding: 0 3vw;
   z-index: 2;
-  margin-top: 3vw;
 }
 
 .menu-items {
@@ -78,11 +77,11 @@
     gap: 5vw;
     background-color: #263d42;
     position: fixed;
-    width: 70%;
+    width: 60vw;
     height: 100%;
-    padding: 3vw;
+    padding: 0 3vw;
     z-index: 2;
-    margin-top: 15vw;
+    margin-top: 9vh;
   }
 
   .menu-items {
@@ -115,12 +114,12 @@
 
   .menu-hidden {
     transform-origin: top center;
-    transform: translateX(150%);
+    transform: translateX(180%);
     transition: 0.5s
   }
 
   .menu-toggled {
-    transform: translateX(35%);
+    transform: translateX(55%);
     transition: 0.5s
   }
 
