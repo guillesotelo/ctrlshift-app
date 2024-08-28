@@ -24,18 +24,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-toastify/dist/ReactToastify.css';
 import SwitchBTN from '../components/SwitchBTN';
 import { MESSAGE } from '../constants/messages'
-import { getUserLanguage } from '../helpers';
+import { getUserLanguage, sortArray } from '../helpers';
 import { PuffLoader } from 'react-spinners';
 import { AppContext } from '../AppContext';
 
 export default function Home() {
+  const localLedger = JSON.parse(localStorage.getItem('ledger') || '')
+  const localArrData = JSON.parse(localStorage.getItem('localArrData') || '[]')
   const [data, setData] = useState({})
   const [user, setUser] = useState({})
-  const [ledger, setLedger] = useState('')
-  const [settings, setSettings] = useState('')
+  const [ledger, setLedger] = useState(localLedger)
+  const [settings, setSettings] = useState(JSON.parse(localLedger.settings || '{}'))
   const [loading, setLoading] = useState(false)
   const [loadingBtn, setLoadingBtn] = useState(false)
-  const [arrData, setArrData] = useState([])
+  const [arrData, setArrData] = useState(localArrData)
   const [allMovs, setAllMovs] = useState([])
   const [monthlyMovs, setMonthtlyMovs] = useState([])
   const [dropSuggestions, setDropSuggestions] = useState([])
@@ -55,13 +57,13 @@ export default function Home() {
   const [openModal, setOpenModal] = useState(false)
   const [removeModal, setRemoveModal] = useState(false)
   const [dateClicked, setDateClicked] = useState(false)
-  const [lastData, setLastData] = useState({})
+  const [lastData, setLastData] = useState(sortArray(localArrData, 'updatedAt', true)[0] || {})
   const [isEdit, setIsEdit] = useState(false)
   const [salary, setSalary] = useState(0)
   const [viewSalary, setViewSalary] = useState(false)
   const [budget, setBudget] = useState({})
   const [check, setCheck] = useState(-1)
-  const [month, setMonth] = useState(new Date().getMonth())
+  const [month, setMonth] = useState(localArrData[0] ? new Date(localArrData[0].date).getMonth() : new Date().getMonth())
   const [year, setYear] = useState(new Date().getFullYear())
   const [sw, setSw] = useState(false)
   const [extraordinary, setExtraordinary] = useState(false)
@@ -167,10 +169,11 @@ export default function Home() {
       const localLedger = JSON.parse(localStorage.getItem('ledger'))
       const localSettings = JSON.parse(localLedger.settings)
       const { isMonthly } = localSettings
-      const _arrData = isMonthly ? processMonthlyData(allMovs) : allMovs
-      setArrData(_arrData)
-      setLastData(allMovs[0] || {})
-      setMonthtlyMovs(_arrData)
+      const filteredMovs = isMonthly ? processMonthlyData(allMovs) : allMovs
+      setArrData(filteredMovs)
+      setLastData(sortArray(allMovs, 'updatedAt', true)[0] || {})
+      setMonthtlyMovs(filteredMovs)
+      localStorage.setItem('localArrData', JSON.stringify(filteredMovs))
     }
   }, [month])
 
@@ -309,25 +312,33 @@ export default function Home() {
   const getAllMovements = useMemo(() => {
     return async newData => {
       try {
-        if (!arrData.length) setLoading(true)
-        const { data } = await dispatch(getMovements(newData)).then(d => d.payload)
+        setLoading(true)
+        const payload = await dispatch(getMovements(newData)).then(d => d.payload)
+        const data = payload?.data || null
 
         if (data && Array.isArray(data)) {
-          let filteredMovs = [...data]
-          const localLedger = JSON.parse(localStorage.getItem('ledger'))
-          const localSettings = JSON.parse(localLedger.settings)
+          let allMovs = [...data]
 
-          setSettings(localSettings)
+          const { id } = JSON.parse(localStorage.getItem('ledger') || '{}')
+          if (!id) return
+          const ledger = await dispatch(getLedger(id)).then(d => d.payload)
 
-          const { isMonthly } = localSettings
-          const _arrData = isMonthly ? processMonthlyData(filteredMovs) : filteredMovs
-          setArrData(_arrData)
-          setMonthtlyMovs(_arrData)
-          setAllMovs(filteredMovs)
+          if (ledger) {
+            localStorage.setItem('ledger', JSON.stringify(ledger))
+            const _settings = JSON.parse(ledger.settings)
 
-          setLastData(filteredMovs[0] || {})
-          const updatedNegativeBalance = getNegativeBalance(_arrData)
-          setNegativeBalance(updatedNegativeBalance)
+            setSettings(_settings)
+
+            const { isMonthly } = settings
+            const filteredMovs = isMonthly ? processMonthlyData(allMovs) : allMovs
+            setArrData(filteredMovs)
+            setMonthtlyMovs(filteredMovs)
+            setAllMovs(allMovs)
+
+            setLastData(sortArray(allMovs, 'updatedAt', true)[0] || {})
+            const updatedNegativeBalance = getNegativeBalance(filteredMovs)
+            setNegativeBalance(updatedNegativeBalance)
+          }
         }
         setLoading(false)
       } catch (err) {
@@ -438,8 +449,22 @@ export default function Home() {
       setLoadingBtn(true)
       if (checkDataOk(data)) {
         let saved = {}
+        const sameDate = sortArray(allMovs, 'date', true).filter(mov => {
+          const movDate = new Date(mov.date)
+          const currentDate = new Date(data.date)
+          if (movDate.getDate() === currentDate.getDate() &&
+            movDate.getMonth() === currentDate.getMonth() &&
+            movDate.getFullYear() === currentDate.getFullYear()) {
+            return mov
+          }
+        })
+
+        const parsedDate = new Date(sameDate[0] ? sameDate[0].date : data.date)
+        parsedDate.setMinutes(parsedDate.getMinutes() + 1)
+
         const submitData = {
           ...data,
+          date: parsedDate,
           extraordinary: extraordinary ? extraType ? 'down' : 'up' : '',
           amount: extraordinary ? !extraType && !data.amount.includes('-') ? `-${data.amount}` : `${data.amount.replace('-', '')}` : data.amount
         }
@@ -704,8 +729,8 @@ export default function Home() {
 
   const renderLoading = () => {
     return (
-      <div style={{ alignSelf: 'center', marginTop: '18vw', display: 'flex', height: '20vw' }}>
-        <PuffLoader color='#CCA43B' />
+      <div style={{ position: 'fixed', zIndex: 10, alignSelf: 'center', top: '45%' }}>
+        <PuffLoader color='#CCA43B' size={100} />
       </div>
     )
   }
@@ -1021,10 +1046,11 @@ export default function Home() {
   return (
     <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
       {removeModal ? renderRemoveModal() : ''}
-      {openModal ? renderModal() : ''}
+      {!removeModal && openModal ? renderModal() : ''}
       {settings.isMonthly ? renderBalance() : <div style={{ height: '1.5rem' }}></div>}
       {settings.isMonthly ? renderMonthSelector() : ''}
-      {loading ? renderLoading() : renderTableAndGraphs()}
+      {/* {loading ? renderLoading() : ''} */}
+      {renderTableAndGraphs()}
       <CTAButton
         label='+'
         color={APP_COLORS.YELLOW}
@@ -1036,6 +1062,7 @@ export default function Home() {
         className='new-task-btn-container'
         btnClass={`new-task-btn ${darkMode ? 'dark-mode-btn' : ''}`}
         disabled={openModal}
+        loading={loading}
       />
     </div>
   )
