@@ -1062,7 +1062,6 @@ export default function Home() {
           className='new-task-btn-container'
           btnClass={`new-task-btn ${darkMode ? 'dark-mode-btn' : ''}`}
           disabled={openModal}
-          loading={loading}
         />}
     </div>
   )
