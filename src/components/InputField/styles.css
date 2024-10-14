@@ -46,7 +46,7 @@
 
 
 .inputfield-field::placeholder {
-    font-size: .9rem;
+    font-size: inherit;
     font-weight: normal;
 }
 

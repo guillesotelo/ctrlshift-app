@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
+import React, { useContext, useEffect, useState, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import { ExportToCsv } from 'export-to-csv';
@@ -601,7 +601,7 @@ export default function Home() {
     if (key === 'search') triggerSearch(value)
     else {
       const newData = key === 'amount' ?
-        value.toString().replace(/[^.0-9]/g, '').replace('..', '.')
+        value.toString().replace(',','.').replace(/[^.0-9]/g, '').replace('..', '.')
         : value
 
       setData({ ...data, [key]: newData })
@@ -659,6 +659,7 @@ export default function Home() {
           setCheck={handleEdit}
           check={check}
           darkMode={darkMode}
+          loading={loading}
         />
         <div className='sub-table-btns'>
           <SwitchBTN
@@ -784,6 +785,7 @@ export default function Home() {
     setTimeout(() => {
       handleCancel()
       setCloseAnimation('')
+      setDateClicked(false)
     }, 300)
   }
 
@@ -955,10 +957,11 @@ export default function Home() {
                   textAlign: 'center',
                   backgroundColor: '#fff8e8',
                   color: '#263d42',
-                  fontWeight: 'bold',
-                  width: '80%'
+                  width: '80%',
+                  fontSize: '1.5rem'
                 }}
                 size='100%'
+                autofocus={true}
               />
               <img
                 onClick={() => setCalculator(!calculator)}

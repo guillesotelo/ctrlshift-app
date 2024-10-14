@@ -1806,7 +1806,6 @@ h2 {
 
   .svg-add {
     filter: invert(65%) sepia(60%) saturate(455%) hue-rotate(6deg) brightness(90%) contrast(89%);
-    height: 7vw;
     align-self: center;
   }
 
@@ -1820,12 +1819,12 @@ h2 {
 
   .svg-calculator {
     filter: invert(18%) sepia(30%) saturate(612%) hue-rotate(143deg) brightness(95%) contrast(87%);
-    height: 7vw;
+    height: 2rem;
     width: auto;
   }
 
   .svg-updown {
-    height: 7vw;
+    height: 2rem;
     width: auto;
     transition: .3s;
   }

@@ -24,7 +24,8 @@ export default function InputField(props) {
         value,
         cols,
         rows,
-        size
+        size,
+        autofocus
     } = props
 
     useEffect(() => {
@@ -63,6 +64,7 @@ export default function InputField(props) {
                         border: darkMode ? '1px solid gray' : ''
                     }}
                     value={value}
+                    autoFocus={autofocus}
                 />
                 :
                 <>
@@ -80,6 +82,7 @@ export default function InputField(props) {
                         }}
                         value={value}
                         ref={inputRef}
+                        autoFocus={autofocus}
                     />
                     {showDropDown && !dropSelected && items && items.length ?
                         <div className={`drop-item-container ${darkMode ? 'dark-mode' : ''}`} ref={dropRef}>
