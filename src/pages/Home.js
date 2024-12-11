@@ -133,7 +133,6 @@ export default function Home() {
 
     setData(newData)
     getAllMovements(newData)
-    pullSettings()
   }, [])
 
   useEffect(() => {
@@ -322,9 +321,9 @@ export default function Home() {
           const { id } = JSON.parse(localStorage.getItem('ledger') || '{}')
           if (!id) return
           const ledger = await dispatch(getLedger(id)).then(d => d.payload)
+          pullSettings(ledger)
 
           if (ledger) {
-            localStorage.setItem('ledger', JSON.stringify(ledger))
             const _settings = JSON.parse(ledger.settings)
 
             setSettings(_settings)
@@ -365,11 +364,43 @@ export default function Home() {
     } else return []
   }
 
-  const pullSettings = () => {
-    const { settings } = JSON.parse(localStorage.getItem('ledger'))
-    const _settings = JSON.parse(settings)
+  const pullSettings = (_ledger) => {
+    const pulledLedger = _ledger && _ledger.email ? _ledger
+      : ledgerJSON.parse(localStorage.getItem('ledger'))
+    const _settings = JSON.parse(pulledLedger.settings)
     if (_settings.budget) setBudget(_settings.budget)
     if (_settings.useLastDate) setUseLastDate(_settings.useLastDate)
+
+    const {
+      isMonthly,
+      authors,
+      categories,
+      payTypes,
+      salary,
+      useLastDate
+    } = pulledLedger.settings
+    if (isMonthly) setSw(isMonthly)
+
+    setAllUsers(authors)
+    setAllPayTypes(payTypes)
+    setAllCategories(categories)
+    setUseLastDate(useLastDate || false)
+
+    const newData = {
+      ...data,
+      category: categories[0],
+      pay_type: payTypes[0],
+      author: authors[0],
+      amount: '',
+      detail: '',
+      installments: 2,
+      date: new Date(),
+      ledger: pulledLedger.id || -1,
+      user: pulledLedger.email,
+      salary
+    }
+
+    setData(newData)
   }
 
   const handleEdit = (dataIndex) => {
@@ -601,7 +632,7 @@ export default function Home() {
     if (key === 'search') triggerSearch(value)
     else {
       const newData = key === 'amount' ?
-        value.toString().replace(',','.').replace(/[^.0-9]/g, '').replace('..', '.')
+        value.toString().replace(',', '.').replace(/[^.0-9]/g, '').replace('..', '.')
         : value
 
       setData({ ...data, [key]: newData })
