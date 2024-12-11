@@ -366,7 +366,7 @@ export default function Home() {
 
   const pullSettings = (_ledger) => {
     const pulledLedger = _ledger && _ledger.email ? _ledger
-      : ledgerJSON.parse(localStorage.getItem('ledger'))
+      : JSON.parse(localStorage.getItem('ledger'))
     const _settings = JSON.parse(pulledLedger.settings)
     if (_settings.budget) setBudget(_settings.budget)
     if (_settings.useLastDate) setUseLastDate(_settings.useLastDate)
