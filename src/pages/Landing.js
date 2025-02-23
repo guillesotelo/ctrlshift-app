@@ -20,7 +20,7 @@ export default function Landing() {
             const login = new Date(localUser.login).getTime()
             const now = new Date().getTime()
 
-            if (now - login > 2506000000) {
+            if (now - login > 15552000000) {
                 return localStorage.clear()
             }
         }
