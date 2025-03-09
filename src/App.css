@@ -115,6 +115,13 @@ canvas {
   justify-content: space-between;
 }
 
+.bulk-upload-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @keyframes move-modal {
   0% {
     transform: translateY(-50%);

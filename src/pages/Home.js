@@ -27,9 +27,11 @@ import { MESSAGE } from '../constants/messages'
 import { getUserLanguage, sortArray } from '../helpers';
 import { PuffLoader } from 'react-spinners';
 import { AppContext } from '../AppContext';
+import Modal from '../components/Modal';
+import { createBulkMovement } from '../store/services/reduxServices';
 
 export default function Home() {
-  const localLedger = JSON.parse(localStorage.getItem('ledger') || '')
+  const localLedger = JSON.parse(localStorage.getItem('ledger') || '{}')
   const localArrData = JSON.parse(localStorage.getItem('localArrData') || '[]')
   const [data, setData] = useState({})
   const [user, setUser] = useState({})
@@ -72,15 +74,18 @@ export default function Home() {
   const [negativeBalance, setNegativeBalance] = useState(0)
   const [closeAnimation, setCloseAnimation] = useState('')
   const [useLastDate, setUseLastDate] = useState(null)
+  const [bulkUpload, setBulkUpload] = useState(null)
+  const [bulkModal, setBulkModal] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
   const lan = getUserLanguage()
   const months = MESSAGE[lan].MONTHS
   const { darkMode, isMobile } = useContext(AppContext)
+  const bulkRef = useRef(null)
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'))
-    const localLedger = JSON.parse(localStorage.getItem('ledger'))
+    const localLedger = JSON.parse(localStorage.getItem('ledger') || 'null')
 
     if (!localUser || !localUser.token || !localUser.app || localUser.app !== 'ctrl-shift') {
       localStorage.clear()
@@ -97,42 +102,15 @@ export default function Home() {
       }
     }
 
-    if (!localLedger || !localLedger.email || !localLedger.settings) return history.push('/ledger')
+    if (!localLedger || !localLedger.email || !localLedger.settings) {
+      return history.push('/ledger')
+    }
 
     setUser(localUser)
     setLedger(localLedger)
 
-    const {
-      isMonthly,
-      authors,
-      categories,
-      payTypes,
-      salary,
-      useLastDate
-    } = JSON.parse(localLedger.settings)
-    if (isMonthly) setSw(isMonthly)
-
-    setAllUsers(authors)
-    setAllPayTypes(payTypes)
-    setAllCategories(categories)
-    setUseLastDate(useLastDate || false)
-
-    const newData = {
-      ...data,
-      category: categories[0],
-      pay_type: payTypes[0],
-      author: authors[0],
-      amount: '',
-      detail: '',
-      installments: 2,
-      date: new Date(),
-      ledger: localLedger.id || -1,
-      user: localUser.email,
-      salary
-    }
-
-    setData(newData)
-    getAllMovements(newData)
+    pullSettings(localLedger)
+    getAllMovements({ ledger: localLedger.id || -1 })
   }, [])
 
   useEffect(() => {
@@ -309,10 +287,10 @@ export default function Home() {
   }
 
   const getAllMovements = useMemo(() => {
-    return async newData => {
+    return async ledgerData => {
       try {
         setLoading(true)
-        const payload = await dispatch(getMovements(newData)).then(d => d.payload)
+        const payload = await dispatch(getMovements(ledgerData)).then(d => d.payload)
         const data = payload?.data || null
 
         if (data && Array.isArray(data)) {
@@ -333,6 +311,7 @@ export default function Home() {
             setArrData(filteredMovs)
             setMonthtlyMovs(filteredMovs)
             setAllMovs(allMovs)
+
 
             setLastData(sortArray(allMovs, 'updatedAt', true)[0] || {})
             const updatedNegativeBalance = getNegativeBalance(filteredMovs)
@@ -366,7 +345,8 @@ export default function Home() {
 
   const pullSettings = (_ledger) => {
     const pulledLedger = _ledger && _ledger.email ? _ledger
-      : JSON.parse(localStorage.getItem('ledger'))
+      : ledger
+    if (!pulledLedger) return history.push('/ledger')
     const _settings = JSON.parse(pulledLedger.settings)
     if (_settings.budget) setBudget(_settings.budget)
     if (_settings.useLastDate) setUseLastDate(_settings.useLastDate)
@@ -378,7 +358,7 @@ export default function Home() {
       payTypes,
       salary,
       useLastDate
-    } = pulledLedger.settings
+    } = _settings
     if (isMonthly) setSw(isMonthly)
 
     setAllUsers(authors)
@@ -602,6 +582,38 @@ export default function Home() {
     } else toast.info(MESSAGE[lan].CSV_NONE)
   }
 
+  const openBulkUpload = () => {
+    if (bulkRef.current) {
+      bulkRef.current.click()
+    }
+  }
+
+  const onLoadBulks = (event) => {
+    try {
+      setLoading(true)
+      const file = event.target.files[0]
+      if (!file) return
+
+      const reader = new FileReader()
+      reader.onload = function (e) {
+        try {
+          const jsonData = JSON.parse(e.target.result)
+          console.log("Loaded JSON:", jsonData)
+          setBulkUpload(jsonData)
+          setBulkModal(true)
+        } catch (error) {
+          console.error("Invalid JSON format", error)
+        }
+      }
+      reader.readAsText(file)
+      event.target.value = ""
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.error(error)
+    }
+  }
+
   const triggerSearch = newData => {
     const searchWords = newData.split(' ')
     const filteredMovs = monthlyMovs.filter(mov => {
@@ -678,6 +690,46 @@ export default function Home() {
     }
   }
 
+  const uploadBulk = async () => {
+    try {
+      setLoading(true)
+      const parsedBulk = bulkUpload.map(item => {
+        const words = item.name.toLowerCase().split(' ')
+        let category = null
+
+        allCategories.forEach((cat, i) => {
+          words.forEach(word => {
+            if (word && cat.toLowerCase().includes(word)) {
+              category = allCategories[i]
+            }
+          })
+        })
+        if (category) item.category = category
+
+        return item
+      })
+
+      const response = await createBulkMovement({
+        bulkData: parsedBulk,
+        user: JSON.stringify(user),
+        ledger: JSON.stringify(ledger),
+        payType: data.pay_type,
+        author: data.author,
+        date: data.date
+      })
+
+      if (response && response.data) {
+        toast.success(`Added ${response.data.length} items`)
+        setBulkModal(false)
+      } else toast.error('Error adding items')
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      toast.error('Error adding items')
+      console.error(error)
+    }
+  }
+
   const renderTableAndGraphs = () => {
     return (
       <div style={{ filter: (openModal || removeModal) && 'blur(10px)' }} className='table-div'>
@@ -724,6 +776,15 @@ export default function Home() {
             color={APP_COLORS.SPACE}
             disabled={loading}
           />
+          <input ref={bulkRef} onChange={onLoadBulks} type='file' accept='.json' style={{ display: 'none' }} />
+          {user.email?.includes('danielasangar92@') ||
+            user.email?.includes('guille.sotelo.cloud@') ?
+            <CTAButton
+              handleClick={openBulkUpload}
+              label={`Bulk upload`}
+              color={APP_COLORS.SPACE}
+              disabled={loading}
+            /> : ''}
         </div>
         {!openModal && (arrData.length || data.search) ?
           <div className='div-charts'>
@@ -945,7 +1006,7 @@ export default function Home() {
           onClick={() => setShowDropDown(false)}>
           <h3 style={{ color: darkMode ? 'lightgray' : APP_COLORS.GRAY }}>{extraordinary ? MESSAGE[lan].EXTRA_INFO : MESSAGE[lan].MOV_INFO}:</h3>
           <div className='fill-section'>
-            < div className='fill-datetime-row'>
+            <div className='fill-datetime-row'>
               <CTAButton
                 handleClick={() => setDateClicked(!dateClicked)}
                 label={data.date.toLocaleDateString()}
@@ -1076,9 +1137,89 @@ export default function Home() {
     )
   }
 
+  const renderBulkModal = () => {
+    return (
+      <Modal title='Bulk Upload' onClose={() => setBulkModal(false)}>
+        <p style={{ marginTop: 0 }}>Loaded {bulkUpload.length} items</p>
+        <CTAButton
+          handleClick={() => setDateClicked(!dateClicked)}
+          label={data.date.toLocaleDateString()}
+          color={darkMode ? APP_COLORS.YELLOW : APP_COLORS.SPACE}
+          style={{
+            color: darkMode ? 'black' : 'white',
+            width: '100%',
+            marginBottom: '1rem'
+          }}
+          disabled={loading}
+        />
+        {dateClicked &&
+          <DatePicker
+            selected={data.date || ''}
+            onChange={date => {
+              updateData('date', date)
+              setTimeout(() => setDateClicked(false), 200)
+            }
+            }
+            dateFormat="dd/MM/YYY"
+            inline
+          />
+        }
+        <div className='fill-section-dd'>
+          <Dropdown
+            options={allCategories}
+            label={MESSAGE[lan].CATEGORY}
+            name='category'
+            updateData={updateData}
+            value={data.category}
+            darkMode={darkMode}
+            style={{ width: '30%' }}
+            maxHeight='10rem'
+          />
+          <Dropdown
+            options={allUsers}
+            label={MESSAGE[lan].AUTHOR}
+            name='author'
+            updateData={updateData}
+            value={data.author}
+            darkMode={darkMode}
+            style={{ width: '30%' }}
+            maxHeight='10rem'
+          />
+          <Dropdown
+            options={allPayTypes}
+            label={MESSAGE[lan].PAY_TYPE}
+            name='pay_type'
+            updateData={updateData}
+            value={data.pay_type}
+            darkMode={darkMode}
+            style={{ width: '30%' }}
+            maxHeight='10rem'
+          />
+        </div>
+        <p>Proceed to upload items?</p>
+        <div className='bulk-upload-buttons'>
+          <CTAButton
+            label='Cancel'
+            color='gray'
+            handleClick={() => {
+              setBulkModal(false)
+              setBulkUpload(null)
+            }}
+          />
+          <CTAButton
+            label='Upload'
+            color={APP_COLORS.SPACE}
+            handleClick={uploadBulk}
+          />
+        </div>
+      </Modal>
+    )
+  }
+
   return (
     <div className={`home-container ${darkMode ? 'dark-mode' : ''}`}>
       {removeModal ? renderRemoveModal() : ''}
+      {bulkModal ? renderBulkModal() : ''}
       {!removeModal && openModal ? renderModal() : ''}
       {settings.isMonthly ? renderBalance() : <div style={{ height: '1.5rem' }}></div>}
       {settings.isMonthly ? renderMonthSelector() : ''}

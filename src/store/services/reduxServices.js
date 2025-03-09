@@ -87,6 +87,13 @@ const createMovement = async data => {
     } catch (err) { console.log(err) }
 }
 
+const createBulkMovement = async data => {
+    try {
+        const movements = await axios.post(`${API_URL}/api/movement/bulk`, data, getConfig())
+        return movements
+    } catch (err) { console.log(err) }
+}
+
 const updateMovement = async data => {
     try {
         const movement = await axios.post(`${API_URL}/api/movement/update`, data, getConfig())
@@ -215,6 +222,7 @@ export {
     resetPassordByEmail,
     getAllMovements,
     createMovement,
+    createBulkMovement,
     updateMovement,
     createLedger,
     getAllLedgersByEmail,

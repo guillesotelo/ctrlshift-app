@@ -3,7 +3,8 @@ import {
     getAllMovements, 
     createMovement, 
     deleteMovement,
-    updateMovement
+    updateMovement,
+    createBulkMovement
 } from "../services/reduxServices";
 
 const initialState = {
@@ -12,12 +13,14 @@ const initialState = {
 
 export const getMovements = createAsyncThunk('GET_MOVEMENTS', getAllMovements)
 export const saveMovement = createAsyncThunk('SAVE_MOVEMENT', createMovement)
+export const saveBulkMovement = createAsyncThunk('SAVE_BULK_MOVEMENT', createBulkMovement)
 export const editMovement = createAsyncThunk('UPDATE_MOVEMENT', updateMovement)
 export const removeMovement = createAsyncThunk('SAVE_MOVEMENT', deleteMovement)
 
 const movementReducer = createReducer(initialState, {
   [getMovements.fulfilled]: (state, action) => action.payload,
   [saveMovement.fulfilled]: (state, action) => action.payload,
+  [saveBulkMovement.fulfilled]: (state, action) => action.payload,
   [editMovement.fulfilled]: (state, action) => action.payload,
   [removeMovement.fulfilled]: (state, action) => action.payload
 });
