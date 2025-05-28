@@ -6,7 +6,7 @@
     background-color: #263d42;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.16);
     height: 9vh;
-    z-index: 2;
+    z-index: 30;
     position: fixed;
     width: 100vw;
 }

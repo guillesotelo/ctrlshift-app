@@ -57,6 +57,7 @@
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
+    "dev": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false && react-app-rewired build",
     "ubuntu": "react-app-rewired --openssl-legacy-provider start",
     "test": "react-app-rewired test",

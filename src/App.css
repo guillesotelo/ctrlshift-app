@@ -902,6 +902,7 @@ h2 {
   right: 0;
   margin: 3vw;
   background-color: transparent !important;
+  z-index: 10;
 }
 
 .new-task-btn {
@@ -2000,6 +2001,7 @@ h2 {
     align-items: flex-end;
     justify-content: space-between;
     margin: 1rem .5rem;
+    gap: .2rem;
   }
 
   .sub-table-btns button {

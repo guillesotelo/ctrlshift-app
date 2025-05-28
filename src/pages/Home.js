@@ -109,7 +109,6 @@ export default function Home() {
     setUser(localUser)
     setLedger(localLedger)
 
-    pullSettings(localLedger)
     getAllMovements({ ledger: localLedger.id || -1 })
   }, [])
 
@@ -349,7 +348,6 @@ export default function Home() {
     if (!pulledLedger) return history.push('/ledger')
     const _settings = JSON.parse(pulledLedger.settings)
     if (_settings.budget) setBudget(_settings.budget)
-    if (_settings.useLastDate) setUseLastDate(_settings.useLastDate)
 
     const {
       isMonthly,
@@ -367,7 +365,6 @@ export default function Home() {
     setUseLastDate(useLastDate || false)
 
     const newData = {
-      ...data,
       category: categories[0],
       pay_type: payTypes[0],
       author: authors[0],
@@ -377,7 +374,8 @@ export default function Home() {
       date: new Date(),
       ledger: pulledLedger.id || -1,
       user: pulledLedger.email,
-      salary
+      salary,
+      ...data,
     }
 
     setData(newData)
@@ -660,6 +658,7 @@ export default function Home() {
       })).then(data => data.payload)
 
       if (newLedger) {
+        setLedger(newLedger)
         localStorage.removeItem('ledger')
         localStorage.setItem('ledger', JSON.stringify(newLedger.data))
         setTimeout(() => {
@@ -678,6 +677,7 @@ export default function Home() {
       const newLedger = await updateLedgerSettings({ isMonthly: !sw })
       if (newLedger) {
         toast.info(`${!sw ? MESSAGE[lan].SW_MON : MESSAGE[lan].SW_ALL}`)
+        setLedger(newLedger)
         setTimeout(() => {
           pullSettings()
           history.go(0)
@@ -1044,7 +1044,8 @@ export default function Home() {
                 updateData={updateData}
                 placeholder={`${MESSAGE[lan].FIAT} -`}
                 name='amount'
-                value={data.amount}
+                type='number'
+                value={parseFloat(data.amount)}
                 style={{
                   textAlign: 'center',
                   backgroundColor: '#fff8e8',
