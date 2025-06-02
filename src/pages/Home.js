@@ -30,10 +30,14 @@ import { AppContext } from '../AppContext';
 import Modal from '../components/Modal';
 import { createBulkMovement } from '../store/services/reduxServices';
 
+const voidData = {
+  date: new Date()
+}
+
 export default function Home() {
   const localLedger = JSON.parse(localStorage.getItem('ledger') || '{}')
   const localArrData = JSON.parse(localStorage.getItem('localArrData') || '[]')
-  const [data, setData] = useState({})
+  const [data, setData] = useState(voidData)
   const [user, setUser] = useState({})
   const [ledger, setLedger] = useState(localLedger)
   const [settings, setSettings] = useState(JSON.parse(localLedger.settings || '{}'))
@@ -73,7 +77,7 @@ export default function Home() {
   const [calculator, setCalculator] = useState(false)
   const [negativeBalance, setNegativeBalance] = useState(0)
   const [closeAnimation, setCloseAnimation] = useState('')
-  const [useLastDate, setUseLastDate] = useState(null)
+  const [useTheLastDate, setUseTheLastDate] = useState(null)
   const [bulkUpload, setBulkUpload] = useState(null)
   const [bulkModal, setBulkModal] = useState(false)
   const dispatch = useDispatch()
@@ -109,7 +113,7 @@ export default function Home() {
     setUser(localUser)
     setLedger(localLedger)
 
-    getAllMovements({ ledger: localLedger.id || -1 })
+    getAllMovements({ ledger: localLedger.id || -1 }, true)
   }, [])
 
   useEffect(() => {
@@ -162,10 +166,23 @@ export default function Home() {
   }, [openModal])
 
   useEffect(() => {
-    updateLastDate()
-  }, [lastData, useLastDate])
+    if (data.detail && data.category) {
+      const words = data.detail.toLowerCase().split(' ')
+      let newCategory = null
 
-  const updateLastDate = () => {
+      allCategories.forEach((cat, i) => {
+        words.forEach(word => {
+          if (word && cat.toLowerCase().includes(word)) {
+            newCategory = allCategories[i]
+          }
+        })
+      })
+
+      if (newCategory) updateData('category', newCategory)
+    }
+  }, [data.detail])
+
+  const updateLastDate = (useLastDate = false) => {
     const lastDate = new Date(useLastDate ? lastData.date || new Date() : new Date())
 
     if (useLastDate !== null) {
@@ -183,23 +200,6 @@ export default function Home() {
       }))
     }
   }
-
-  useEffect(() => {
-    if (data.detail && data.category) {
-      const words = data.detail.toLowerCase().split(' ')
-      let newCategory = null
-
-      allCategories.forEach((cat, i) => {
-        words.forEach(word => {
-          if (word && cat.toLowerCase().includes(word)) {
-            newCategory = allCategories[i]
-          }
-        })
-      })
-
-      if (newCategory) updateData('category', newCategory)
-    }
-  }, [data.detail])
 
   const toggleDatePickerColors = () => {
     const body = document.querySelector('.react-datepicker')
@@ -286,9 +286,9 @@ export default function Home() {
   }
 
   const getAllMovements = useMemo(() => {
-    return async ledgerData => {
+    return async (ledgerData, triggerLoading = false) => {
       try {
-        setLoading(true)
+        setLoading(triggerLoading)
         const payload = await dispatch(getMovements(ledgerData)).then(d => d.payload)
         const data = payload?.data || null
 
@@ -297,11 +297,12 @@ export default function Home() {
 
           const { id } = JSON.parse(localStorage.getItem('ledger') || '{}')
           if (!id) return
-          const ledger = await dispatch(getLedger(id)).then(d => d.payload)
-          pullSettings(ledger)
+          const _ledger = await dispatch(getLedger(id)).then(d => d.payload)
+          pullSettings(_ledger, true)
 
-          if (ledger) {
-            const _settings = JSON.parse(ledger.settings)
+          if (_ledger) {
+            setLedger(_ledger)
+            const _settings = JSON.parse(_ledger.settings)
 
             setSettings(_settings)
 
@@ -342,7 +343,7 @@ export default function Home() {
     } else return []
   }
 
-  const pullSettings = (_ledger) => {
+  const pullSettings = (_ledger, setDefaults = false) => {
     const pulledLedger = _ledger && _ledger.email ? _ledger
       : ledger
     if (!pulledLedger) return history.push('/ledger')
@@ -362,9 +363,9 @@ export default function Home() {
     setAllUsers(authors)
     setAllPayTypes(payTypes)
     setAllCategories(categories)
-    setUseLastDate(useLastDate || false)
+    setUseTheLastDate(useLastDate || false)
 
-    const newData = {
+    const defaults = setDefaults && !openModal ? {
       category: categories[0],
       pay_type: payTypes[0],
       author: authors[0],
@@ -372,10 +373,14 @@ export default function Home() {
       detail: '',
       installments: 2,
       date: new Date(),
+    } : {}
+
+    const newData = {
+      ...data,
+      ...defaults,
       ledger: pulledLedger.id || -1,
       user: pulledLedger.email,
       salary,
-      ...data,
     }
 
     setData(newData)
@@ -401,7 +406,7 @@ export default function Home() {
       const removed = await dispatch(removeMovement(arrData[check])).then(d => d.payload)
       if (removed) {
         toast.info(MESSAGE[lan].MOV_DEL)
-        setTimeout(() => getAllMovements(data), 1000)
+        setTimeout(() => getAllMovements(data, true), 1000)
       }
       else toast.error(MESSAGE[lan].MOV_ERR)
       setCheck(-1)
@@ -493,14 +498,14 @@ export default function Home() {
         if (saved && saved.status === 200) toast.success(MESSAGE[lan].MOV_SAVED)
         else toast.error(MESSAGE[lan].SAVE_ERR)
 
-        setTimeout(() => getAllMovements(submitData), 200)
+        setTimeout(() => getAllMovements(submitData, false), 200)
 
         setData({
           ...data,
           amount: '',
           detail: '',
           installments: 2,
-          date: new Date(useLastDate ? lastData.date || new Date() : new Date()),
+          date: new Date(useTheLastDate ? lastData.date || new Date() : new Date()),
           ledger: ledger.id,
           user: user.email,
           extraordinary: extraordinary ? extraType ? 'down' : 'up' : ''
@@ -526,7 +531,7 @@ export default function Home() {
   }
 
   const handleCancel = () => {
-    const lastDate = new Date(useLastDate ? lastData.date || new Date() : new Date())
+    const lastDate = new Date(useTheLastDate ? lastData.date || new Date() : new Date())
     setIsEdit(false)
     setCheck(-1)
     setOpenModal(false)
@@ -1021,8 +1026,11 @@ export default function Home() {
               <SwitchBTN
                 on={MESSAGE[lan].YES}
                 off={MESSAGE[lan].NO}
-                value={useLastDate}
-                setValue={setUseLastDate}
+                value={useTheLastDate}
+                setValue={(value) => {
+                  setUseTheLastDate(value)
+                  updateLastDate(value)
+                }}
                 label={MESSAGE[lan].USE_LAST_DATE}
               />
             </div>

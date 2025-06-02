@@ -95,7 +95,7 @@ canvas {
 }
 
 .fill-section-container h3 {
-  margin: 0.5vw;
+  margin: 0 .5rem .5rem;
   font-size: 1.2vw;
 }
 
@@ -1248,12 +1248,12 @@ h2 {
 }
 
 .landing-cta {
-  transition: .3s;
+  transition: .2s;
 }
 
 .landing-cta:hover {
   transform: translateY(-7%) !important;
-  transition: .3s;
+  transition: .2s;
 }
 
 .landing-dark-mode {
@@ -1261,7 +1261,7 @@ h2 {
   opacity: .5;
   margin-right: 2vw;
   cursor: pointer;
-  transition: .3s;
+  transition: .2s;
 }
 
 .landing-dark-mode:hover {
@@ -1282,6 +1282,7 @@ h2 {
   align-items: center;
   /* min-height: 85vh; */
   justify-content: space-evenly;
+  height: 85vh;
 }
 
 .landing-text-div {
@@ -1305,29 +1306,29 @@ h2 {
 .landing-phone-image {
   max-height: 75vh;
   max-width: 40vw;
-  transition: 3s;
+  transition: 1s;
 }
 
 .move-x {
-  transition: 2s;
+  transition: 1s;
   animation: move-x 2.5s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .move-y {
-  transition: 2s;
+  transition: 1s;
   animation: move-y 2.5s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .move-x-back {
-  transition: 2s;
+  transition: 1s;
   animation: move-x-back 2.5s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .move-y-back {
-  transition: 2s;
+  transition: 1s;
   animation: move-y-back 2.5s ease-in-out;
   animation-fill-mode: forwards;
 }
@@ -1416,7 +1417,6 @@ h2 {
 
 
   .fill-section-container h3 {
-    margin: 3.5vw;
     font-size: 4vw;
   }
 
@@ -1448,7 +1448,6 @@ h2 {
   }
 
   .div-modal-btns {
-    margin: 1rem 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -2416,25 +2415,25 @@ h2 {
   }
 
   .move-x {
-    transition: 2s;
+    transition: 1s;
     animation: move-x 2.5s ease-in-out;
     animation-fill-mode: forwards;
   }
 
   .move-y {
-    transition: 2s;
+    transition: 1s;
     animation: move-y 2.5s ease-in-out;
     animation-fill-mode: forwards;
   }
 
   .move-x-back {
-    transition: 2s;
+    transition: 1s;
     animation: move-x-back 2.5s ease-in-out;
     animation-fill-mode: forwards;
   }
 
   .move-y-back {
-    transition: 2s;
+    transition: 1s;
     animation: move-y-back 2.5s ease-in-out;
     animation-fill-mode: forwards;
   }
